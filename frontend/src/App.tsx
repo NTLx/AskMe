@@ -15,7 +15,7 @@ export function App() {
   const { messages, currentAgent, addMessage, currentSessionId, setCurrentSessionId, addSession } = useSessionStore();
   const { settings, setSettings } = useSettingsStore();
   const [isLoading, setIsLoading] = useState(false);
-  const [activeNavItem, setActiveNavItem] = useState<BottomNavItem>('chat');
+  const [activeNavItem, setActiveNavItem] = useState<BottomNavItem>('timeline');
 
   // 主题切换逻辑
   useEffect(() => {
