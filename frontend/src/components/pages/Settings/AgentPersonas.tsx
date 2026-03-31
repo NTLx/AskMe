@@ -1,316 +1,184 @@
 /**
- * Agent 人格设置页面 - Material Design 3 设计规范
- * - 页面内边距：24px (mobile) / 48px (desktop)
- * - Agent 卡片：rounded-[2rem] (32px)
- * - 激活卡片：border + ring-2 ring-primary
- * - 响应式：2 列网格 → 单列
+ * Agent Personas 设置页面
+ * 像素级对齐 UI Reference: stitch_askme_web-dark/1
+ *
+ * 设计规范:
+ * - "CONFIGURATION" label + display 标题 "Curate your intellectual companions."
+ * - 3 列卡片网格 (含 Create New Persona)
+ * - 卡片: surface-container 背景, rounded-xl, emoji 头像 + 名称 + 描述 + 特质 tags
+ * - 底部 CTA: "Need a specialist?" + "Explore Marketplace" 按钮
+ * - 无边框设计
  */
 
 import { useState } from 'react';
 import { cn } from '../../../utils/cn';
-import { Button } from '../../ui/Button';
-import { BottomNav } from '../../BottomNav';
 import { BUILTIN_AGENTS, BuiltinAgentDefinition } from '../../../agent/builtins';
 import type { AgentProfile } from '../../../types';
 
-/**
- * AgentPersonas 组件 Props
- */
 interface AgentPersonasProps {
-  /** 当前激活的 Agent ID */
   activeAgentId?: string;
-  /** 切换激活 Agent 的回调 */
   onActivateAgent?: (agentId: string) => void;
-  /** 编辑 Agent 的回调 */
   onEditAgent?: (agent: AgentProfile) => void;
-  /** 复制 Agent 的回调 */
   onCopyAgent?: (agent: AgentProfile) => void;
-  /** 删除 Agent 的回调 */
   onDeleteAgent?: (agentId: string) => void;
-  /** 创建新 Agent 的回调 */
   onCreateAgent?: () => void;
 }
 
-/**
- * AgentPersonas 主组件
- */
 export function AgentPersonas({
   activeAgentId,
-  onActivateAgent,
+  onActivateAgent: _onActivateAgent,
   onEditAgent: _onEditAgent,
-  onCopyAgent,
+  onCopyAgent: _onCopyAgent,
   onDeleteAgent: _onDeleteAgent,
   onCreateAgent,
 }: AgentPersonasProps) {
-  const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
-
-  const handleToggleExpand = (agentId: string) => {
-    setExpandedCardId(expandedCardId === agentId ? null : agentId);
-  };
-
-  const handleActivate = (agentId: string) => {
-    onActivateAgent?.(agentId);
-  };
-
-  const handleCopy = (agent: BuiltinAgentDefinition) => {
-    if (onCopyAgent) {
-      const now = Date.now();
-      onCopyAgent({
-        ...agent,
-        id: `${agent.id}_copy_${now}`,
-        name: `${agent.name} (副本)`,
-        isBuiltin: false,
-        createdAt: now,
-        updatedAt: now,
-      });
-    }
-  };
+  const [_expandedCardId, _setExpandedCardId] = useState<string | null>(null);
 
   return (
-    <div className="min-h-dvh bg-surface flex flex-col">
+    <div className="max-w-5xl mx-auto w-full px-8 py-8">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-surface/80 backdrop-blur-lg">
-        <div className="max-w-5xl mx-auto px-6 md:px-12 py-6 md:py-8">
-          {/* System Preferences 标签 */}
-          <div className="flex items-center gap-2 text-primary font-bold mb-2">
-            <span className="material-symbols-outlined text-sm">settings</span>
-            <span className="text-xs uppercase tracking-widest">System Preferences</span>
+      <div className="mb-12">
+        {/* CONFIGURATION label */}
+        <p className="text-xs font-bold text-primary uppercase tracking-widest mb-4">
+          Configuration
+        </p>
+
+        {/* 大标题 */}
+        <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface font-display tracking-tight leading-tight mb-4">
+          Curate your <em className="italic text-primary-dim">intellectual<br />companions</em>.
+        </h2>
+
+        {/* 描述 */}
+        <p className="text-on-surface-variant text-base md:text-lg max-w-2xl leading-relaxed">
+          Select and customize the personality of your AI. Each agent
+          employs a unique questioning strategy designed to challenge your
+          perspective.
+        </p>
+      </div>
+
+      {/* Agent Grid - 3 列 */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        {/* Create New Persona Card */}
+        <button
+          onClick={onCreateAgent}
+          className={cn(
+            'group p-8 rounded-xl',
+            'border-2 border-dashed border-outline-variant/30',
+            'bg-transparent',
+            'hover:border-primary/30 hover:bg-primary-container/5',
+            'transition-all duration-300',
+            'flex flex-col items-center justify-center text-center',
+            'cursor-pointer min-h-[320px]'
+          )}
+        >
+          <div className="w-14 h-14 rounded-full border-2 border-outline-variant/40 text-on-surface-variant flex items-center justify-center mb-6 group-hover:border-primary group-hover:text-primary transition-all duration-300">
+            <span className="material-symbols-outlined text-3xl">add</span>
           </div>
+          <h4 className="text-lg font-bold text-on-surface mb-2">Create New Persona</h4>
+          <p className="text-on-surface-variant text-sm max-w-[200px]">
+            Define custom traits, biases, and inquiry frameworks for a bespoke experience.
+          </p>
+        </button>
 
-          {/* 页面标题 */}
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-on-surface">
-            Agent Personas
-            <span className="text-on-surface-variant/40 font-normal ml-2">人格</span>
-          </h3>
+        {/* Agent Cards */}
+        {BUILTIN_AGENTS.map((agent) => (
+          <AgentCard
+            key={agent.id}
+            agent={agent}
+            isActive={activeAgentId === agent.id}
+          />
+        ))}
+      </div>
 
-          {/* 描述 */}
-          <p className="text-on-surface-variant text-base md:text-lg max-w-2xl leading-relaxed mt-3">
-            Define how your AI assistant interacts, thinks, and responds. Choose from curated intellectual profiles or create your own custom expert.
+      {/* Bottom CTA - "Need a specialist?" */}
+      <div className="bg-surface-container-low rounded-xl p-8 flex items-center justify-between">
+        <div>
+          <h3 className="text-xl font-bold text-on-surface mb-1">Need a specialist?</h3>
+          <p className="text-on-surface-variant text-sm">
+            Browse the community marketplace for niche personas.
           </p>
         </div>
-      </header>
-
-      {/* Agent Grid */}
-      <main className="flex-1 max-w-5xl mx-auto w-full px-6 md:px-12 pb-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
-          {BUILTIN_AGENTS.map((agent) => (
-            <AgentCard
-              key={agent.id}
-              agent={agent}
-              isActive={activeAgentId === agent.id}
-              isExpanded={expandedCardId === agent.id}
-              onToggleExpand={() => handleToggleExpand(agent.id)}
-              onActivate={() => handleActivate(agent.id)}
-              onCopy={() => handleCopy(agent)}
-            />
-          ))}
-
-          {/* Add New Persona Card */}
-          {onCreateAgent && (
-            <button
-              onClick={onCreateAgent}
-              className="group p-8 rounded-[2rem] border-2 border-dashed border-outline-variant bg-transparent
-                hover:border-primary hover:bg-primary-container/5 transition-all duration-300
-                flex flex-col items-center justify-center text-center cursor-pointer min-h-[320px]"
-            >
-              <div className="w-16 h-16 rounded-full border-2 border-primary text-primary
-                flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <span className="material-symbols-outlined text-3xl">add</span>
-              </div>
-              <h4 className="text-xl font-bold text-on-surface mb-2">Create New Persona</h4>
-              <p className="text-on-surface-variant text-sm max-w-[240px]">
-                Supports file upload (SOUL.md, IDENTITY.md) or manual configuration
-              </p>
-            </button>
-          )}
-        </div>
-
-        {/* Persona Logic Section */}
-        <div className="bg-surface-container-low p-6 md:p-8 rounded-[2rem] border border-outline-variant/10">
-          <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
-            {/* 左侧说明 */}
-            <div className="md:w-1/3">
-              <h5 className="font-bold text-lg text-primary mb-2">Persona Logic</h5>
-              <p className="text-sm text-on-surface-variant leading-relaxed">
-                Our personas are powered by a custom cognitive architecture that adjusts temperature and system prompts dynamically based on your chosen intellectual profile.
-              </p>
-            </div>
-
-            {/* 右侧参数展示 */}
-            <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-4">
-              <div className="p-4 bg-surface-container-lowest rounded-2xl">
-                <span className="block text-xs uppercase tracking-tighter font-bold text-outline mb-1">
-                  Temperature
-                </span>
-                <span className="text-xl font-bold text-on-surface">0.7 - Balanced</span>
-              </div>
-              <div className="p-4 bg-surface-container-lowest rounded-2xl">
-                <span className="block text-xs uppercase tracking-tighter font-bold text-outline mb-1">
-                  Context Window
-                </span>
-                <span className="text-xl font-bold text-on-surface">128k Tokens</span>
-              </div>
-              <div className="p-4 bg-surface-container-lowest rounded-2xl hidden md:block">
-                <span className="block text-xs uppercase tracking-tighter font-bold text-outline mb-1">
-                  Response Style
-                </span>
-                <span className="text-xl font-bold text-on-surface">Inquiry-Based</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      {/* 底部导航栏 */}
-      <BottomNav activeItem="settings" onNavigate={() => {}} />
-    </div>
-  );
-}
-
-/**
- * 单个人格卡片组件
- */
-interface AgentCardProps {
-  agent: BuiltinAgentDefinition;
-  isActive: boolean;
-  isExpanded: boolean;
-  onToggleExpand: () => void;
-  onActivate: () => void;
-  onCopy?: () => void;
-}
-
-function AgentCard({
-  agent,
-  isActive,
-  isExpanded,
-  onToggleExpand,
-  onActivate,
-  onCopy,
-}: AgentCardProps) {
-  return (
-    <div
-      className={cn(
-        'relative group p-8 rounded-[2rem] transition-all duration-300',
-        'bg-surface-container-low border border-outline-variant/15',
-        'hover:bg-surface-container-high',
-        isActive && 'border-primary/20 shadow-lg ring-2 ring-primary bg-surface-container-lowest'
-      )}
-    >
-      {/* Active 标签 */}
-      {isActive && (
-        <div className="absolute top-6 right-6">
-          <span className="bg-primary text-on-primary text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-            Active
-          </span>
-        </div>
-      )}
-
-      <div className="space-y-6">
-        {/* Emoji Icon */}
-        <div className={cn(
-          'w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-200',
-          isActive
-            ? 'bg-primary-container text-on-primary-container'
-            : 'bg-surface-container-high text-on-surface-variant group-hover:bg-surface-container-highest'
-        )}>
-          <span className="text-3xl">{agent.emoji}</span>
-        </div>
-
-        {/* 名称和描述 */}
-        <div>
-          <h4 className="text-2xl font-bold text-on-surface mb-2">{agent.name}</h4>
-          <p className="text-on-surface-variant leading-relaxed">{agent.description}</p>
-        </div>
-
-        {/* 特质标签 */}
-        <div className="flex flex-wrap gap-2">
-          {extractTraits(agent.soulMd).slice(0, 3).map((trait, idx) => (
-            <span
-              key={idx}
-              className={cn(
-                'inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium',
-                isActive
-                  ? 'bg-primary-container/20 text-primary'
-                  : 'bg-surface-container-high text-on-surface-variant'
-              )}
-            >
-              {trait}
-            </span>
-          ))}
-        </div>
-
-        {/* 展开详情 */}
-        {isExpanded && (
-          <div className="mt-4 space-y-4 animate-fade-in-up">
-            {/* SOUL 摘要 */}
-            <div className="bg-surface-container rounded-xl p-4">
-              <h4 className="text-xs font-semibold text-on-surface mb-2 uppercase tracking-wider">
-                Core Traits
-              </h4>
-              <p className="text-sm text-on-surface-variant whitespace-pre-line leading-relaxed">
-                {extractCoreTraits(agent.soulMd)}
-              </p>
-            </div>
-
-            {/* 提问风格 */}
-            <div className="bg-surface-container rounded-xl p-4">
-              <h4 className="text-xs font-semibold text-on-surface mb-2 uppercase tracking-wider">
-                Question Style
-              </h4>
-              <p className="text-sm text-on-surface-variant whitespace-pre-line leading-relaxed">
-                {extractQuestionStyle(agent.soulMd)}
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* 操作按钮 */}
-        <div className="flex gap-3 pt-4">
-          {isActive ? (
-            <Button
-              variant="primary"
-              className="flex-1 py-3 rounded-xl font-bold text-sm"
-              disabled
-            >
-              Current Choice
-            </Button>
-          ) : (
-            <Button
-              variant="primary"
-              className="flex-1 py-3 rounded-xl font-bold text-sm"
-              onClick={onActivate}
-            >
-              Select Persona
-            </Button>
-          )}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="p-3 bg-surface-container-high text-on-surface-variant rounded-xl hover:bg-surface-container-highest"
-            onClick={onToggleExpand}
-          >
-            <span className="material-symbols-outlined text-sm">
-              {isExpanded ? 'expand_less' : 'expand_more'}
-            </span>
-          </Button>
-          {onCopy && (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="p-3 bg-surface-container-high text-on-surface-variant rounded-xl hover:bg-surface-container-highest"
-              onClick={onCopy}
-            >
-              <span className="material-symbols-outlined text-sm">content_copy</span>
-            </Button>
-          )}
-        </div>
+        <button className="px-6 py-3 rounded-full bg-primary text-on-primary font-bold text-sm hover:bg-primary-dim transition-colors">
+          Explore Marketplace
+        </button>
       </div>
     </div>
   );
 }
 
 /**
- * 辅助函数：从 SOUL.md 提取特质标签
+ * 单个 Agent 卡片
+ */
+interface AgentCardProps {
+  agent: BuiltinAgentDefinition;
+  isActive: boolean;
+}
+
+function AgentCard({ agent, isActive }: AgentCardProps) {
+  // 提取特质
+  const traits = extractTraits(agent.soulMd);
+
+  return (
+    <div
+      className={cn(
+        'relative group p-6 rounded-xl transition-all duration-300',
+        'bg-surface-container',
+        'hover:bg-surface-bright',
+        isActive && 'ring-2 ring-primary bg-surface-container-lowest'
+      )}
+    >
+      {/* 顶部: Emoji + 操作按钮 */}
+      <div className="flex items-start justify-between mb-4">
+        <div className={cn(
+          'w-12 h-12 rounded-xl flex items-center justify-center',
+          isActive
+            ? 'bg-primary-container'
+            : 'bg-surface-container-high'
+        )}>
+          <span className="text-2xl">{agent.emoji}</span>
+        </div>
+
+        {/* Edit / Copy 按钮 */}
+        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+          <button className="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all">
+            <span className="material-symbols-outlined text-[16px]">edit</span>
+          </button>
+          <button className="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all">
+            <span className="material-symbols-outlined text-[16px]">content_copy</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 名称 */}
+      <h4 className="text-xl font-bold text-on-surface mb-2">{agent.name}</h4>
+
+      {/* 描述 */}
+      <p className="text-on-surface-variant text-sm leading-relaxed mb-4 min-h-[60px]">
+        {agent.description}
+      </p>
+
+      {/* 特质标签 */}
+      <div className="flex flex-wrap gap-2">
+        {traits.slice(0, 3).map((trait, idx) => (
+          <span
+            key={idx}
+            className={cn(
+              'inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider',
+              isActive
+                ? 'bg-primary-container/20 text-primary'
+                : 'bg-surface-container-high text-on-surface-variant'
+            )}
+          >
+            {trait}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * 从 SOUL.md 提取特质标签
  */
 function extractTraits(soulMd: string): string[] {
   const match = soulMd.match(/## 核心特质\n([\s\S]*?)(?=\n##|$)/);
@@ -319,39 +187,9 @@ function extractTraits(soulMd: string): string[] {
       .trim()
       .split('\n')
       .map((line) => line.replace(/^-\s*/, '').trim())
-      .filter((line) => line.length > 0);
+      .filter((line) => line.length > 0 && line.length < 20);
   }
-  return ['thoughtful', 'empathetic', 'insightful'];
-}
-
-/**
- * 辅助函数：从 SOUL.md 提取核心特质
- */
-function extractCoreTraits(soulMd: string): string {
-  const match = soulMd.match(/## 核心特质\n([\s\S]*?)(?=\n##|$)/);
-  if (match) {
-    return match[1]
-      .trim()
-      .split('\n')
-      .map((line) => line.replace(/^-\s*/, ''))
-      .join('\n');
-  }
-  return '';
-}
-
-/**
- * 辅助函数：从 SOUL.md 提取提问风格
- */
-function extractQuestionStyle(soulMd: string): string {
-  const match = soulMd.match(/## 提问风格\n([\s\S]*?)(?=\n##|$)/);
-  if (match) {
-    return match[1]
-      .trim()
-      .split('\n')
-      .map((line) => line.replace(/^-\s*/, ''))
-      .join('\n');
-  }
-  return '';
+  return ['Empathetic', 'Soft-paced', 'Supportive'];
 }
 
 export default AgentPersonas;

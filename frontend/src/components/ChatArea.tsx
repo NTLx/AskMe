@@ -1,10 +1,13 @@
 /**
- * 对话区域 - 消息展示（手机版设计）
- * 采用"Digital Nocturne"深色主题设计
- * - AI 消息：无容器 + tertiary accent bar（左侧 2px 竖线）
- * - 用户消息：primary 背景 + asymmetric 圆角 (rounded-tr-none)
- * - 手机版优化布局
- * - 过渡动画 300ms cubic-bezier
+ * ChatArea - 对话消息区域
+ * 像素级对齐 UI Reference: stitch_askme_web-dark/4
+ *
+ * 设计规范:
+ * - AI 消息: forum 图标 + "ASKME CURATOR" label + surface-container 容器 + 左侧 tertiary accent bar
+ * - 用户消息: "YOU" label + primary 背景 capsule + rounded-tr-none
+ * - 系统消息: ✨ annotation 样式 (居中)
+ * - AI Thinking: 居中 pill 动画
+ * - 无边框设计，300ms cubic-bezier 过渡
  */
 
 import React from 'react';
@@ -29,22 +32,7 @@ export function ChatArea({
   // 格式化时间
   const formatTime = (timestamp: number): string => {
     const date = new Date(timestamp);
-    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-  };
-
-  // 格式化相对时间
-  const formatRelativeTime = (timestamp: number): string => {
-    const now = Date.now();
-    const diff = now - timestamp;
-    const minutes = Math.floor(diff / 60000);
-    const hours = Math.floor(diff / 3600000);
-    const days = Math.floor(diff / 86400000);
-
-    if (minutes < 1) return '刚刚';
-    if (minutes < 60) return `${minutes} 分钟前`;
-    if (hours < 24) return `${hours} 小时前`;
-    if (days < 7) return `${days} 天前`;
-    return formatTime(timestamp);
+    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
   };
 
   // 滚动到底部
@@ -60,57 +48,69 @@ export function ChatArea({
       {/* 空状态 */}
       {messages.length === 0 && !isLoading && (
         <div className="chat-empty flex-1 flex flex-col items-center justify-center text-center px-6">
-          {/* System Annotation (Editorial Design) */}
-          <div className="relative pl-12 mb-8">
-            <div className="absolute left-0 top-0 text-tertiary">
-              <span className="material-symbols-outlined text-xl">auto_awesome</span>
-            </div>
-            <p className="text-xs italic text-tertiary mb-2">Academic context initialized: Ready to explore</p>
-            <div className="h-px w-24 bg-tertiary/20"></div>
+          {/* System Annotation */}
+          <div className="flex items-center gap-3 mb-8">
+            <span className="material-symbols-outlined text-tertiary text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>
+              auto_awesome
+            </span>
+            <p className="text-sm italic text-tertiary">
+              Academic context initialized: Ready to explore
+            </p>
           </div>
-
-          <h3 className="font-display text-xl font-semibold text-on-surface mb-2">
-            AskMe 正在等待
+          <h3 className="font-display text-2xl font-bold text-on-surface mb-3">
+            Start your inquiry
           </h3>
-          <p className="text-sm text-on-surface-variant max-w-[280px] leading-relaxed">
-            输入你的第一个回答，让 AI 开始向你提问
+          <p className="text-on-surface-variant max-w-md leading-relaxed">
+            Type your first response or question. The AI will ask you thoughtful questions to guide your intellectual journey.
           </p>
         </div>
       )}
 
       {/* 消息列表 */}
-      <div className="chat-messages flex-1 overflow-y-auto px-4 py-4 space-y-4 with-bottom-nav">
+      <div className="chat-messages flex-1 overflow-y-auto px-8 py-6 space-y-8">
+        {/* System annotation at start of conversation */}
+        {messages.length > 0 && (
+          <div className="flex items-center gap-3 animate-fade-in-up">
+            <span className="material-symbols-outlined text-tertiary text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>
+              auto_awesome
+            </span>
+            <p className="text-sm italic text-tertiary">
+              Academic context initialized: Memory Safety focus
+            </p>
+          </div>
+        )}
+
         {messages.map((message) => (
           <div
             key={message.id}
             className={cn(
-              'message animate-message-enter flex',
-              message.role === 'user' ? 'justify-end' : 'justify-start'
+              'animate-message-enter',
+              message.role === 'user' ? 'flex flex-col items-end' : ''
             )}
           >
-            {/* AI 消息 - 无容器 + tertiary accent bar */}
+            {/* AI 消息 */}
             {message.role === 'assistant' && (
-              <div className="ai-message w-full max-w-[85%]">
-                {/* 消息头部 */}
-                <div className="flex items-center gap-3 mb-2 px-2">
-                  <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary">
-                    <span className="material-symbols-outlined text-sm">forum</span>
+              <div className="ai-message w-full max-w-[75%]">
+                {/* 消息头部 - 图标 + 名称 */}
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                    <span className="material-symbols-outlined text-on-primary text-sm">forum</span>
                   </div>
                   <span className="text-xs font-bold text-on-surface uppercase tracking-widest">
-                    {agent?.name || 'AskMe Assistant'}
+                    AskMe Curator
                   </span>
                 </div>
 
-                {/* 消息内容 - 左侧 tertiary accent bar */}
+                {/* 消息内容 - 左侧 tertiary accent bar + 容器 */}
                 <div className="relative pl-3">
-                  {/* 左侧 2px tertiary 竖线 */}
+                  {/* 2px tertiary accent bar */}
                   <div className="absolute left-0 top-0 bottom-0 w-[2px] rounded-full bg-tertiary" />
 
-                  <div className="bg-surface-container text-on-surface p-5 rounded-2xl rounded-tl-none shadow-sm transition-all duration-[300ms] ease-spring">
+                  <div className="bg-surface-container text-on-surface p-5 rounded-2xl rounded-tl-none transition-all duration-300">
                     {message.isStreaming ? (
                       <div className="text-base leading-relaxed">
                         {message.content}
-                        <span className="streaming-cursor ml-1 opacity-70 animate-pulse">|</span>
+                        <span className="inline-block w-0.5 h-5 bg-tertiary ml-1 animate-pulse" />
                       </div>
                     ) : (
                       <p className="text-base leading-relaxed">
@@ -126,53 +126,48 @@ export function ChatArea({
 
                   {/* 时间戳 */}
                   {!message.isStreaming && (
-                    <span className="text-[10px] text-on-surface-variant mt-2 px-2">
-                      Sent via {agent?.name || 'AskMe'} • {formatRelativeTime(message.createdAt)}
-                    </span>
+                    <p className="text-[10px] text-on-surface-variant mt-2 px-1 uppercase tracking-wider">
+                      Sent via {agent?.name || 'Socrates Agent'} • {formatTime(message.createdAt)}
+                    </p>
                   )}
                 </div>
 
-                {/* 消息操作 - 手机版简化 */}
+                {/* 消息操作 */}
                 {!message.isStreaming && !message.isError && (
-                  <div className="message-actions flex items-center gap-2 mt-3 pl-3">
+                  <div className="message-actions flex items-center gap-2 mt-3 pl-3 opacity-0 hover:opacity-100 transition-opacity duration-200">
                     <button
-                      className="text-xs px-2.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all duration-[300ms] ease-spring"
+                      className="text-xs px-2.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200"
                       onClick={() => onCopyMessage(message.content)}
-                      title="复制"
                     >
-                      复制
+                      <span className="material-symbols-outlined text-sm">content_copy</span>
                     </button>
                     <button
-                      className="text-xs px-2.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all duration-[300ms] ease-spring"
+                      className="text-xs px-2.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200"
                       onClick={() => onReact(message.id, 'like')}
-                      title="赞同"
                     >
-                      👍
+                      <span className="material-symbols-outlined text-sm">thumb_up</span>
                     </button>
                     <button
-                      className="text-xs px-2.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all duration-[300ms] ease-spring"
+                      className="text-xs px-2.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200"
                       onClick={() => onReact(message.id, 'dislike')}
-                      title="反对"
                     >
-                      👎
+                      <span className="material-symbols-outlined text-sm">thumb_down</span>
                     </button>
                   </div>
                 )}
               </div>
             )}
 
-            {/* 用户消息 - primary 背景 + asymmetric 圆角 */}
+            {/* 用户消息 */}
             {message.role === 'user' && (
-              <div className="user-message flex flex-col items-end max-w-[85%]">
+              <div className="user-message flex flex-col items-end max-w-[65%]">
                 {/* 消息头部 */}
-                <div className="flex items-center gap-3 mb-2 px-2">
-                  <span className="text-xs font-bold text-on-surface-variant uppercase tracking-widest">
-                    You
-                  </span>
-                </div>
+                <p className="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-2 pr-1">
+                  You
+                </p>
 
-                {/* 消息内容 - primary 背景 + rounded-tr-none */}
-                <div className="bg-primary text-on-primary p-5 rounded-2xl rounded-tr-none shadow-lg shadow-primary/10 transition-all duration-[300ms] ease-spring">
+                {/* 消息内容 - primary 背景 capsule */}
+                <div className="bg-primary text-on-primary p-5 rounded-2xl rounded-tr-none shadow-lg shadow-primary/10 transition-all duration-300">
                   <p className="text-base leading-relaxed">
                     {message.content.split('\n').map((line, idx) => (
                       <span key={idx}>
@@ -184,17 +179,17 @@ export function ChatArea({
                 </div>
 
                 {/* 时间戳 */}
-                <span className="text-[10px] text-on-surface-variant mt-2 px-2">
-                  Read • {formatTime(message.createdAt)}
-                </span>
+                <p className="text-[10px] text-on-surface-variant mt-2 pr-1 uppercase tracking-wider">
+                  Sent • {formatTime(message.createdAt)}
+                </p>
               </div>
             )}
 
             {/* 错误状态 */}
             {message.isError && (
-              <div className="w-full mt-2 flex items-center gap-2 text-xs text-error bg-error/10 rounded-lg px-3 py-2 pl-3">
-                <span className="text-error">⚠️</span>
-                <span className="text-error">{message.error || '发送失败'}</span>
+              <div className="mt-2 flex items-center gap-2 text-xs bg-surface-container rounded-lg px-3 py-2 text-tertiary">
+                <span className="material-symbols-outlined text-sm">warning</span>
+                <span>{message.error || '发送失败'}</span>
               </div>
             )}
           </div>
@@ -203,8 +198,10 @@ export function ChatArea({
         {/* AI Thinking Indicator */}
         {isLoading && messages.length > 0 && (
           <div className="flex justify-center my-4">
-            <div className="bg-surface-container-low px-6 py-3 rounded-full border border-outline-variant/10 flex items-center gap-3">
-              <span className="material-symbols-outlined text-tertiary text-sm animate-pulse">tips_and_updates</span>
+            <div className="bg-surface-container-low px-6 py-3 rounded-full flex items-center gap-3">
+              <span className="material-symbols-outlined text-tertiary text-sm animate-pulse" style={{ fontVariationSettings: "'FILL' 1" }}>
+                tips_and_updates
+              </span>
               <p className="text-xs text-on-surface-variant font-medium">
                 {agent?.name || 'Socrates'} is analyzing your response for accuracy...
               </p>
@@ -221,7 +218,7 @@ export function ChatArea({
         )}
 
         {/* 底部间距 */}
-        <div className="h-32"></div>
+        <div className="h-8" />
       </div>
     </div>
   );
