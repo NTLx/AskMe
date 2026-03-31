@@ -6,7 +6,6 @@ import { useSettingsStore } from './stores/settingsStore';
 import { LaunchPad } from './components/LaunchPad';
 import { ChatArea } from './components/ChatArea';
 import { InputArea } from './components/InputArea';
-import { Settings } from './components/Settings';
 import { SideNavBar } from './components/layout/SideNavBar';
 import { TopNavBar, TopNavBarButton } from './components/layout/TopNavBar';
 import { AgentPersonas } from './components/pages/Settings/AgentPersonas';
@@ -21,9 +20,9 @@ type ViewType = 'timeline' | 'tags' | 'agents' | 'llm' | 'settings' | 'help';
 
 export function App() {
   const { isInitialized, error } = useAppInit();
-  const { isSettingsOpen, setLaunchPadVisible, toggleSettings } = useAppStore();
+  const { setLaunchPadVisible } = useAppStore();
   const { messages, activeAgentProfile, addMessage, currentSessionId, setCurrentSessionId, addSession } = useSessionStore();
-  const { settings, setSettings } = useSettingsStore();
+  const { settings } = useSettingsStore();
   const [isLoading, setIsLoading] = useState(false);
   const [activeView, setActiveView] = useState<ViewType>('timeline');
   const [isInChat, setIsInChat] = useState(false);
@@ -45,13 +44,6 @@ export function App() {
     }
   }, [settings.theme]);
 
-  if (error) {
-    return <div className="flex items-center justify-center h-screen bg-surface text-error">Initialization Error: {error.message}</div>;
-  }
-
-  if (!isInitialized) {
-    return <div className="flex items-center justify-center h-screen bg-surface text-on-surface">Initializing AskMe...</div>;
-  }
 
   // 处理启动会话
   const handleStartSession = useCallback((_scenarioType: ScenarioType | null, initialContent?: string) => {
@@ -407,6 +399,15 @@ export function App() {
     return { brandName: 'AskMe AI', sessionName: undefined, actions: undefined };
   };
 
+  if (error) {
+    return <div className="flex items-center justify-center h-screen bg-surface text-error">Initialization Error: {error.message}</div>;
+  }
+  if (!isInitialized) {
+    return <div className="flex items-center justify-center h-screen bg-surface flex-col gap-4 text-on-surface">
+             <div className="animate-spin w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full" />
+             <span className="text-sm tracking-widest uppercase font-bold text-on-surface-variant font-display">Initializing AskMe...</span>
+           </div>;
+  }
   const topNavContent = getTopNavContent();
 
   return (
@@ -476,42 +477,12 @@ export function App() {
         )}
 
         {showSettings && (
-          <div className="flex-1 overflow-y-auto">
-            <Settings
-              isOpen={true}
-              onClose={() => setActiveView('timeline')}
-              agents={[]}
-              llmProviders={[]}
-              settings={settings}
-              onUpdateAgent={() => {}}
-              onCreateAgent={() => {}}
-              onDeleteAgent={() => {}}
-              onUpdateLLMProvider={() => {}}
-              onCreateLLMProvider={() => {}}
-              onDeleteLLMProvider={() => {}}
-              onUpdateSettings={setSettings}
-            />
+          <div className="flex-1 overflow-y-auto p-6 flex flex-col items-center justify-center text-on-surface-variant font-medium">
+            <span className="material-symbols-outlined text-4xl mb-2">settings</span>
+            <p>Settings Page (Work in Progress)</p>
           </div>
         )}
       </div>
-
-      {/* Legacy settings overlay - remove later */}
-      {isSettingsOpen && !showSettings && (
-        <Settings
-          isOpen={isSettingsOpen}
-          onClose={toggleSettings}
-          agents={[]}
-          llmProviders={[]}
-          settings={settings}
-          onUpdateAgent={() => {}}
-          onCreateAgent={() => {}}
-          onDeleteAgent={() => {}}
-          onUpdateLLMProvider={() => {}}
-          onCreateLLMProvider={() => {}}
-          onDeleteLLMProvider={() => {}}
-          onUpdateSettings={setSettings}
-        />
-      )}
     </div>
   );
 }
