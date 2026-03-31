@@ -32,7 +32,7 @@ const SCENARIOS: Array<{
     subtitle: '🎯 Problem Solving',
     iconBg: 'bg-primary-container/10',
     iconColor: 'text-primary',
-    colSpan: 'col-span-1',
+    colSpan: 'md:col-span-1',
   },
   {
     type: 'learning',
@@ -51,7 +51,7 @@ const SCENARIOS: Array<{
     subtitle: '💭 Deep Chat',
     iconBg: 'bg-secondary-container/30',
     iconColor: 'text-secondary',
-    colSpan: 'col-span-1',
+    colSpan: 'md:col-span-1',
   },
   {
     type: 'inspiration',
