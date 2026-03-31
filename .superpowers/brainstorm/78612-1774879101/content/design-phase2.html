@@ -1,0 +1,173 @@
+<h2>Phase 2: 布局组件</h2>
+<p class="subtitle">SideNavBar、TopNavBar、主内容区布局</p>
+
+<div class="section" style="margin-top: 1.5rem;">
+  <h3>2.1 SideNavBar (侧边导航栏)</h3>
+  <p style="font-size: 0.875rem; color: #666;">固定宽度 280px，包含 Logo、新建按钮、导航项、用户信息</p>
+</div>
+
+<div class="mockup" style="margin-top: 1rem;">
+  <div class="mockup-header">SideNavBar 结构</div>
+  <div class="mockup-body" style="background: #0e0e11; padding: 0; display: flex; min-height: 500px;">
+    <!-- 侧边栏 -->
+    <div style="width: 280px; background: #141317; padding: 1rem; display: flex; flex-direction: column; gap: 1.5rem;">
+      <!-- Logo 区域 -->
+      <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0 0.5rem;">
+        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #ddccff, #c3aef0); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 1.25rem;">🤖</span>
+        </div>
+        <div>
+          <div style="font-weight: bold; color: #ddccff; font-size: 1.25rem;">AskMe AI</div>
+          <div style="font-size: 0.625rem; color: #ada9b3; letter-spacing: 0.05em;">Reverse Questioning</div>
+        </div>
+      </div>
+
+      <!-- 新建按钮 -->
+      <button style="background: #d1bcff; color: #47366f; border: none; padding: 0.75rem; border-radius: 9999px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer;">
+        <span>+</span> New Session
+      </button>
+
+      <!-- 导航项 -->
+      <nav style="display: flex; flex-direction: column; gap: 0.25rem; flex: 1;">
+        <a style="padding: 0.5rem 1rem; color: #e8e4ee; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; border-radius: 9999px;" href="#">
+          <span>📊</span> Timeline
+        </a>
+        <a style="padding: 0.5rem 1rem; color: #ada9b3; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; border-radius: 9999px;" href="#">
+          <span>🏷️</span> Tags
+        </a>
+        <a style="padding: 0.5rem 1rem; color: #ada9b3; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; border-radius: 9999px;" href="#">
+          <span>🤖</span> Agents
+        </a>
+        <a style="padding: 0.5rem 1rem; color: #ada9b3; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; border-radius: 9999px;" href="#">
+          <span>⚙️</span> LLM
+        </a>
+
+        <!-- 最近会话 -->
+        <div style="margin-top: 1.5rem; padding: 0 0.5rem;">
+          <div style="font-size: 0.625rem; color: #ada9b3; text-transform: uppercase; letter-spacing: 0.1em; font-weight: bold; opacity: 0.5;">Recent Sessions</div>
+        </div>
+        <div style="padding: 0.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+          <span style="color: #ddccff; font-size: 0.875rem;">📌</span>
+          <span style="color: #e8e4ee; font-size: 0.875rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Learning Rust Ownership</span>
+        </div>
+        <div style="padding: 0.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+          <span style="color: #ada9b3; font-size: 0.875rem;">💬</span>
+          <span style="color: #ada9b3; font-size: 0.875rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Career Burnout</span>
+        </div>
+      </nav>
+
+      <!-- 底部 -->
+      <div style="border-top: 1px solid #26252c; padding-top: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
+        <a style="background: #d1bcff; color: #47366f; padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; border-radius: 9999px; font-weight: bold;" href="#">
+          <span>⚙️</span> Settings
+        </a>
+        <a style="padding: 0.5rem 1rem; color: #ada9b3; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; border-radius: 9999px;" href="#">
+          <span>❓</span> Help
+        </a>
+        <!-- 用户信息 -->
+        <div style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: #1a191e; border-radius: 16px; margin-top: 0.5rem;">
+          <div style="width: 32px; height: 32px; background: #292336; border-radius: 50%; overflow: hidden;">
+            <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #675590, #ddccff);"></div>
+          </div>
+          <div style="flex: 1; overflow: hidden;">
+            <div style="font-size: 0.875rem; font-weight: 500; color: #e8e4ee; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Guest Curator</div>
+            <div style="font-size: 0.625rem; color: #ada9b3;">Free Plan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主区域占位 -->
+    <div style="flex: 1; display: flex; align-items: center; justify-content: center; color: #ada9b3;">
+      <div style="text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📄</div>
+        <div>Main Content Area</div>
+        <div style="font-size: 0.75rem; margin-top: 0.25rem;">margin-left: 280px</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 2rem;">
+  <h3>2.2 TopNavBar (顶部导航栏)</h3>
+  <p style="font-size: 0.875rem; color: #666;">高度 60px，毛玻璃效果，面包屑导航 + 操作按钮</p>
+</div>
+
+<div class="mockup" style="margin-top: 1rem;">
+  <div class="mockup-header">TopNavBar 结构</div>
+  <div class="mockup-body" style="background: #0e0e11;">
+    <!-- TopNavBar -->
+    <div style="height: 60px; background: rgba(14, 14, 17, 0.8); backdrop-filter: blur(20px); display: flex; justify-content: space-between; align-items: center; padding: 0 1.5rem; border-bottom: 1px solid #26252c;">
+      <!-- 左侧：面包屑 -->
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <span style="font-size: 1.125rem; font-weight: bold; color: #e8e4ee;">Settings</span>
+        <span style="color: #49474f;">/</span>
+        <span style="color: #ddccff; font-weight: bold;">Agent Personas</span>
+      </div>
+
+      <!-- 右侧：操作按钮 -->
+      <div style="display: flex; align-items: center; gap: 1.5rem;">
+        <button style="color: #e8e4ee; background: none; border: none; cursor: pointer; font-size: 0.875rem;">Share</button>
+        <button style="color: #e8e4ee; background: none; border: none; cursor: pointer; font-size: 0.875rem;">Export</button>
+        <div style="width: 1px; height: 16px; background: #49474f;"></div>
+        <span style="color: #ada9b3; cursor: pointer;">⋮</span>
+        <div style="width: 32px; height: 32px; background: #292336; border-radius: 50%; overflow: hidden;">
+          <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #ddccff, #c3aef0);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 内容区占位 -->
+    <div style="padding: 2rem; color: #ada9b3; text-align: center;">
+      <p>主内容区域</p>
+      <p style="font-size: 0.75rem; margin-top: 0.5rem;">padding: 0 1.5rem; height: 60px; sticky top: 0</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 2rem;">
+  <h3>2.3 布局关键参数</h3>
+</div>
+
+<div class="mockup">
+  <div class="mockup-body" style="padding: 1rem;">
+    <table style="width: 100%; font-size: 0.875rem; border-collapse: collapse;">
+      <thead>
+        <tr style="border-bottom: 2px solid #eee;">
+          <th style="text-align: left; padding: 0.75rem;">参数</th>
+          <th style="text-align: left; padding: 0.75rem;">值</th>
+          <th style="text-align: left; padding: 0.75rem;">说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #eee;">
+          <td style="padding: 0.75rem;"><code>--sidebar-width</code></td>
+          <td style="padding: 0.75rem;"><code>280px</code></td>
+          <td style="padding: 0.75rem;">固定宽度</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #eee;">
+          <td style="padding: 0.75rem;"><code>--topnav-height</code></td>
+          <td style="padding: 0.75rem;"><code>60px</code></td>
+          <td style="padding: 0.75rem;">顶栏高度</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #eee;">
+          <td style="padding: 0.75rem;"><code>backdrop-blur</code></td>
+          <td style="padding: 0.75rem;"><code>20px</code></td>
+          <td style="padding: 0.75rem;">TopNavBar 毛玻璃</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.75rem;"><code>主内容 margin-left</code></td>
+          <td style="padding: 0.75rem;"><code>280px</code></td>
+          <td style="padding: 0.75rem;">避开侧边栏</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div style="margin-top: 2rem; padding: 1rem; background: #f0f9ff; border-radius: 8px;">
+  <p style="font-size: 0.875rem; color: #0369a1;">
+    <strong>✓ Phase 2 布局组件</strong> - SideNavBar (280px)、TopNavBar (60px + 毛玻璃)、主内容区布局。<br>
+    请确认这部分设计是否符合预期？
+  </p>
+</div>

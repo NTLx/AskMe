@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#ffb875",
+              "surface-tint": "#3cddc7",
+              "on-tertiary": "#4b2800",
+              "on-primary-container": "#00574d",
+              "background": "#0b1326",
+              "on-surface": "#dae2fd",
+              "secondary": "#ffb95f",
+              "on-secondary": "#472a00",
+              "on-surface-variant": "#bacac5",
+              "surface-container-low": "#131b2e",
+              "secondary-fixed": "#ffddb8",
+              "secondary-fixed-dim": "#ffb95f",
+              "on-error-container": "#ffdad6",
+              "on-secondary-container": "#5b3800",
+              "primary-fixed-dim": "#3cddc7",
+              "on-error": "#690005",
+              "tertiary": "#ffd1aa",
+              "surface-variant": "#2d3449",
+              "primary-fixed": "#62fae3",
+              "inverse-surface": "#dae2fd",
+              "on-tertiary-container": "#744000",
+              "surface-dim": "#0b1326",
+              "on-secondary-fixed": "#2a1700",
+              "on-background": "#dae2fd",
+              "surface-container-lowest": "#060e20",
+              "tertiary-container": "#ffac5a",
+              "surface-bright": "#31394d",
+              "secondary-container": "#ee9800",
+              "on-tertiary-fixed": "#2d1600",
+              "inverse-primary": "#006b5f",
+              "outline": "#859490",
+              "surface-container": "#171f33",
+              "surface-container-high": "#222a3d",
+              "on-tertiary-fixed-variant": "#6b3b00",
+              "surface-container-highest": "#2d3449",
+              "on-primary-fixed-variant": "#005047",
+              "surface": "#0b1326",
+              "error": "#ffb4ab",
+              "error-container": "#93000a",
+              "on-secondary-fixed-variant": "#653e00",
+              "primary": "#57f1db",
+              "inverse-on-surface": "#283044",
+              "tertiary-fixed": "#ffdcc0",
+              "primary-container": "#2dd4bf",
+              "outline-variant": "#3c4a46",
+              "on-primary-fixed": "#00201c",
+              "on-primary": "#003731"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        font-family: 'Manrope', sans-serif;
+        background-color: #0b1326;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #2d3449;
+        border-radius: 10px;
+      }
+      .teal-glow-hover:hover {
+        box-shadow: 0 0 15px rgba(87, 241, 219, 0.2);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface selection:bg-primary/30 min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-[#0b1326] dark:bg-[#0b1326] fixed top-0 w-full z-40 h-20 flex items-center justify-between px-6 transition-colors duration-300">
+<div class="flex items-center gap-4">
+<button class="text-[#bacac5] hover:bg-[#31394d] p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-2xl font-bold text-[#2dd4bf] tracking-tighter font-manrope">AskMe</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-[#2dd4bf] font-medium text-sm transition-colors" href="#">Chat</a>
+<a class="text-[#bacac5] hover:text-[#2dd4bf] font-medium text-sm transition-colors" href="#">Explore</a>
+<a class="text-[#bacac5] hover:text-[#2dd4bf] font-medium text-sm transition-colors" href="#">Library</a>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a thoughtful scholar with glasses in a dimly lit library with books in the background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6iVMvnbSRyG4nn6rccqdiJbxo7WPzNEnU2GUAGp9hLxJ_O87VUkxoNqFPWE24iUXAK_LOOqTRwDhru-b8Fz6YyqiG9p5Cbr_5LUy0vviRtCU9Uh-6bTLTXTpY4Tm-a0PsQo7wo-yFhtCzZ2S_bp6es_nOWG-qb1cdhupNP8rd3X79_nwcCkbSC_Sux1gA39YkfLNE8FvE4Pc97XRKxSbw6YClnkM2lAMsUMjMi3qljp1I_Bk2ReY60X5VJmTjiRw4_pKzDElae28"/>
+</div>
+</div>
+</header>
+<!-- Sidebar (NavigationDrawer) - Hidden on Mobile, Logic included for Web Layout -->
+<aside class="fixed inset-y-0 left-0 z-50 flex flex-col p-4 bg-[#131b2e] dark:bg-[#131b2e] w-80 rounded-r-lg shadow-teal-glow-32px transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out mt-20">
+<div class="flex items-center gap-3 px-2 mb-8 mt-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+<img alt="Scholar Profile" class="w-full h-full object-cover" data-alt="Stylized portrait of a scholar icon with deep teal accents and a minimal, clean aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlpqOVEqKs85C6it8S4X6Ag1qWckXN5toybbw3MpF81hGETM0-Nk96_TVTEjzdUAwoVDCJf19tOT8LEilzjyx7Wq6L7N8jyE8UX3bKXgQOvLGXFJJs49S4pqVAwGwLxJpgpOQdukqXEIapLB8B48AQzoORDRMyCQE5KaB71RZ5YAofHNVimrFjIOQ30EICkQ6DWBlOTl5Ijl_ZiLrDAFpLTmg7q6c0S0ZllWzldUmK4yBxTAmvRUjprWcUE_n4mnRbCSaXj2cIBnU"/>
+</div>
+<div>
+<p class="font-manrope font-black text-[#2dd4bf] text-sm uppercase tracking-widest leading-tight">The Scholar</p>
+<p class="text-[#bacac5] text-xs font-medium">curious@mind.edu</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<div class="flex items-center gap-3 px-4 py-3 bg-[#2dd4bf]/10 text-[#2dd4bf] font-bold rounded-md">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-manrope uppercase tracking-widest text-xs">History</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-[#bacac5] font-medium hover:bg-[#171f33] transition-colors rounded-md cursor-pointer">
+<span class="material-symbols-outlined" data-icon="sell">sell</span>
+<span class="font-manrope uppercase tracking-widest text-xs">Tags</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-[#bacac5] font-medium hover:bg-[#171f33] transition-colors rounded-md cursor-pointer">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-manrope uppercase tracking-widest text-xs">Settings</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-[#bacac5] font-medium hover:bg-[#171f33] transition-colors rounded-md cursor-pointer">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-manrope uppercase tracking-widest text-xs">Help</span>
+</div>
+</nav>
+<div class="mt-auto p-4 bg-surface-container-low rounded-xl border border-outline-variant/10">
+<p class="text-[10px] text-[#2dd4bf] font-bold tracking-widest uppercase mb-2">Current Session</p>
+<p class="text-on-surface text-sm font-semibold leading-relaxed">Understanding Rust Ownership &amp; Borrowing</p>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 mt-20 mb-20 lg:ml-80 flex flex-col max-w-5xl mx-auto w-full px-4 md:px-8">
+<!-- Conversation Window -->
+<section class="flex-1 py-12 space-y-12 overflow-y-auto custom-scrollbar">
+<!-- Context Header -->
+<div class="text-center space-y-4">
+<span class="inline-block px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold tracking-[0.2em] uppercase rounded-full border border-primary/20">Socratic Inquiry</span>
+<h2 class="text-3xl md:text-4xl font-extrabold text-on-surface tracking-tighter">Rust Ownership</h2>
+</div>
+<!-- User Message -->
+<div class="flex flex-col items-end gap-2 group">
+<div class="max-w-[85%] md:max-w-[70%] bg-surface-container-high p-5 rounded-xl rounded-tr-sm border-l-2 border-secondary shadow-sm">
+<p class="text-on-surface text-base leading-relaxed">
+                        I think I understand. In Rust, ownership means only one variable can own a piece of data at a time. If I assign it to another variable, the first one becomes invalid. Is that the core idea?
+                    </p>
+</div>
+<div class="flex items-center gap-3 px-2 text-[10px] text-on-surface-variant font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+<span>11:42 PM</span>
+<span class="material-symbols-outlined text-xs" data-icon="done_all">done_all</span>
+</div>
+</div>
+<!-- AI Message (Socratic Prompt) -->
+<div class="flex flex-col items-start gap-4 group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-md bg-gradient-to-br from-primary-container to-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-sm" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<span class="text-[10px] text-primary font-bold tracking-widest uppercase">The Scholar</span>
+</div>
+<div class="max-w-[90%] md:max-w-[80%] bg-surface-container p-6 rounded-xl rounded-tl-sm border-t border-primary/20 shadow-xl shadow-surface-container-lowest/50 relative overflow-hidden">
+<!-- Subtle decorative gradient -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-[40px] rounded-full pointer-events-none"></div>
+<div class="space-y-4 relative z-10">
+<p class="text-primary text-lg font-semibold leading-snug">
+                            Great! You already understand the fundamental 'Move' semantics.
+                        </p>
+<p class="text-on-surface-variant text-base leading-relaxed">
+                            To deepen this, consider a physical book. If ownership is "having the book in your hands," what happens when you want your friend to read a specific chapter without giving the book away entirely? 
+                        </p>
+<p class="text-on-surface-variant text-base leading-relaxed italic">
+                            How might Rust's compiler handle this 'reading' without transferring the total 'ownership' you just described?
+                        </p>
+</div>
+<!-- Message Actions -->
+<div class="mt-6 flex items-center gap-4 pt-4 border-t border-outline-variant/10">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="thumb_up">thumb_up</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="thumb_down">thumb_down</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="account_tree">account_tree</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors ml-auto">
+<span class="material-symbols-outlined text-lg" data-icon="content_copy">content_copy</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Code Example Card (Asymmetric Layout) -->
+<div class="max-w-3xl mx-auto">
+<div class="bg-surface-container-lowest rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm p-1 border border-outline-variant/10 shadow-inner">
+<div class="bg-[#0b1326] p-4 rounded-tl-[1.25rem] rounded-br-[1.25rem] rounded-tr-none rounded-bl-none overflow-x-auto custom-scrollbar">
+<div class="flex items-center justify-between mb-4 pb-2 border-b border-outline-variant/5">
+<span class="text-[10px] text-on-surface-variant font-bold tracking-widest uppercase">rust_example.rs</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="terminal">terminal</span>
+</div>
+<pre class="text-sm font-mono leading-relaxed"><span class="text-secondary">fn</span> <span class="text-primary">main</span>() {
+    <span class="text-secondary">let</span> s1 = <span class="text-primary">String</span>::from(<span class="text-tertiary">"hello"</span>);
+    <span class="text-secondary">let</span> s2 = s1; <span class="text-on-surface-variant">// s1 is moved here</span>
+
+    <span class="text-on-surface-variant">// println!("{}", s1); // This would cause a compile error</span>
+    <span class="text-primary">println!</span>(<span class="text-tertiary">"{}"</span>, s2);
+}</pre>
+</div>
+</div>
+</div>
+</section>
+<!-- Input Area (Fixed Bottom Mobile / Relative Web) -->
+<section class="mt-auto pt-6 pb-12 sticky bottom-0 bg-surface/80 backdrop-blur-xl">
+<div class="relative group">
+<textarea class="w-full bg-surface-container-high text-on-surface placeholder:text-on-surface-variant/50 border-none rounded-xl py-4 pl-6 pr-16 focus:ring-0 resize-none transition-all duration-300 min-h-[60px]" placeholder="Reflect on the 'borrowing' concept..." rows="1"></textarea>
+<!-- Animated Focus Indicator -->
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-focus-within:w-full"></div>
+<div class="absolute right-4 bottom-3 flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+</button>
+<button class="bg-primary text-on-primary w-10 h-10 rounded-lg flex items-center justify-center teal-glow-hover transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="arrow_upward">arrow_upward</span>
+</button>
+</div>
+</div>
+<p class="text-[9px] text-center mt-3 text-on-surface-variant font-medium tracking-wide uppercase">Press enter to send • Shift+Enter for new line</p>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-[#171f33]/80 backdrop-blur-xl rounded-t-xl shadow-2xl">
+<div class="bg-[#2dd4bf] text-[#003731] rounded-2xl p-3 scale-110">
+<span class="material-symbols-outlined" data-icon="chat" style="font-variation-settings: 'FILL' 1;">chat</span>
+</div>
+<div class="text-[#bacac5] p-3 hover:text-[#57f1db] transition-all">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+</div>
+<div class="text-[#bacac5] p-3 hover:text-[#57f1db] transition-all">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+</div>
+<div class="text-[#bacac5] p-3 hover:text-[#57f1db] transition-all">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+</nav>
+</body></html>

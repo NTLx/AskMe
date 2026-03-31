@@ -1,0 +1,97 @@
+<h2>Phase 3.2: ChatArea (聊天界面)</h2>
+<p class="subtitle">对话流、消息气泡、浮动输入区</p>
+
+<div class="section" style="margin-top: 1.5rem;">
+  <h3>ChatArea 布局设计</h3>
+  <p style="font-size: 0.875rem; color: #666;">AI 消息无容器 + tertiary accent bar，用户消息 capsule 形式，浮动输入区玻璃效果</p>
+</div>
+
+<div class="mockup" style="margin-top: 1rem;">
+  <div class="mockup-header">ChatArea 完整布局</div>
+  <div class="mockup-body" style="background: #0e0e11; padding: 0; min-height: 600px; position: relative; overflow: hidden;">
+    <!-- 背景光晕 -->
+    <div style="position: absolute; bottom: 0; right: 0; width: 500px; height: 500px; background: rgba(221, 204, 255, 0.03); border-radius: 50%; filter: blur(100px);"></div>
+
+    <!-- 主内容 -->
+    <div style="display: flex; flex-direction: column; min-height: 100%; padding: 3rem; position: relative; z-index: 1; max-width: 48rem; margin: 0 auto;">
+
+      <!-- AI 消息块 -->
+      <div style="margin-bottom: 3rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+          <div style="width: 24px; height: 24px; background: #fec5d6; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 0.75rem;">🤖</span>
+          </div>
+          <span style="font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 800; color: #ffd9e3;">AskMe Curator</span>
+        </div>
+        <div style="padding-left: 1rem; border-left: 2px solid #fec5d6; color: #e8e4ee; font-size: 1.125rem; line-height: 1.75;">
+          很好！你已经理解了所有权的基本概念。那么让我问你：如果你有一个函数想要 '借用' 一个 String 而不是拿走它，你觉得 Rust 会提供什么样的机制？
+        </div>
+        <!-- 操作按钮 (hover 显示) -->
+        <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem; padding-left: 1rem; opacity: 0.7;">
+          <button style="color: #ada9b3; background: none; border: none; cursor: pointer; font-size: 0.875rem;">📋</button>
+          <button style="color: #ada9b3; background: none; border: none; cursor: pointer; font-size: 0.875rem;">🔄</button>
+          <button style="color: #ada9b3; background: none; border: none; cursor: pointer; font-size: 0.875rem;">👍</button>
+        </div>
+      </div>
+
+      <!-- 用户消息块 -->
+      <div style="display: flex; flex-direction: column; align-items: flex-end; margin-bottom: 3rem;">
+        <div style="background: #201f25; color: #e8e4ee; padding: 1rem 1.5rem; border-radius: 1.5rem; border-top-right-radius: 0; max-width: 80%; font-size: 1rem;">
+          是引用吗？& 符号？
+        </div>
+        <span style="font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(173, 169, 179, 0.5); margin-top: 0.25rem; margin-right: 0.5rem;">Sent</span>
+      </div>
+
+      <!-- AI 追问消息块 -->
+      <div style="margin-bottom: 3rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+          <div style="width: 24px; height: 24px; background: #fec5d6; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 0.75rem;">🤖</span>
+          </div>
+          <span style="font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 800; color: #ffd9e3;">AskMe Curator</span>
+        </div>
+        <div style="padding-left: 1rem; border-left: 2px solid #fec5d6; color: #e8e4ee; font-size: 1.125rem; line-height: 1.75;">
+          正确！引用是 Rust 的核心机制之一。现在让我继续追问：<span style="color: #ffd9e3;">可变引用</span>和<span style="color: #ffd9e3;">不可变引用</span>有什么区别？它们能同时存在吗？
+        </div>
+      </div>
+
+      <!-- 空白占位 -->
+      <div style="flex: 1; min-height: 6rem;"></div>
+
+      <!-- 浮动输入区 -->
+      <div style="background: linear-gradient(to top, #0e0e11, #0e0e11, transparent); padding: 1.5rem; margin: 0 -3rem -3rem; position: sticky; bottom: 0;">
+        <div style="max-width: 48rem; margin: 0 auto;">
+          <div style="position: relative; background: #000; border-radius: 1.5rem; padding: 0.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+            <div style="display: flex; align-items: flex-end; gap: 0.5rem; padding: 0 1rem;">
+              <textarea style="flex: 1; background: transparent; border: none; resize: none; padding: 0.75rem 0; color: #e8e4ee; font-size: 1rem; outline: none; min-height: 44px; max-height: 200px;" placeholder="输入你的回答或请求提示..." rows="1"></textarea>
+              <div style="display: flex; align-items: center; gap: 0.25rem;">
+                <button style="padding: 0.5rem; color: #ada9b3; background: none; border: none; cursor: pointer; border-radius: 50%;">🎤</button>
+                <button style="padding: 0.5rem; color: #ada9b3; background: none; border: none; cursor: pointer; border-radius: 50%;">📎</button>
+                <button style="width: 40px; height: 40px; background: #ddccff; border: none; border-radius: 50%; color: #332159; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; box-shadow: 0 10px 25px rgba(221, 204, 255, 0.2);">↑</button>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-top: 0.75rem;">
+            <span style="font-size: 0.75rem; color: #ffd9e3; opacity: 0.5;">ℹ️</span>
+            <p style="font-size: 0.625rem; color: rgba(173, 169, 179, 0.6); font-weight: 500;">AI will ask you questions to guide your learning journey.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 浮动快捷按钮 -->
+      <div style="position: absolute; bottom: 2rem; right: 2rem;">
+        <div style="position: relative;">
+          <div style="position: absolute; inset: -4px; background: linear-gradient(135deg, #ddccff, #ffd9e3); border-radius: 50%; filter: blur(8px); opacity: 0.3;"></div>
+          <button style="position: relative; width: 56px; height: 56px; background: #26252c; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ddccff; font-size: 1.5rem; border: 1px solid rgba(73, 71, 79, 0.2); cursor: pointer;">⚡</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 2rem; padding: 1rem; background: #f0f9ff; border-radius: 8px;">
+  <p style="font-size: 0.875rem; color: #0369a1;">
+    <strong>✓ Phase 3.2 ChatArea</strong> - AI 消息 (无容器 + tertiary accent bar)、用户消息 (capsule)、浮动输入区、快捷操作按钮。<br>
+    请确认这部分设计是否符合预期？
+  </p>
+</div>

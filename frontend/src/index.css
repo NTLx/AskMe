@@ -1,0 +1,254 @@
+/**
+ * AskMe 全局样式文件
+ * 使用 Tailwind CSS + Material Design 3 主题系统
+ */
+
+/* ============ 主题导入 (必须在最前面) ============ */
+@import './styles/themes/light.css';
+@import './styles/themes/dark.css';
+
+/* ============ Tailwind 导入 ============ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============ 字体定义 ============ */
+/* Inter Variable Font - 支持所有权重 */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Manrope Variable Font - 支持所有权重 */
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/Manrope-Variable.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============ Tailwind 基础层扩展 ============ */
+@layer base {
+  /* 全局重置 */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* HTML 根元素 */
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  /* Body */
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background-color: var(--background);
+    color: var(--on-surface);
+    line-height: 1.5;
+  }
+
+  /* 根容器 */
+  #root {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* 主题过渡 */
+  html {
+    transition: color 200ms ease, background-color 200ms ease;
+  }
+
+  /* 颜色继承 */
+  ::selection {
+    background-color: var(--primary);
+    color: var(--on-primary-container);
+  }
+}
+
+/* ============ 主布局 ============ */
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ============ 滚动条样式 ============ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--outline-variant);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--on-surface-variant);
+}
+
+/* ============ 关键帧动画 ============ */
+
+/* 光标闪烁 */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* 旋转加载 */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 光晕脉冲 */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.05; }
+  50% { opacity: 0.08; }
+}
+
+/* 淡入上移 */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 淡入缩放 */
+@keyframes fade-in-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 消息出现 */
+@keyframes message-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============ 动画过渡类 ============ */
+
+/* 卡片背景过渡 */
+.transition-card {
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 按钮缩放 */
+.transition-button {
+  transition: transform 150ms ease-out;
+}
+
+/* 输入框聚焦 */
+.transition-input {
+  transition: box-shadow 300ms ease;
+}
+
+/* 消息操作按钮 */
+.transition-message-action {
+  transition: opacity 300ms ease;
+}
+
+/* 主题切换 */
+.transition-theme {
+  transition: color 200ms ease, background-color 200ms ease;
+}
+
+/* 光晕动画 */
+.animate-glow {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+/* 滚动显示动画 */
+.animate-fade-in-up {
+  animation: fade-in-up 300ms ease-out forwards;
+}
+
+/* 消息入场动画 */
+.animate-message-enter {
+  animation: message-enter 200ms ease-out forwards;
+}
+
+/* 淡入缩放 */
+.animate-fade-in-scale {
+  animation: fade-in-scale 300ms ease-out forwards;
+}
+
+/* 流式传输光标 */
+.streaming-cursor {
+  animation: blink 1s infinite;
+}
+
+/* 加载旋转 */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ============ 响应式调整 ============ */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+/* ============ 手机版安全区域 ============ */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* ============ 手机版布局优化 ============ */
+@media (max-width: 768px) {
+  /* 底部导航栏占位 */
+  .with-bottom-nav {
+    padding-bottom: 5rem;
+  }
+}

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AskMe - LLM Configuration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error-container": "#8a1632",
+              "inverse-on-surface": "#565459",
+              "on-surface": "#e8e4ee",
+              "secondary-container": "#292336",
+              "primary-container": "#d1bcff",
+              "on-secondary-container": "#a9a0b9",
+              "surface-container-high": "#201f25",
+              "secondary-dim": "#beb5ce",
+              "on-secondary-fixed": "#443e53",
+              "tertiary-fixed": "#fec5d6",
+              "surface-container-lowest": "#000000",
+              "on-tertiary-fixed-variant": "#704654",
+              "primary-fixed": "#d1bcff",
+              "primary": "#ddccff",
+              "tertiary-fixed-dim": "#efb8c8",
+              "outline": "#77747d",
+              "on-error-container": "#ff97a3",
+              "on-primary-fixed-variant": "#513f79",
+              "on-secondary": "#433d52",
+              "secondary-fixed": "#ece1fc",
+              "on-secondary-fixed-variant": "#615a70",
+              "surface-tint": "#ddccff",
+              "background": "#0e0e11",
+              "on-background": "#e8e4ee",
+              "surface": "#0e0e11",
+              "on-primary-fixed": "#332159",
+              "tertiary-dim": "#efb8c8",
+              "tertiary-container": "#fec5d6",
+              "error-dim": "#c8475d",
+              "on-tertiary": "#6f4653",
+              "error": "#fd6f85",
+              "inverse-primary": "#675590",
+              "surface-container-low": "#141317",
+              "secondary": "#ccc2dc",
+              "on-surface-variant": "#ada9b3",
+              "primary-fixed-dim": "#c3aef0",
+              "on-tertiary-fixed": "#502b38",
+              "inverse-surface": "#fdf8fd",
+              "on-primary-container": "#47366f",
+              "surface-container-highest": "#26252c",
+              "on-error": "#490013",
+              "surface-bright": "#2d2b33",
+              "surface-variant": "#26252c",
+              "outline-variant": "#49474f",
+              "secondary-fixed-dim": "#ddd3ed",
+              "on-tertiary-container": "#663d4b",
+              "surface-dim": "#0e0e11",
+              "surface-container": "#1a191e",
+              "tertiary": "#ffd9e3",
+              "primary-dim": "#c3aef0",
+              "on-primary": "#503f79"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="w-[280px] h-full fixed left-0 top-0 border-none bg-[#141317] flex flex-col p-4 gap-6 font-['Manrope'] antialiased">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<h1 class="text-xl font-bold text-[#ddccff]">AskMe AI</h1>
+<p class="text-[10px] text-on-surface-variant tracking-widest uppercase">Reverse Questioning</p>
+</div>
+</div>
+<button class="bg-primary-container text-on-primary-container rounded-full py-4 px-6 flex items-center justify-center gap-2 font-bold transition-transform active:scale-95">
+<span class="material-symbols-outlined">add</span>
+            New Session
+        </button>
+<nav class="flex flex-col gap-1 flex-grow">
+<a class="text-[#e8e4ee] hover:bg-[#201f25] rounded-full px-4 py-2 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span>Timeline</span>
+</a>
+<a class="text-[#e8e4ee] hover:bg-[#201f25] rounded-full px-4 py-2 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined">sell</span>
+<span>Tags</span>
+</a>
+<a class="text-[#e8e4ee] hover:bg-[#201f25] rounded-full px-4 py-2 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span>Agents</span>
+</a>
+<a class="text-[#e8e4ee] hover:bg-[#201f25] rounded-full px-4 py-2 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined">model_training</span>
+<span>LLM</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-1 border-t border-outline-variant/20 pt-4">
+<a class="bg-[#d1bcff] text-[#47366f] rounded-full px-4 py-2 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span>Settings</span>
+</a>
+<a class="text-[#e8e4ee] hover:bg-[#201f25] rounded-full px-4 py-2 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Help</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[280px] flex-grow flex flex-col">
+<!-- TopNavBar Component -->
+<header class="h-[60px] sticky top-0 z-50 bg-[#0e0e11]/80 backdrop-blur-xl flex justify-between items-center w-full px-8 font-['Manrope'] font-medium text-sm">
+<div class="flex items-center gap-4">
+<span class="text-lg font-bold text-[#e8e4ee]">Settings</span>
+<span class="text-on-surface-variant">/</span>
+<span class="text-[#ddccff] font-bold">LLM Configuration</span>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-[#e8e4ee] hover:text-[#ddccff] transition-colors cursor-pointer active:opacity-70">Export</button>
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-full font-bold text-xs transition-colors hover:bg-primary-dim">Share</button>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_vert</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Current Agent Avatar" data-alt="close up profile of a futuristic sleek humanoid robot with glowing violet optical sensors and brushed titanium finish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwitdJPaGeVqZrILcvrmx_Nidrcci2u0NxeyVHR0eprELa9cs5_4bIsCcImvEl7WjVSY03R2fF4GiU27yaUv95oNKkgF6CBA467q1AYbf8eshLUvGkFmdJa8CCttxT5KEj2_SapiOKcZl23mcVDYE9nmdti4W7pVYzH9NnnWuzqPc5hhWxZ2yPOn6tnxkQkfCzBxO4OjSmZyyP7dZBcL5OfWrX8nKfgj3LtaCNejIgOPb_UHM1g8Yu58CPonlta6-XBk3ZwvbeynnG"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="p-12 max-w-5xl mx-auto w-full flex flex-col gap-12">
+<!-- Page Header -->
+<section>
+<h2 class="text-4xl font-extrabold tracking-tight mb-4">Intellectual Infrastructure</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed max-w-2xl">
+                    Configure the cognitive foundations of your assistant. Connect to global cloud providers or tether to local instances for maximum privacy.
+                </p>
+</section>
+<!-- LLM Provider Cards (Bento-ish Layout) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- OpenAI Compatible (Enabled) -->
+<div class="col-span-1 md:col-span-2 bg-surface-container rounded-xl p-8 flex flex-col gap-6 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">hub</span>
+</div>
+<div>
+<h3 class="text-xl font-bold">OpenAI Compatible</h3>
+<p class="text-xs text-primary font-bold uppercase tracking-widest mt-1 flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                                    Enabled
+                                </p>
+</div>
+</div>
+<button class="bg-surface-container-highest text-on-surface px-4 py-2 rounded-full text-xs font-bold hover:bg-surface-bright transition-colors">
+                            Test Connection
+                        </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+<div class="flex flex-col gap-2">
+<label class="text-[10px] uppercase font-bold text-on-surface-variant ml-2">Base URL</label>
+<input class="bg-surface-container-lowest border-none rounded-full px-6 py-3 text-sm focus:ring-1 focus:ring-primary/20 placeholder:text-outline-variant" type="text" value="https://api.openai.com/v1"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-[10px] uppercase font-bold text-on-surface-variant ml-2">API Key</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-none rounded-full px-6 py-3 text-sm focus:ring-1 focus:ring-primary/20" type="password" value="sk-proj-••••••••••••••••"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm cursor-pointer">visibility</span>
+</div>
+</div>
+<div class="col-span-full flex flex-col gap-2">
+<label class="text-[10px] uppercase font-bold text-on-surface-variant ml-2">Model Selection</label>
+<select class="bg-surface-container-lowest border-none rounded-full px-6 py-3 text-sm focus:ring-1 focus:ring-primary/20 appearance-none">
+<option>gpt-4-turbo-preview</option>
+<option>gpt-3.5-turbo</option>
+<option>gpt-4o</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Anthropic Claude (Install) -->
+<div class="bg-surface-container rounded-xl p-8 flex flex-col justify-between border border-outline-variant/10 hover:bg-surface-bright transition-all duration-300 group">
+<div class="flex flex-col gap-4">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container/10 flex items-center justify-center text-tertiary-fixed">
+<span class="material-symbols-outlined text-3xl">auto_awesome</span>
+</div>
+<h3 class="text-xl font-bold">Anthropic Claude</h3>
+<p class="text-sm text-on-surface-variant leading-snug">
+                            Access the world's most nuanced models for creative and ethical reasoning.
+                        </p>
+</div>
+<button class="mt-8 border border-outline-variant rounded-full py-3 text-sm font-bold flex items-center justify-center gap-2 group-hover:bg-on-surface group-hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+                        Install Plugin
+                    </button>
+</div>
+<!-- Ollama Local (Install) -->
+<div class="bg-surface-container rounded-xl p-8 flex flex-col justify-between border border-outline-variant/10 hover:bg-surface-bright transition-all duration-300 group">
+<div class="flex flex-col gap-4">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">terminal</span>
+</div>
+<h3 class="text-xl font-bold">Ollama Local</h3>
+<p class="text-sm text-on-surface-variant leading-snug">
+                            Full data sovereignty. Run Llama 3 or Mistral directly on your hardware.
+                        </p>
+</div>
+<button class="mt-8 border border-outline-variant rounded-full py-3 text-sm font-bold flex items-center justify-center gap-2 group-hover:bg-on-surface group-hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+                        Install Plugin
+                    </button>
+</div>
+<!-- Resource Metrics Card (Bonus for Aesthetic Balance) -->
+<div class="col-span-1 md:col-span-2 bg-surface-container rounded-xl p-8 flex items-center gap-8 overflow-hidden relative">
+<div class="flex-grow">
+<h4 class="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-6">Cognitive Load Overview</h4>
+<div class="flex gap-12">
+<div class="flex flex-col gap-1">
+<span class="text-3xl font-bold">2.4<span class="text-sm text-on-surface-variant font-normal">ms</span></span>
+<span class="text-[10px] text-primary font-bold">Avg. Latency</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-3xl font-bold">142<span class="text-sm text-on-surface-variant font-normal">k</span></span>
+<span class="text-[10px] text-tertiary font-bold">Tokens/Mo</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-3xl font-bold">99.9<span class="text-sm text-on-surface-variant font-normal">%</span></span>
+<span class="text-[10px] text-on-surface-variant font-bold">Uptime</span>
+</div>
+</div>
+</div>
+<div class="w-32 h-32 hidden lg:flex items-center justify-center">
+<div class="w-24 h-24 rounded-full border-4 border-primary/20 border-t-primary animate-spin" style="animation-duration: 3s;"></div>
+<div class="absolute text-[10px] font-bold">SYNCING</div>
+</div>
+</div>
+</div>
+<!-- Detailed Config Table -->
+<section class="mt-4">
+<div class="flex justify-between items-end mb-6">
+<h3 class="text-xl font-bold">Advanced Parameters</h3>
+<div class="flex gap-4">
+<button class="text-sm text-on-surface-variant hover:text-on-surface transition-colors">Reset Defaults</button>
+<button class="text-sm text-primary font-bold">Apply Changes</button>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high border-b border-outline-variant/10">
+<th class="px-8 py-4 text-[10px] uppercase tracking-widest font-bold text-on-surface-variant">Parameter</th>
+<th class="px-8 py-4 text-[10px] uppercase tracking-widest font-bold text-on-surface-variant">Value</th>
+<th class="px-8 py-4 text-[10px] uppercase tracking-widest font-bold text-on-surface-variant text-right">Impact</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-bright/50 transition-colors">
+<td class="px-8 py-6">
+<div class="flex flex-col">
+<span class="font-bold">Temperature</span>
+<span class="text-xs text-on-surface-variant">Controls randomness and creativity</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<input class="w-48 accent-primary" type="range"/>
+</td>
+<td class="px-8 py-6 text-right font-mono text-tertiary">0.7 (Balanced)</td>
+</tr>
+<tr class="hover:bg-surface-bright/50 transition-colors">
+<td class="px-8 py-6">
+<div class="flex flex-col">
+<span class="font-bold">Max Tokens</span>
+<span class="text-xs text-on-surface-variant">Upper limit for response length</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<input class="bg-surface-container-lowest border-none rounded-lg px-4 py-2 text-sm w-32 focus:ring-1 focus:ring-primary/20" type="number" value="4096"/>
+</td>
+<td class="px-8 py-6 text-right font-mono text-on-surface-variant">High Clarity</td>
+</tr>
+<tr class="hover:bg-surface-bright/50 transition-colors">
+<td class="px-8 py-6">
+<div class="flex flex-col">
+<span class="font-bold">Context Window</span>
+<span class="text-xs text-on-surface-variant">Conversation memory depth</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<select class="bg-surface-container-lowest border-none rounded-lg px-4 py-2 text-sm w-48 focus:ring-1 focus:ring-primary/20 appearance-none">
+<option>Short (4k)</option>
+<option selected="">Medium (16k)</option>
+<option>Long (128k)</option>
+</select>
+</td>
+<td class="px-8 py-6 text-right font-mono text-on-surface-variant">16,384 ctx</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+<!-- FAB (Suppressed on settings according to rules, but kept placeholder structure if needed elsewhere) -->
+</body></html>

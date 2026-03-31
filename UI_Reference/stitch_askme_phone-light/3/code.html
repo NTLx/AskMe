@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AskMe - Intellectual Atelier</title>
+<!-- Google Fonts: Manrope for headlines, Inter for body -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#9fd1b8",
+              "secondary-fixed": "#ffdfa0",
+              "surface-tint": "#01696b",
+              "surface-container": "#edeeef",
+              "surface-container-high": "#e7e8e9",
+              "on-secondary-fixed-variant": "#5c4300",
+              "surface-dim": "#d9dadb",
+              "inverse-surface": "#2e3132",
+              "outline-variant": "#bec9c8",
+              "inverse-on-surface": "#f0f1f2",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed": "#002115",
+              "inverse-primary": "#85d4d5",
+              "surface-container-highest": "#e1e3e4",
+              "primary-fixed-dim": "#85d4d5",
+              "primary": "#004f51",
+              "surface-bright": "#f8f9fa",
+              "on-primary": "#ffffff",
+              "surface-container-low": "#f3f4f5",
+              "secondary": "#795900",
+              "secondary-container": "#ffbf00",
+              "on-primary-container": "#96e5e7",
+              "surface-variant": "#e1e3e4",
+              "on-surface-variant": "#3e4949",
+              "primary-fixed": "#a1f0f2",
+              "on-primary-fixed": "#002021",
+              "on-tertiary": "#ffffff",
+              "on-secondary": "#ffffff",
+              "on-surface": "#191c1d",
+              "surface": "#f8f9fa",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#fbbc00",
+              "on-tertiary-fixed-variant": "#1f4f3c",
+              "on-background": "#191c1d",
+              "error-container": "#ffdad6",
+              "on-primary-fixed-variant": "#004f51",
+              "background": "#f8f9fa",
+              "surface-container-lowest": "#ffffff",
+              "tertiary": "#1f4f3c",
+              "error": "#ba1a1a",
+              "on-secondary-fixed": "#261a00",
+              "primary-container": "#00696b",
+              "outline": "#6e7979",
+              "tertiary-container": "#386753",
+              "on-tertiary-container": "#b0e3c9",
+              "on-secondary-container": "#6d5000",
+              "tertiary-fixed": "#bbeed4"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      }
+      .scrollbar-hide::-webkit-scrollbar { display: none; }
+      .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface flex h-screen overflow-hidden">
+<!-- Navigation Drawer (Sidebar) -->
+<!-- Applying style_bg_color, style_primary_color, style_shell_layout, style_component_shape -->
+<aside class="flex flex-col h-full w-80 rounded-r-none mr-6 bg-slate-100 dark:bg-slate-900 text-teal-800 dark:text-teal-200 p-6 space-y-8 flex-shrink-0">
+<!-- Header: style_brand_logo & style_typography -->
+<header class="flex flex-col space-y-1">
+<h1 class="text-teal-900 dark:text-teal-100 font-bold font-headline tracking-tight text-3xl">AskMe</h1>
+<p class="text-on-surface-variant/70 text-xs font-headline tracking-widest uppercase">Intellectual Atelier</p>
+</header>
+<!-- New Session FAB -->
+<button class="flex items-center justify-center gap-3 bg-secondary-container text-on-secondary-container font-headline font-bold py-4 px-6 rounded-full shadow-[0_12px_32px_-4px_rgba(0,79,81,0.08)] hover:scale-105 active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span>+ New Session</span>
+</button>
+<!-- Search Bar -->
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline text-sm" data-icon="search">search</span>
+</div>
+<input class="w-full bg-surface-container border-none rounded-full py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-outline-variant font-medium transition-all" placeholder="Search..." type="text"/>
+</div>
+<!-- View Tabs: Logic mapping from NavigationDrawer JSON -->
+<!-- Icons: history, sell, smart_toy, memory -->
+<nav class="flex justify-between items-center border-b border-outline-variant/10 pb-1">
+<!-- Active Tab: Timeline (history) -->
+<button class="flex flex-col items-center gap-1 group pb-2 relative text-teal-900 dark:text-teal-50 font-bold border-b-2 border-amber-500">
+<span class="material-symbols-outlined text-[22px]" data-icon="history">history</span>
+<span class="text-[10px] font-headline">Timeline</span>
+</button>
+<button class="flex flex-col items-center gap-1 group pb-2 text-slate-600 dark:text-slate-400 font-normal hover:text-teal-900 transition-colors">
+<span class="material-symbols-outlined text-[22px]" data-icon="sell">sell</span>
+<span class="text-[10px] font-headline">Tags</span>
+</button>
+<button class="flex flex-col items-center gap-1 group pb-2 text-slate-600 dark:text-slate-400 font-normal hover:text-teal-900 transition-colors">
+<span class="material-symbols-outlined text-[22px]" data-icon="smart_toy">smart_toy</span>
+<span class="text-[10px] font-headline">Agent</span>
+</button>
+<button class="flex flex-col items-center gap-1 group pb-2 text-slate-600 dark:text-slate-400 font-normal hover:text-teal-900 transition-colors">
+<span class="material-symbols-outlined text-[22px]" data-icon="memory">memory</span>
+<span class="text-[10px] font-headline">LLM</span>
+</button>
+</nav>
+<!-- Session List (Timeline View) -->
+<div class="flex-1 overflow-y-auto scrollbar-hide -mx-2 px-2 space-y-6">
+<!-- Pinned Section -->
+<section class="space-y-3">
+<div class="flex items-center gap-2 px-2">
+<span class="material-symbols-outlined text-amber-500 text-sm" data-icon="push_pin" style="font-variation-settings: 'FILL' 1;">push_pin</span>
+<h3 class="text-[11px] font-bold text-outline uppercase tracking-widest">Pinned</h3>
+</div>
+<article class="bg-surface-container-lowest p-4 rounded-2xl cursor-pointer hover:bg-white transition-all duration-300 group border border-transparent hover:border-outline-variant/20 shadow-sm">
+<h4 class="text-on-surface font-headline font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">🎯 How to solve career burnout?</h4>
+<div class="flex items-center gap-2 text-[10px] text-on-surface-variant font-medium">
+<span class="flex items-center gap-1 bg-surface-container rounded-md px-1.5 py-0.5">温和引导者</span>
+<span class="text-outline-variant">•</span>
+<span>Claude</span>
+<span class="ml-auto text-outline-variant">2h ago</span>
+</div>
+</article>
+</section>
+<!-- Today Section -->
+<section class="space-y-3">
+<h3 class="text-[11px] font-bold text-outline uppercase tracking-widest px-2">Today</h3>
+<article class="bg-surface-container-low p-4 rounded-2xl cursor-pointer hover:bg-white transition-all duration-300 group border border-transparent hover:border-outline-variant/20">
+<h4 class="text-on-surface font-headline font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors flex items-center gap-2">
+                        📚 Learning Rust Memory Ownership
+                        <span class="material-symbols-outlined text-tertiary text-xs" data-icon="park" style="font-variation-settings: 'FILL' 1;">park</span>
+</h4>
+<div class="flex items-center gap-2 text-[10px] text-on-surface-variant font-medium">
+<span class="flex items-center gap-1 bg-surface-container rounded-md px-1.5 py-0.5">苏格拉底导师</span>
+<span class="text-outline-variant">•</span>
+<span>GPT-4</span>
+<span class="ml-auto text-outline-variant">Now</span>
+</div>
+</article>
+</section>
+<!-- Yesterday Section -->
+<section class="space-y-3">
+<h3 class="text-[11px] font-bold text-outline uppercase tracking-widest px-2">Yesterday</h3>
+<article class="bg-surface-container-low p-4 rounded-2xl cursor-pointer hover:bg-white transition-all duration-300 group border border-transparent hover:border-outline-variant/20 opacity-80 hover:opacity-100">
+<h4 class="text-on-surface font-headline font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">💭 Deep Dialogue: The meaning of life</h4>
+<div class="flex items-center gap-2 text-[10px] text-on-surface-variant font-medium">
+<span class="flex items-center gap-1 bg-surface-container rounded-md px-1.5 py-0.5">中立探索者</span>
+<span class="text-outline-variant">•</span>
+<span>Claude</span>
+<span class="ml-auto text-outline-variant">22h</span>
+</div>
+</article>
+</section>
+</div>
+<!-- Footer / User Info -->
+<footer class="pt-4 mt-auto">
+<div class="flex items-center gap-3 p-2 rounded-2xl hover:bg-surface-container transition-colors cursor-pointer">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white font-headline font-bold shadow-lg overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a thoughtful man in a library with soft warm bokeh lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXnRVvY6V8HgpSUmcV-URd9UT2_NVA8It3xe80DO1DGzGmT-1fYlf6tliK-snDBbwGT9fskIjt4G7xnLvvJLvAJpbxaJjPzTfRiwCBt0iouLTToY7bYbTstmxGxgda7SdoAaBBFfxk4Cw9IrAXjXEpVgWKjoxsqw5Q8BhstFVtp9qFlFSSqaZVkNkQoBL8M06-gqQ8ai4ckytV0uvQsDx9np8ukHgD-Rfv2dx-cfbPh48Tl5AoPOYZZiPwp_iNyeyqP1aWQcBj1UE"/>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-headline font-bold text-on-surface">Curator's Mind</span>
+<span class="text-[10px] text-on-surface-variant">Premium Sage Plan</span>
+</div>
+<button class="ml-auto material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="settings">settings</button>
+</div>
+</footer>
+</aside>
+<!-- Main Canvas Area (Focus: Deep Thought Interface) -->
+<main class="flex-1 flex flex-col bg-surface-container-lowest overflow-hidden">
+<!-- Top App Bar - Logic from JSON -->
+<header class="bg-white/85 dark:bg-slate-950/85 backdrop-blur-xl text-teal-900 dark:text-teal-100 font-manrope font-bold tracking-tight text-lg docked full-width top-0 sticky z-50 flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-full transition-colors active:scale-95 duration-150" data-icon="menu">menu</button>
+<h2 class="text-teal-900 dark:text-teal-100 font-bold">Learning Rust</h2>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1 px-3 py-1 bg-tertiary-fixed-dim/20 rounded-full text-xs text-tertiary font-bold">
+<span class="material-symbols-outlined text-xs" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                    Socratic Mode
+                </div>
+<button class="material-symbols-outlined hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-full transition-colors active:scale-95 duration-150" data-icon="settings">settings</button>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="flex-1 overflow-y-auto px-6 py-10 md:px-20 lg:px-40 space-y-12">
+<!-- Welcome / Hero State -->
+<section class="max-w-2xl mx-auto text-center space-y-6 py-12">
+<div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-primary-container text-white mb-4">
+<span class="material-symbols-outlined text-4xl" data-icon="temp_preferences_custom">temp_preferences_custom</span>
+</div>
+<h2 class="text-4xl md:text-5xl font-headline font-extrabold tracking-tight text-on-surface">What shall we <span class="text-primary italic">explore</span> today?</h2>
+<p class="text-lg text-on-surface-variant font-body leading-relaxed max-w-lg mx-auto">
+                    Choose a curator or begin a new dialogue. Your intellectual atelier is ready for deep inquiry.
+                </p>
+</section>
+<!-- Scenario Cards (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto pb-24">
+<div class="bg-surface-container-low p-8 rounded-[2rem] space-y-4 hover:bg-surface-container-highest transition-all duration-300 cursor-pointer border border-outline-variant/15">
+<div class="w-12 h-12 rounded-2xl bg-teal-500/10 flex items-center justify-center text-teal-700">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+</div>
+<h3 class="text-xl font-headline font-bold">Mental Models</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">Deconstruct complex systems using First Principles or Inversion techniques with the Sage Agent.</p>
+</div>
+<div class="bg-surface-container-low p-8 rounded-[2rem] space-y-4 hover:bg-surface-container-highest transition-all duration-300 cursor-pointer border border-outline-variant/15">
+<div class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-700">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+</div>
+<h3 class="text-xl font-headline font-bold">Historical Critique</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">Analyze modern events through the lens of Stoic philosophy or Renaissance humanism.</p>
+</div>
+<div class="md:col-span-2 bg-primary text-white p-8 rounded-[2rem] flex flex-col md:flex-row items-center gap-8 overflow-hidden relative border border-primary-container shadow-2xl">
+<div class="flex-1 space-y-4 z-10">
+<span class="inline-block px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold uppercase tracking-widest">New Capability</span>
+<h3 class="text-2xl font-headline font-bold">Synthesize Research</h3>
+<p class="text-sm text-teal-50/80 leading-relaxed">Connect disparate nodes from your last 5 sessions into a unified thesis using our new Semantic Mapping engine.</p>
+<button class="bg-secondary-container text-on-secondary-container px-6 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform">Map My Thoughts</button>
+</div>
+<div class="w-full md:w-64 h-48 rounded-2xl bg-white/5 backdrop-blur-md relative overflow-hidden">
+<img alt="Abstract Nodes" class="w-full h-full object-cover mix-blend-overlay opacity-60" data-alt="Minimalist architectural visualization of floating glowing nodes and geometric lines in a deep teal space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBesZ1rOcnwB_arKcnp_OqPJmx8RuAoywhymPD8lLaSd7OdUyhDUWDd6M34zRkfVEHd9DgMRg_e0EFvvVXDT9N5Qaxi6wF4ZNVqxP_5Db96mVIhIBfM_4gsQPZtZQLfxg8u15I9UNKuSxWe8sew5DPZtop_LR7y3bUsVl7v2ezPRcCfYdObIH0lSvGF4s92P9d7XTfSs152VBShupRJkXLy26DklQYOdSbvB04MBZrqPcQe9Gq2ifY-yPwLAThr0TtfOwjOn_arAlg"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Shell (Floating Anchor) -->
+<div class="fixed bottom-0 left-80 right-0 p-6 md:px-20 lg:px-40 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest to-transparent pointer-events-none">
+<div class="max-w-4xl mx-auto pointer-events-auto">
+<div class="bg-white border border-outline-variant/20 shadow-[0_12px_32px_-4px_rgba(0,79,81,0.08)] rounded-3xl p-2 flex items-center gap-2">
+<button class="p-3 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="attach_file">attach_file</span>
+</button>
+<textarea class="flex-1 border-none focus:ring-0 text-sm py-3 resize-none max-h-32 min-h-[44px] placeholder:text-outline-variant" placeholder="Ask anything... Shift + Enter for newline"></textarea>
+<button class="bg-primary text-white p-3 rounded-2xl hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="send" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+<div class="text-center mt-3 pb-2">
+<p class="text-[10px] text-outline uppercase tracking-tighter">Powered by Intellectual Atelier Engine v2.4 • Confidential &amp; Encrypted</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Hidden on desktop, logic from JSON) -->
+<nav class="md:hidden fixed bottom-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-white dark:bg-slate-950 z-50 rounded-t-3xl border-t border-slate-100 dark:border-slate-800 shadow-[0_-12px_32px_-4px_rgba(0,79,81,0.08)]">
+<button class="bg-amber-100 dark:bg-amber-900/30 text-amber-900 dark:text-amber-100 rounded-2xl p-3 active:scale-90 duration-200">
+<span class="material-symbols-outlined" data-icon="add_circle" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+</button>
+<button class="text-slate-400 dark:text-slate-500 p-3 hover:text-amber-600 active:scale-90 duration-200">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</nav>
+</body></html>

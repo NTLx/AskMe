@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AskMe - Learning Rust</title>
+<!-- Google Fonts: Manrope (Headlines) & Inter (Body) -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#9fd1b8",
+              "secondary-fixed": "#ffdfa0",
+              "surface-tint": "#01696b",
+              "surface-container": "#edeeef",
+              "surface-container-high": "#e7e8e9",
+              "on-secondary-fixed-variant": "#5c4300",
+              "surface-dim": "#d9dadb",
+              "inverse-surface": "#2e3132",
+              "outline-variant": "#bec9c8",
+              "inverse-on-surface": "#f0f1f2",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed": "#002115",
+              "inverse-primary": "#85d4d5",
+              "surface-container-highest": "#e1e3e4",
+              "primary-fixed-dim": "#85d4d5",
+              "primary": "#004f51",
+              "surface-bright": "#f8f9fa",
+              "on-primary": "#ffffff",
+              "surface-container-low": "#f3f4f5",
+              "secondary": "#795900",
+              "secondary-container": "#ffbf00",
+              "on-primary-container": "#96e5e7",
+              "surface-variant": "#e1e3e4",
+              "on-surface-variant": "#3e4949",
+              "primary-fixed": "#a1f0f2",
+              "on-primary-fixed": "#002021",
+              "on-tertiary": "#ffffff",
+              "on-secondary": "#ffffff",
+              "on-surface": "#191c1d",
+              "surface": "#f8f9fa",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#fbbc00",
+              "on-tertiary-fixed-variant": "#1f4f3c",
+              "on-background": "#191c1d",
+              "error-container": "#ffdad6",
+              "on-primary-fixed-variant": "#004f51",
+              "background": "#f8f9fa",
+              "surface-container-lowest": "#ffffff",
+              "tertiary": "#1f4f3c",
+              "error": "#ba1a1a",
+              "on-secondary-fixed": "#261a00",
+              "primary-container": "#00696b",
+              "outline": "#6e7979",
+              "tertiary-container": "#386753",
+              "on-tertiary-container": "#b0e3c9",
+              "on-secondary-container": "#6d5000",
+              "tertiary-fixed": "#bbeed4"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .leaf-shape {
+            border-radius: 1.5rem 1.5rem 1.5rem 0.25rem;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface flex h-screen overflow-hidden">
+<!-- Navigation Drawer (Desktop) -->
+<aside class="hidden md:flex flex-col h-full w-80 bg-surface-container p-6 space-y-8 mr-6">
+<div class="flex items-center gap-3 px-2">
+<span class="text-primary font-headline font-extrabold text-xl tracking-tight">Intellectual Atelier</span>
+</div>
+<nav class="flex-1 space-y-2">
+<div class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all hover:bg-surface-container-high text-slate-600 font-normal">
+<span class="material-symbols-outlined">history</span>
+<span class="font-headline tracking-tight">Timeline</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all hover:bg-surface-container-high text-slate-600 font-normal">
+<span class="material-symbols-outlined">sell</span>
+<span class="font-headline tracking-tight">Tags</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all bg-surface-container-highest text-teal-900 font-bold border-b-2 border-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<span class="font-headline tracking-tight">Agent</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all hover:bg-surface-container-high text-slate-600 font-normal">
+<span class="material-symbols-outlined">memory</span>
+<span class="font-headline tracking-tight">LLM</span>
+</div>
+</nav>
+<div class="bg-surface-container-low p-4 rounded-2xl">
+<p class="text-xs font-label text-on-surface-variant mb-3 uppercase tracking-widest">Active Insight</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div>
+<p class="text-sm font-bold font-headline">Socrates</p>
+<p class="text-xs text-on-surface-variant">Socratic Method</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Chat Canvas -->
+<main class="flex-1 flex flex-col relative bg-surface-container-lowest h-full md:rounded-l-[2rem] shadow-2xl shadow-primary/5 overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-white/85 backdrop-blur-xl sticky top-0 z-50 flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-teal-900 p-2 hover:bg-slate-100 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex flex-col">
+<h1 class="text-teal-900 font-headline font-bold tracking-tight text-lg">Learning Rust</h1>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+<span class="text-xs text-on-surface-variant font-medium">Memory Ownership</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low px-4 py-2 rounded-full">
+<span class="text-xs font-bold text-primary font-headline">Socrates</span>
+<span class="text-sm">🧠</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container transition-colors rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined">ios_share</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container transition-colors rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Chat History Area -->
+<section class="flex-1 overflow-y-auto p-6 md:p-12 space-y-10 no-scrollbar">
+<!-- Welcome Header (Magazine Style) -->
+<div class="max-w-3xl mx-auto text-center py-8 space-y-4">
+<h2 class="text-4xl md:text-5xl font-headline font-extrabold text-primary tracking-tighter">Deep Dive: Rust Ownership</h2>
+<p class="text-on-surface-variant font-body leading-relaxed max-w-xl mx-auto">Exploring the architectural foundations of memory safety through Socratic inquiry.</p>
+</div>
+<div class="max-w-3xl mx-auto space-y-8">
+<!-- AI Message -->
+<div class="flex flex-col items-start gap-3">
+<div class="flex items-center gap-2 px-1">
+<span class="text-lg">🤔</span>
+<span class="text-xs font-bold font-headline uppercase tracking-widest text-primary">AskMe</span>
+</div>
+<div class="bg-primary-container text-white p-6 leaf-shape shadow-sm max-w-[85%]">
+<p class="font-body text-lg leading-relaxed">
+                            Great! You already understand the basic concept of ownership. Let me ask you: If you have a function that wants to "borrow" a String instead of taking it, what mechanism do you think Rust provides?
+                        </p>
+</div>
+<!-- AI Actions -->
+<div class="flex items-center gap-1 mt-1 opacity-60 hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors" title="Branch">
+<span class="material-symbols-outlined text-[20px]">account_tree</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors" title="Copy">
+<span class="material-symbols-outlined text-[20px]">content_copy</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors" title="Upvote">
+<span class="material-symbols-outlined text-[20px]">thumb_up</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors" title="Downvote">
+<span class="material-symbols-outlined text-[20px]">thumb_down</span>
+</button>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex flex-col items-end gap-3">
+<div class="flex items-center gap-2 px-1">
+<span class="text-xs font-bold font-headline uppercase tracking-widest text-on-surface-variant">You</span>
+<span class="text-lg">👤</span>
+</div>
+<div class="bg-white border border-outline-variant/20 p-6 rounded-2xl rounded-tr-none shadow-sm max-w-[85%]">
+<p class="font-body text-lg leading-relaxed text-on-surface">
+                            Is it reference? The &amp; symbol?
+                        </p>
+</div>
+</div>
+<!-- Spacer for scrolling -->
+<div class="h-32"></div>
+</div>
+</section>
+<!-- Input Area -->
+<div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/90 to-transparent">
+<div class="max-w-3xl mx-auto">
+<div class="flex flex-col gap-3">
+<!-- Tip/Status -->
+<div class="flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60">
+<span class="material-symbols-outlined text-[14px]">info</span>
+<span>AI will ask you questions to guide your learning</span>
+</div>
+<!-- Input Bar -->
+<div class="relative group">
+<div class="absolute -inset-0.5 bg-gradient-to-r from-primary/10 to-secondary-container/10 rounded-[2rem] blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative flex items-center bg-white rounded-[2rem] p-2 shadow-lg border border-outline-variant/10">
+<button class="p-3 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<input class="flex-1 bg-transparent border-none focus:ring-0 font-body text-on-surface px-2 placeholder:text-outline-variant" placeholder="Enter to send" type="text"/>
+<button class="bg-secondary-container text-on-secondary-container h-12 w-12 rounded-full flex items-center justify-center shadow-md active:scale-90 transition-transform duration-200 ml-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Mobile Bottom Nav -->
+<nav class="md:hidden fixed bottom-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-white shadow-[0_-12px_32px_-4px_rgba(0,79,81,0.08)] z-50 rounded-t-3xl border-t border-slate-100">
+<div class="bg-amber-100 text-amber-900 rounded-2xl p-3 flex flex-col items-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+</div>
+<div class="text-slate-400 p-3">
+<span class="material-symbols-outlined">sell</span>
+</div>
+<div class="text-slate-400 p-3">
+<span class="material-symbols-outlined">add_circle</span>
+</div>
+<div class="text-slate-400 p-3">
+<span class="material-symbols-outlined">smart_toy</span>
+</div>
+</nav>
+</main>
+<!-- Contextual FAB (Only visible on larger screens where it fits the aesthetic) -->
+<button class="hidden lg:flex fixed bottom-10 right-10 bg-secondary-container text-on-secondary-container h-16 w-16 rounded-full items-center justify-center shadow-[0_12px_32px_-4px_rgba(0,79,81,0.15)] hover:scale-105 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl">edit_note</span>
+</button>
+</body></html>

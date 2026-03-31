@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AskMe - LaunchPad</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#ffb875",
+              "surface-tint": "#3cddc7",
+              "on-tertiary": "#4b2800",
+              "on-primary-container": "#00574d",
+              "background": "#0b1326",
+              "on-surface": "#dae2fd",
+              "secondary": "#ffb95f",
+              "on-secondary": "#472a00",
+              "on-surface-variant": "#bacac5",
+              "surface-container-low": "#131b2e",
+              "secondary-fixed": "#ffddb8",
+              "secondary-fixed-dim": "#ffb95f",
+              "on-error-container": "#ffdad6",
+              "on-secondary-container": "#5b3800",
+              "primary-fixed-dim": "#3cddc7",
+              "on-error": "#690005",
+              "tertiary": "#ffd1aa",
+              "surface-variant": "#2d3449",
+              "primary-fixed": "#62fae3",
+              "inverse-surface": "#dae2fd",
+              "on-tertiary-container": "#744000",
+              "surface-dim": "#0b1326",
+              "on-secondary-fixed": "#2a1700",
+              "on-background": "#dae2fd",
+              "surface-container-lowest": "#060e20",
+              "tertiary-container": "#ffac5a",
+              "surface-bright": "#31394d",
+              "secondary-container": "#ee9800",
+              "on-tertiary-fixed": "#2d1600",
+              "inverse-primary": "#006b5f",
+              "outline": "#859490",
+              "surface-container": "#171f33",
+              "surface-container-high": "#222a3d",
+              "on-tertiary-fixed-variant": "#6b3b00",
+              "surface-container-highest": "#2d3449",
+              "on-primary-fixed-variant": "#005047",
+              "surface": "#0b1326",
+              "error": "#ffb4ab",
+              "error-container": "#93000a",
+              "on-secondary-fixed-variant": "#653e00",
+              "primary": "#57f1db",
+              "inverse-on-surface": "#283044",
+              "tertiary-fixed": "#ffdcc0",
+              "primary-container": "#2dd4bf",
+              "outline-variant": "#3c4a46",
+              "on-primary-fixed": "#00201c",
+              "on-primary": "#003731"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .font-manrope { font-family: 'Manrope', sans-serif; }
+      .scale-98-active:active { transform: scale(0.98); }
+      .shadow-teal-glow-32px { shadow: 0 16px 32px -8px rgba(60, 221, 199, 0.1); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30 min-h-screen">
+<!-- TopAppBar Execution -->
+<header class="fixed top-0 z-50 flex items-center justify-between px-6 w-full h-20 bg-[#131b2e] no-line tonal-shift flat-no-shadows">
+<div class="flex items-center gap-4">
+<button class="text-[#bacac5] hover:bg-[#31394d] p-2 rounded-lg transition-colors duration-300 scale-98-active cubic-bezier-0.4-0-0.2-1">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-2xl font-bold text-[#2dd4bf] tracking-tighter font-manrope">AskMe</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex items-center gap-8 font-manrope uppercase tracking-widest text-xs">
+<a class="text-[#2dd4bf]" href="#">Home</a>
+<a class="text-[#bacac5] hover:bg-[#31394d] transition-colors" href="#">History</a>
+<a class="text-[#bacac5] hover:bg-[#31394d] transition-colors" href="#">Vault</a>
+</nav>
+<div class="h-10 w-10 rounded-full bg-surface-container-highest border border-outline-variant/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a thoughtful scholar with glasses in a dimly lit library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJRzDACZmHTQ1c366vN_QpgZ-C7Z8kemZSmOTImjqb--MqnmqI8jxPoZ1wO1B0RcXVVO6T6zF3dKTqSadGFP8lOsABuUOsZ7c9RRagTjugkvPvbVUvxVjpHRqyVYplHskxl1IRxi8hlbEEKH9oPn7Y6NTz-VWHAuO1ZP6zaJXLYGl4D4PmReBRNSZinFTHsHzO8rlPhRMEsSH_9hUmLXK-HMUFbMO2cVg4xllIByf_h-dl96jC6c4EfDxXlsfIof1zALT-WpzMxPc"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto">
+<!-- Hero Section -->
+<section class="mb-16">
+<div class="flex flex-col gap-2 mb-8">
+<span class="text-secondary label-md uppercase tracking-widest text-xs font-bold">LaunchPad</span>
+<h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter text-on-surface">Where do you wish to travel tonight?</h2>
+<p class="text-on-surface-variant max-w-2xl text-lg mt-4">The Digital Nocturne is active. Focus your mind, select a path, and let the inquiry begin.</p>
+</div>
+<!-- Bento Grid Content Inquiry Categories -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Problem Solving (Large asymmetric) -->
+<div class="md:col-span-8 group cursor-pointer relative overflow-hidden bg-surface-container rounded-tl-xl rounded-br-xl rounded-tr-sm rounded-bl-sm p-8 transition-all duration-300 hover:bg-surface-bright">
+<div class="flex flex-col h-full justify-between relative z-10">
+<div>
+<span class="material-symbols-outlined text-primary text-4xl mb-4" data-icon="architecture">architecture</span>
+<h3 class="text-3xl font-bold tracking-tight mb-2">Problem Solving</h3>
+<p class="text-on-surface-variant max-w-sm">Deconstruct complex architectures, debug logic, or strategize multi-phase solutions with precision.</p>
+</div>
+<div class="mt-12 flex items-center gap-4">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-md text-xs font-bold tracking-widest uppercase border border-primary/20">Analytical</span>
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-md text-xs font-bold tracking-widest uppercase border border-primary/20">Strategic</span>
+</div>
+</div>
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-10 group-hover:opacity-20 transition-opacity">
+<img class="w-full h-full object-cover" data-alt="abstract schematic blue print with glowing nodes and data lines on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHVxiWt0uJhmcrIrvRmXlad1H_nzQ69nc-tCV3D7qUtwVpquwXv0brMn57orKv709JPADvHdk4uwmQLVAIU3qvdD9aRJtN3vpJ1K48qlAZcAuZNavUBiMOBwWgE7JcdxRHlKjPOfSS_DuxE3QUEtAof_jM9FwZbQFaJ7iWGyMQSq1xH_VDAy-JFs2_dcO4xsdgszy-WjwqtLN2toa0OjRDSYuDC2TrrrhSPN_Ym1h8W9xX7tuzTaCqHPs9VhvW4WV378PTO_z8p0s"/>
+</div>
+</div>
+<!-- Learning & Exploration (Small asymmetric) -->
+<div class="md:col-span-4 group cursor-pointer relative overflow-hidden bg-surface-container-low rounded-tr-xl rounded-bl-xl rounded-tl-sm rounded-br-sm p-8 transition-all duration-300 hover:bg-surface-bright">
+<div class="flex flex-col h-full justify-between">
+<div>
+<span class="material-symbols-outlined text-secondary text-4xl mb-4" data-icon="auto_stories">auto_stories</span>
+<h3 class="text-2xl font-bold tracking-tight mb-2">Learning &amp; Exploration</h3>
+<p class="text-on-surface-variant text-sm">Traverse new disciplines from first principles to advanced mastery.</p>
+</div>
+<button class="mt-8 self-start text-primary font-bold flex items-center gap-2 group-hover:gap-4 transition-all">
+                            Explore <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Deep Dialogue (Small asymmetric) -->
+<div class="md:col-span-4 group cursor-pointer relative overflow-hidden bg-surface-container-low rounded-tr-xl rounded-bl-xl rounded-tl-sm rounded-br-sm p-8 transition-all duration-300 hover:bg-surface-bright">
+<div class="flex flex-col h-full justify-between">
+<div>
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-4xl mb-4" data-icon="psychology_alt">psychology_alt</span>
+<h3 class="text-2xl font-bold tracking-tight mb-2">Deep Dialogue</h3>
+<p class="text-on-surface-variant text-sm">Engage in philosophical discourse or dialectic reasoning sessions.</p>
+</div>
+<div class="mt-8 flex -space-x-2">
+<div class="h-8 w-8 rounded-full border-2 border-surface bg-surface-container-highest flex items-center justify-center text-[10px] font-bold">AI</div>
+<div class="h-8 w-8 rounded-full border-2 border-surface bg-primary text-on-primary flex items-center justify-center text-[10px] font-bold">YOU</div>
+</div>
+</div>
+</div>
+<!-- Seek Inspiration (Large asymmetric) -->
+<div class="md:col-span-8 group cursor-pointer relative overflow-hidden bg-surface-container rounded-tl-xl rounded-br-xl rounded-tr-sm rounded-bl-sm p-8 transition-all duration-300 hover:bg-surface-bright">
+<div class="flex flex-col h-full justify-between relative z-10">
+<div>
+<span class="material-symbols-outlined text-primary-fixed-dim text-4xl mb-4" data-icon="tempest">storm</span>
+<h3 class="text-3xl font-bold tracking-tight mb-2">Seek Inspiration</h3>
+<p class="text-on-surface-variant max-w-sm">Break through creative blocks with lateral thinking exercises and spark new mental connections.</p>
+</div>
+<div class="mt-12">
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-1/3 h-full bg-primary shadow-[0_0_10px_rgba(87,241,219,0.5)]"></div>
+</div>
+<p class="text-[10px] uppercase tracking-widest mt-2 text-on-surface-variant font-bold">Ideation capacity: 32% active</p>
+</div>
+</div>
+<div class="absolute bottom-0 right-0 w-2/3 h-2/3 opacity-20 group-hover:opacity-30 transition-opacity">
+<img class="w-full h-full object-cover" data-alt="satellite view of a glowing digital earth with neon interconnected lines at night" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApybC6shIJb0ExAqayCIMELKamjMgzrWDC52p-bkYjRXYBpH_VBg80v77B2gPwUXBq59qMWxmIlYcTCwRWOfOrrsLOmGr8T3Kazd9v3Ekv-dsf1oEaOFIEizeH4xI7KEi_fqR6tM4pk2NmCZau7-4CtgJ5JS2TDkQO1RDJoAyg8WTsN_3us20ivC3KGwvHUn3YuBh9Bwlujlm-cBNEJsYM2oA0HeuL1mRnOMSq-s_1V6Mc1nuZ0FuGJVszzh3sF0W29Y-2rde_wa0"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Secondary Actions Section -->
+<section class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="p-6 bg-surface-container-highest rounded-xl flex items-center justify-between border-b-2 border-transparent hover:border-primary transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="neurology">neurology</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Adaptive Persona</h4>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest">Profile: The Scholar</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+<div class="p-6 bg-surface-container-highest rounded-xl flex items-center justify-between border-b-2 border-transparent hover:border-primary transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="memory">memory</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Session Memory</h4>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest">42 active context nodes</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Execution -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-[#171f33]/80 backdrop-blur-xl tonal-shift-no-border shadow-2xl rounded-t-xl">
+<a class="bg-[#2dd4bf] text-[#003731] rounded-2xl p-3 scale-110 flex items-center justify-center transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="chat" style="font-variation-settings: 'FILL' 1;">chat</span>
+</a>
+<a class="text-[#bacac5] p-3 hover:text-[#57f1db] transition-all flex items-center justify-center" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+</a>
+<a class="text-[#bacac5] p-3 hover:text-[#57f1db] transition-all flex items-center justify-center" href="#">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+</a>
+<a class="text-[#bacac5] p-3 hover:text-[#57f1db] transition-all flex items-center justify-center" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+</nav>
+<!-- Side Navigation Drawer (Simulated visibility for structure) -->
+<aside class="hidden lg:flex fixed inset-y-0 left-0 z-50 w-80 flex-col p-4 bg-[#131b2e] rounded-r-lg shadow-teal-glow-32px transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+<div class="flex items-center gap-4 p-4 mb-8 bg-surface-container rounded-lg">
+<div class="h-12 w-12 rounded-full border-2 border-[#2dd4bf] overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="profile avatar of a professional in a modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW6sLiwjPxKw7pI1tVhlgCxoDECwKvie-bUte2nt91eA15bKXzi33zfujL5ArbZDFAr5RkCPT6RhVwV8JCev4zbYzHgjcRwsecD0XgMsXVp9gfoLOnV96MnpAkkpZq-JYpgrJragrykMm4VCvv4wtIL4CPghmvfqCG9-MSlzbUDvh34uX2_gXS7aQ63abjiw0cnrngXSCCB2F3by5PR17tunAVlUrwOjwYP4ZDqemrEvavhTdRqtaGujzwtwOaT_w7p7NqzxKK9pU"/>
+</div>
+<div>
+<p class="font-black text-[#2dd4bf] text-sm uppercase tracking-widest">The Scholar</p>
+<p class="text-[10px] text-[#bacac5] lowercase tracking-widest">curious@mind.edu</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-4 p-4 bg-[#2dd4bf]/10 text-[#2dd4bf] font-bold rounded-md font-manrope uppercase tracking-widest text-xs" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                History
+            </a>
+<a class="flex items-center gap-4 p-4 text-[#bacac5] font-medium hover:bg-[#171f33] transition-colors font-manrope uppercase tracking-widest text-xs" href="#">
+<span class="material-symbols-outlined" data-icon="sell">sell</span>
+                Tags
+            </a>
+<a class="flex items-center gap-4 p-4 text-[#bacac5] font-medium hover:bg-[#171f33] transition-colors font-manrope uppercase tracking-widest text-xs" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-4 p-4 text-[#bacac5] font-medium hover:bg-[#171f33] transition-colors font-manrope uppercase tracking-widest text-xs" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Help
+            </a>
+</nav>
+<div class="mt-auto p-4 border-t border-outline-variant/10">
+<div class="p-4 bg-surface-container-lowest rounded-lg border border-primary/10">
+<p class="text-[10px] font-bold text-primary mb-2 uppercase tracking-widest">Storage Status</p>
+<div class="h-1 bg-surface-container rounded-full w-full mb-1">
+<div class="h-full bg-primary w-2/3"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant">2.4GB of 5GB used</p>
+</div>
+</div>
+</aside>
+</body></html>

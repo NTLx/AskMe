@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container": "#efedf3",
+                        "surface-tint": "#6750a5",
+                        "on-surface-variant": "#5e5e65",
+                        "surface-dim": "#dad9e1",
+                        "primary-dim": "#5b4497",
+                        "on-error": "#fff7f7",
+                        "surface-container-low": "#f5f3f8",
+                        "primary-container": "#bba2fd",
+                        "inverse-primary": "#bba2fd",
+                        "on-secondary-container": "#554f63",
+                        "on-tertiary": "#fff7f9",
+                        "error-dim": "#6b0221",
+                        "secondary-container": "#e8def8",
+                        "primary-fixed": "#bba2fd",
+                        "inverse-on-surface": "#9e9ca0",
+                        "outline-variant": "#b2b1b8",
+                        "inverse-surface": "#0e0e11",
+                        "background": "#fbf8fc",
+                        "on-tertiary-container": "#5f3956",
+                        "primary": "#6750a5",
+                        "tertiary-dim": "#6e4664",
+                        "on-background": "#313238",
+                        "on-tertiary-fixed-variant": "#694260",
+                        "tertiary-fixed": "#f4bfe3",
+                        "surface-variant": "#e3e1e9",
+                        "secondary-fixed-dim": "#dad0ea",
+                        "secondary": "#625c71",
+                        "surface": "#fbf8fc",
+                        "on-primary-fixed-variant": "#41297c",
+                        "on-secondary-fixed-variant": "#5f586e",
+                        "on-primary": "#fdf7ff",
+                        "on-primary-fixed": "#1e0053",
+                        "outline": "#7a7a81",
+                        "secondary-fixed": "#e8def8",
+                        "secondary-dim": "#565065",
+                        "on-secondary": "#fdf7ff",
+                        "on-tertiary-fixed": "#4a2642",
+                        "surface-container-highest": "#e3e1e9",
+                        "surface-container-high": "#e9e7ee",
+                        "primary-fixed-dim": "#ad95ef",
+                        "tertiary-container": "#f4bfe3",
+                        "on-primary-container": "#381e72",
+                        "error-container": "#f97386",
+                        "error": "#a8364b",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#423c50",
+                        "surface-bright": "#fbf8fc",
+                        "tertiary": "#7b5270",
+                        "tertiary-fixed-dim": "#e5b2d5",
+                        "on-error-container": "#6e0523",
+                        "on-surface": "#313238"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar (Shared Component) -->
+<aside class="h-screen w-[280px] fixed left-0 top-0 border-none bg-[#efedf3] dark:bg-slate-900 flex flex-col py-8 px-6 z-40">
+<div class="mb-10">
+<h1 class="text-xl font-bold text-[#6750a4] dark:text-[#d0bcff]">The Curator</h1>
+<p class="text-xs font-medium text-on-surface-variant tracking-wider uppercase mt-1">Academic Scholar</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-[#5e5e65] dark:text-slate-400 hover:bg-[#ffffff]/50 dark:hover:bg-slate-800/50 transition-colors duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-medium text-sm tracking-tight">Timeline</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#5e5e65] dark:text-slate-400 hover:bg-[#ffffff]/50 dark:hover:bg-slate-800/50 transition-colors duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="sell">sell</span>
+<span class="font-medium text-sm tracking-tight">Tags</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#6750a4] dark:text-[#d0bcff] font-bold bg-[#ffffff] dark:bg-slate-800 rounded-lg active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<span class="font-medium text-sm tracking-tight">Agents</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#5e5e65] dark:text-slate-400 hover:bg-[#ffffff]/50 dark:hover:bg-slate-800/50 transition-colors duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="memory">memory</span>
+<span class="font-medium text-sm tracking-tight">LLM</span>
+</a>
+</nav>
+<div class="pt-6 mt-6 border-t border-outline-variant/10 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-[#5e5e65] dark:text-slate-400 hover:bg-[#ffffff]/50 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-medium text-sm tracking-tight">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#5e5e65] dark:text-slate-400 hover:bg-[#ffffff]/50 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-medium text-sm tracking-tight">Help</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-[280px] min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="sticky top-0 right-0 w-full z-30 bg-[#fbf8fc]/70 backdrop-blur-xl flex justify-between items-center h-16 px-10 shadow-[0_8px_32px_0_rgba(49,50,56,0.06)]">
+<div class="flex items-center gap-4">
+<span class="text-lg font-extrabold text-[#313238]">AskMe AI</span>
+<div class="h-4 w-[1px] bg-outline-variant/30"></div>
+<span class="text-[#6750a4] font-semibold text-lg tracking-tight border-b-2 border-[#6750a4]">Research Session: Quantum Ethics</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-[#5e5e65] hover:text-[#6750a4] transition-colors">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+</button>
+<button class="p-2 text-[#5e5e65] hover:text-[#6750a4] transition-colors">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xs overflow-hidden">
+<img alt="User profile avatar" data-alt="close-up portrait of a professional academic scholar in a minimalist modern study environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXbcjXU5b0QQ8SKSk40RDuChiqZ5oxYu0rkPnWQt1Zzbjs9pdnOZq1D0AXBviK1DWZFDtymBxfaNrllC6YSY5BCiIp819HK9kAuSBf5bYR3NMR7MXTVNfKvGrXvaMaVP6gKsJ7HXLoDyE9Iw4n_ohJPNU_Y6Z-ZvzvCo9G4HFGemHpBGPBdbJi5_jRyUyVhjcmVaamwHHn0bckB2WMqEyT7g1ti2QFcL19VTOMgcwO0EbGMzqNbLww1yAO3WNI7NSjzY3R8qn_QnNe"/>
+</div>
+</div>
+</header>
+<!-- Page Hero -->
+<section class="px-10 py-16 max-w-6xl">
+<h2 class="text-5xl font-extrabold tracking-tight text-on-surface mb-4 leading-tight">Curate your intellectual companions.</h2>
+<p class="text-on-surface-variant text-xl max-w-2xl font-medium">Select and customize the personality of your AI. Each agent employs a unique questioning strategy to refine your research.</p>
+</section>
+<!-- Persona Bento Grid -->
+<section class="px-10 pb-20">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Create New Persona -->
+<button class="group relative flex flex-col items-center justify-center h-64 rounded-xl border-2 border-dashed border-outline-variant hover:border-primary hover:bg-surface-container-low transition-all duration-300">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-on-primary-container" data-icon="add">add</span>
+</div>
+<span class="mt-4 font-bold text-on-surface">Create New Persona</span>
+<span class="text-sm text-on-surface-variant">Design a custom inquiry logic</span>
+</button>
+<!-- Gentle Guide -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col h-64 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 rounded-lg bg-secondary-container flex items-center justify-center">
+<span class="text-2xl">🤗</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="more_vert">more_vert</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-2">Gentle Guide</h3>
+<p class="text-on-surface-variant text-sm flex-1 leading-relaxed">Prioritizes emotional safety and gradual complexity. Perfect for exploring sensitive topics with empathetic inquiry.</p>
+<div class="flex gap-2 mt-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-[10px] font-bold tracking-wider uppercase text-on-surface-variant">Empathetic</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-[10px] font-bold tracking-wider uppercase text-on-surface-variant">Soft-paced</span>
+</div>
+</div>
+<!-- Socrates -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col h-64 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="more_vert">more_vert</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-2">Socrates</h3>
+<p class="text-on-surface-variant text-sm flex-1 leading-relaxed">Uses dialectic questioning to expose contradictions and build arguments from first principles.</p>
+<div class="flex gap-2 mt-4">
+<span class="px-3 py-1 bg-primary-container/30 text-on-primary-container rounded-full text-[10px] font-bold tracking-wider uppercase">Dialectic</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-[10px] font-bold tracking-wider uppercase text-on-surface-variant">Critical</span>
+</div>
+</div>
+<!-- Neutral Explorer -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col h-64 shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 rounded-lg bg-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="explore" style="font-variation-settings: 'FILL' 1;">explore</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="more_vert">more_vert</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-2">Neutral Explorer</h3>
+<p class="text-on-surface-variant text-sm flex-1 leading-relaxed">A detached mapping agent that avoids bias by presenting all data points with clinical precision.</p>
+<div class="flex gap-2 mt-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-[10px] font-bold tracking-wider uppercase text-on-surface-variant">Objective</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-[10px] font-bold tracking-wider uppercase text-on-surface-variant">Analytic</span>
+</div>
+</div>
+<!-- Inspiration Catalyst -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col h-64 shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 rounded-lg bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="more_vert">more_vert</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-2">Inspiration Catalyst</h3>
+<p class="text-on-surface-variant text-sm flex-1 leading-relaxed">Employs divergent inquiry to spark creative connections and unorthodox research paths.</p>
+<div class="flex gap-2 mt-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-[10px] font-bold tracking-wider uppercase text-on-surface-variant">Creative</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-[10px] font-bold tracking-wider uppercase text-on-surface-variant">Divergent</span>
+</div>
+</div>
+<!-- Annotation Component (Editorial Style) -->
+<div class="flex items-center px-6 italic text-tertiary text-sm leading-relaxed border-l border-tertiary/20">
+                    "Cognitive diversity is the cornerstone of deep research. Each persona here is calibrated to challenge your assumptions from a different vector."
+                </div>
+</div>
+</section>
+<!-- Bottom Marketplace Banner -->
+<section class="px-10 pb-20">
+<div class="relative w-full rounded-2xl overflow-hidden bg-surface-container-high h-48 flex items-center px-12 group">
+<!-- Background visual texture -->
+<div class="absolute right-0 top-0 bottom-0 w-1/2 h-full bg-gradient-to-l from-primary-container/20 to-transparent"></div>
+<div class="absolute top-1/2 -right-12 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700"></div>
+<div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between w-full">
+<div>
+<h4 class="text-3xl font-extrabold text-on-surface mb-2">Need a specialist?</h4>
+<p class="text-on-surface-variant font-medium">Browse our curated marketplace of domain-specific AI experts.</p>
+</div>
+<button class="mt-6 md:mt-0 px-8 py-4 bg-gradient-to-br from-primary to-primary-dim text-on-primary font-bold rounded-lg shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all">
+                        Explore Marketplace
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual FAB (Suppressed on settings/details but shown for creation context) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 rounded-2xl bg-primary-container text-on-primary-container shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+</body></html>

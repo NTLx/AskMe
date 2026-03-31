@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="zh"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AskMe - Learning Rust Memory Ownership</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error-container": "#8a1632",
+                        "inverse-on-surface": "#565459",
+                        "on-surface": "#e8e4ee",
+                        "secondary-container": "#292336",
+                        "primary-container": "#d1bcff",
+                        "on-secondary-container": "#a9a0b9",
+                        "surface-container-high": "#201f25",
+                        "secondary-dim": "#beb5ce",
+                        "on-secondary-fixed": "#443e53",
+                        "tertiary-fixed": "#fec5d6",
+                        "surface-container-lowest": "#000000",
+                        "on-tertiary-fixed-variant": "#704654",
+                        "primary-fixed": "#d1bcff",
+                        "primary": "#ddccff",
+                        "tertiary-fixed-dim": "#efb8c8",
+                        "outline": "#77747d",
+                        "on-error-container": "#ff97a3",
+                        "on-primary-fixed-variant": "#513f79",
+                        "on-secondary": "#433d52",
+                        "secondary-fixed": "#ece1fc",
+                        "on-secondary-fixed-variant": "#615a70",
+                        "surface-tint": "#ddccff",
+                        "background": "#0e0e11",
+                        "on-background": "#e8e4ee",
+                        "surface": "#0e0e11",
+                        "on-primary-fixed": "#332159",
+                        "tertiary-dim": "#efb8c8",
+                        "tertiary-container": "#fec5d6",
+                        "error-dim": "#c8475d",
+                        "on-tertiary": "#6f4653",
+                        "error": "#fd6f85",
+                        "inverse-primary": "#675590",
+                        "surface-container-low": "#141317",
+                        "secondary": "#ccc2dc",
+                        "on-surface-variant": "#ada9b3",
+                        "primary-fixed-dim": "#c3aef0",
+                        "on-tertiary-fixed": "#502b38",
+                        "inverse-surface": "#fdf8fd",
+                        "on-primary-container": "#47366f",
+                        "surface-container-highest": "#26252c",
+                        "on-error": "#490013",
+                        "surface-bright": "#2d2b33",
+                        "surface-variant": "#26252c",
+                        "outline-variant": "#49474f",
+                        "secondary-fixed-dim": "#ddd3ed",
+                        "on-tertiary-container": "#663d4b",
+                        "surface-dim": "#0e0e11",
+                        "surface-container": "#1a191e",
+                        "tertiary": "#ffd9e3",
+                        "primary-dim": "#c3aef0",
+                        "on-primary": "#503f79"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary/30">
+<!-- Sidebar Navigation -->
+<aside class="w-[280px] h-full fixed left-0 top-0 border-none bg-surface-container-low font-['Manrope'] antialiased flex flex-col p-4 gap-6 z-40">
+<div class="flex items-center gap-3 px-2">
+<span class="text-xl font-bold text-primary">AskMe AI</span>
+</div>
+<button class="bg-primary-container text-on-primary-container rounded-full px-6 py-3 flex items-center justify-center gap-2 font-bold hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>New Session</span>
+</button>
+<div class="relative px-2">
+<span class="absolute left-5 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary/20 placeholder:text-on-surface-variant/50" placeholder="Search sessions..." type="text"/>
+</div>
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto custom-scrollbar">
+<div class="px-3 py-2 text-[10px] uppercase tracking-widest text-on-surface-variant font-bold opacity-50">Timeline</div>
+<a class="bg-primary-container text-on-primary-container rounded-full px-4 py-2 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="history" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="text-sm truncate">Timeline</span>
+</a>
+<a class="text-on-surface hover:bg-surface-bright rounded-full px-4 py-2 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="sell">sell</span>
+<span class="text-sm truncate">Tags</span>
+</a>
+<a class="text-on-surface hover:bg-surface-bright rounded-full px-4 py-2 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="text-sm truncate">Agents</span>
+</a>
+<a class="text-on-surface hover:bg-surface-bright rounded-full px-4 py-2 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="model_training">model_training</span>
+<span class="text-sm truncate">LLM</span>
+</a>
+<div class="mt-6 px-3 py-2 text-[10px] uppercase tracking-widest text-on-surface-variant font-bold opacity-50">Recent Sessions</div>
+<div class="flex flex-col gap-1">
+<div class="group flex items-center justify-between p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-3 overflow-hidden">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="push_pin" style="font-variation-settings: 'FILL' 1;">push_pin</span>
+<span class="text-sm truncate">Learning Rust Ownership</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-3 overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-sm truncate">Career Burnout</span>
+</div>
+</div>
+</div>
+</nav>
+<div class="flex flex-col gap-1 pt-4 border-t border-outline-variant/10">
+<a class="text-on-surface hover:bg-surface-bright rounded-full px-4 py-2 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+<a class="text-on-surface hover:bg-surface-bright rounded-full px-4 py-2 flex items-center gap-3 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="text-sm">Help</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[280px] min-h-screen flex flex-col relative bg-surface">
+<!-- Top Navigation Bar -->
+<header class="h-[60px] sticky top-0 z-50 bg-background/80 backdrop-blur-xl flex justify-between items-center w-full px-6 font-['Manrope'] font-medium text-sm">
+<div class="flex items-center gap-4">
+<h1 class="text-lg font-bold text-on-surface">Learning Rust Memory Ownership</h1>
+<div class="h-4 w-[1px] bg-outline-variant/30"></div>
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-icon="psychology">psychology</span>
+<span class="text-xs">Socrates (🧠)</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-xs">GPT-4</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="share">share</span>
+<span>Share</span>
+</button>
+<button class="hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="ios_share">ios_share</span>
+<span>Export</span>
+</button>
+<button class="hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="minimalist avatar of a person with stylish glasses and a purple background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdNkKtu8iNoehU-ams0KOQ6Y4z3jmGnwNYyQkDzeM6qHkYpF4nlLib2JoaAvxC4IAJyC33HabM_C6Vvzw5P7CIZM6zSzfbIDh5flpfs1bptxqp_CyIE_hTvvcX2V0TG3jWk1o8NnhNvXwzwtHwl3PhJ9K6x06mnkn9ycLYtAlArRFLGxsqGJmbXyA_Lit4FXjWTA4JZGNIVYUvqgfRkZ3cH6OBXTw-b4T_ufh74EtnQ79TfHoI-9NCtGhyKyn94pKvG0eMb3QMOt-a"/>
+</div>
+</div>
+</header>
+<!-- Chat Dialogue Stream -->
+<div class="flex-1 max-w-4xl mx-auto w-full px-6 py-12 flex flex-col gap-12">
+<!-- AI Message Block -->
+<div class="group relative flex flex-col gap-4">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-6 h-6 rounded-md bg-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-on-tertiary-container" data-icon="smart_toy" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<span class="text-[10px] uppercase tracking-[0.2em] font-extrabold text-tertiary">AskMe Curator</span>
+</div>
+<div class="pl-4 border-l-2 border-tertiary-fixed text-on-surface text-lg leading-relaxed font-body">
+                    很好！你已经理解了所有权的基本概念。那么让我问你：如果你有一个函数想要 '借用' 一个 String 而不是拿走它，你觉得 Rust 会提供什么样的机制？
+                </div>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pl-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm" data-icon="content_copy">content_copy</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm" data-icon="thumb_up">thumb_up</span></button>
+</div>
+</div>
+<!-- User Message Block -->
+<div class="flex flex-col items-end gap-2">
+<div class="bg-surface-container-high text-on-surface py-4 px-6 rounded-2xl rounded-tr-none max-w-[80%] font-body shadow-xl shadow-primary/5">
+                    是引用吗？&amp; 符号？
+                </div>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant/50 mr-2">Sent</span>
+</div>
+<!-- Empty space for ongoing flow -->
+<div class="h-24"></div>
+</div>
+<!-- Input Section -->
+<div class="sticky bottom-0 w-full p-6 bg-gradient-to-t from-background via-background to-transparent">
+<div class="max-w-4xl mx-auto">
+<div class="relative group bg-surface-container-lowest rounded-3xl p-2 shadow-2xl transition-all duration-300 focus-within:ring-1 focus-within:ring-primary/20">
+<div class="flex items-end gap-2 px-4 py-2">
+<textarea class="flex-1 bg-transparent border-none resize-none py-2 text-on-surface placeholder:text-on-surface-variant/40 focus:ring-0 min-h-[44px] max-h-[200px] font-body" placeholder="Type your answer or ask for a hint..." rows="1"></textarea>
+<div class="flex items-center gap-1">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-bright">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-bright">
+<span class="material-symbols-outlined" data-icon="attach_file">attach_file</span>
+</button>
+<button class="bg-primary text-on-primary w-10 h-10 rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-xl" data-icon="arrow_upward">arrow_upward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-3 flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[14px] text-tertiary opacity-50" data-icon="info">info</span>
+<p class="text-[10px] text-on-surface-variant/60 font-medium tracking-tight">AI will ask you questions to guide your learning journey.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Assistant Orb (Asymmetric Aesthetic) -->
+<div class="fixed bottom-8 right-8 z-50">
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-tertiary rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+<button class="relative w-14 h-14 bg-surface-container-highest rounded-full flex items-center justify-center text-primary shadow-2xl border border-outline-variant/20 hover:scale-110 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined text-2xl" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</button>
+</div>
+</div>
+</body></html>

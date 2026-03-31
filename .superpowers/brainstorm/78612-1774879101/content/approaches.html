@@ -1,0 +1,121 @@
+<h2>实现方案对比</h2>
+<p class="subtitle">三种架构策略</p>
+
+<div class="options" style="margin-top: 1.5rem;">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>渐进式重构</h3>
+      <p>保留现有组件结构，逐个替换样式，最小化代码变更风险</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>设计系统优先</h3>
+      <p>先建立完整的设计系统基础（tokens、主题、基础组件），再重构页面组件</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>组件重建</h3>
+      <p>基于设计稿重写所有组件，完全抛弃旧代码，确保像素级还原</p>
+    </div>
+  </div>
+</div>
+
+<div class="split" style="margin-top: 2rem;">
+  <div class="mockup">
+    <div class="mockup-header">方案对比</div>
+    <div class="mockup-body" style="padding: 1rem;">
+      <table style="width: 100%; font-size: 0.875rem; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid #ddd;">
+            <th style="text-align: left; padding: 0.5rem;">维度</th>
+            <th style="text-align: center; padding: 0.5rem;">A 渐进式</th>
+            <th style="text-align: center; padding: 0.5rem;">B 设计系统</th>
+            <th style="text-align: center; padding: 0.5rem;">C 重建</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 0.5rem;">像素还原度</td>
+            <td style="text-align: center; padding: 0.5rem;">⭐⭐⭐</td>
+            <td style="text-align: center; padding: 0.5rem;">⭐⭐⭐⭐</td>
+            <td style="text-align: center; padding: 0.5rem;">⭐⭐⭐⭐⭐</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 0.5rem;">开发效率</td>
+            <td style="text-align: center; padding: 0.5rem;">⭐⭐⭐⭐</td>
+            <td style="text-align: center; padding: 0.5rem;">⭐⭐⭐</td>
+            <td style="text-align: center; padding: 0.5rem;">⭐⭐</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 0.5rem;">代码质量</td>
+            <td style="text-align: center; padding: 0.5rem;">⭐⭐</td>
+            <td style="text-align: center; padding: 0.5rem;">⭐⭐⭐⭐⭐</td>
+            <td style="text-align: center; padding: 0.5rem;">⭐⭐⭐⭐</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 0.5rem;">风险程度</td>
+            <td style="text-align: center; padding: 0.5rem;">低</td>
+            <td style="text-align: center; padding: 0.5rem;">中</td>
+            <td style="text-align: center; padding: 0.5rem;">高</td>
+          </tr>
+          <tr>
+            <td style="padding: 0.5rem;">可维护性</td>
+            <td style="text-align: center; padding: 0.5rem;">⭐⭐</td>
+            <td style="text-align: center; padding: 0.5rem;">⭐⭐⭐⭐⭐</td>
+            <td style="text-align: center; padding: 0.5rem;">⭐⭐⭐⭐</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">💡 推荐：方案 B</div>
+    <div class="mockup-body" style="padding: 1rem;">
+      <h4 style="color: #6750a5; margin-bottom: 0.5rem;">设计系统优先</h4>
+      <p style="font-size: 0.875rem; color: #666; margin-bottom: 1rem;">
+        平衡还原度与可维护性的最佳选择
+      </p>
+
+      <h5 style="margin-bottom: 0.5rem;">实施步骤：</h5>
+      <ol style="font-size: 0.875rem; color: #666; padding-left: 1.25rem;">
+        <li style="margin-bottom: 0.5rem;"><strong>Phase 1: 设计系统</strong>
+          <ul style="margin-top: 0.25rem; padding-left: 1rem;">
+            <li>Tailwind 配置（颜色、字体、圆角）</li>
+            <li>主题切换机制（data-theme）</li>
+            <li>本地字体文件引入</li>
+            <li>基础 UI 组件库</li>
+          </ul>
+        </li>
+        <li style="margin-bottom: 0.5rem;"><strong>Phase 2: 布局组件</strong>
+          <ul style="margin-top: 0.25rem; padding-left: 1rem;">
+            <li>SideNavBar（固定宽度 280px）</li>
+            <li>TopNavBar（毛玻璃效果）</li>
+            <li>主内容区布局容器</li>
+          </ul>
+        </li>
+        <li style="margin-bottom: 0.5rem;"><strong>Phase 3: 页面组件</strong>
+          <ul style="margin-top: 0.25rem; padding-left: 1rem;">
+            <li>LaunchPad（Bento Grid）</li>
+            <li>ChatArea（消息流）</li>
+            <li>Settings（Agent/LLM 配置）</li>
+          </ul>
+        </li>
+        <li><strong>Phase 4: 细节打磨</strong>
+          <ul style="margin-top: 0.25rem; padding-left: 1rem;">
+            <li>动画过渡效果</li>
+            <li>交互状态（hover/active）</li>
+            <li>光晕背景效果</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>

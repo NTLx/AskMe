@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - Agent Personas</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#9fd1b8",
+              "secondary-fixed": "#ffdfa0",
+              "surface-tint": "#01696b",
+              "surface-container": "#edeeef",
+              "surface-container-high": "#e7e8e9",
+              "on-secondary-fixed-variant": "#5c4300",
+              "surface-dim": "#d9dadb",
+              "inverse-surface": "#2e3132",
+              "outline-variant": "#bec9c8",
+              "inverse-on-surface": "#f0f1f2",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed": "#002115",
+              "inverse-primary": "#85d4d5",
+              "surface-container-highest": "#e1e3e4",
+              "primary-fixed-dim": "#85d4d5",
+              "primary": "#004f51",
+              "surface-bright": "#f8f9fa",
+              "on-primary": "#ffffff",
+              "surface-container-low": "#f3f4f5",
+              "secondary": "#795900",
+              "secondary-container": "#ffbf00",
+              "on-primary-container": "#96e5e7",
+              "surface-variant": "#e1e3e4",
+              "on-surface-variant": "#3e4949",
+              "primary-fixed": "#a1f0f2",
+              "on-primary-fixed": "#002021",
+              "on-tertiary": "#ffffff",
+              "on-secondary": "#ffffff",
+              "on-surface": "#191c1d",
+              "surface": "#f8f9fa",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#fbbc00",
+              "on-tertiary-fixed-variant": "#1f4f3c",
+              "on-background": "#191c1d",
+              "error-container": "#ffdad6",
+              "on-primary-fixed-variant": "#004f51",
+              "background": "#f8f9fa",
+              "surface-container-lowest": "#ffffff",
+              "tertiary": "#1f4f3c",
+              "error": "#ba1a1a",
+              "on-secondary-fixed": "#261a00",
+              "primary-container": "#00696b",
+              "outline": "#6e7979",
+              "tertiary-container": "#386753",
+              "on-tertiary-container": "#b0e3c9",
+              "on-secondary-container": "#6d5000",
+              "tertiary-fixed": "#bbeed4"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400;
+        }
+        body {
+            background-color: #f8f9fa;
+            color: #191c1d;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<div class="flex min-h-screen">
+<!-- Navigation Drawer (Desktop) -->
+<aside class="hidden md:flex flex-col h-screen w-80 bg-surface-container p-6 space-y-8 sticky top-0">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="intellectual_atelier">memory</span>
+</div>
+<h1 class="font-headline font-bold text-teal-900 dark:text-teal-100 text-xl tracking-tight">Intellectual Atelier</h1>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 text-slate-600 font-normal hover:bg-slate-200 transition-all rounded-xl group" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-headline tracking-tight font-medium">Timeline</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-slate-600 font-normal hover:bg-slate-200 transition-all rounded-xl group" href="#">
+<span class="material-symbols-outlined">sell</span>
+<span class="font-headline tracking-tight font-medium">Tags</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-teal-900 font-bold border-b-2 border-amber-500 bg-slate-200/50 rounded-xl group" href="#">
+<span class="material-symbols-outlined active-icon">smart_toy</span>
+<span class="font-headline tracking-tight font-medium">Agent</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-slate-600 font-normal hover:bg-slate-200 transition-all rounded-xl group" href="#">
+<span class="material-symbols-outlined">memory</span>
+<span class="font-headline tracking-tight font-medium">LLM</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-outline-variant/15">
+<div class="flex items-center gap-3 px-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a thoughtful man in a creative studio environment with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC58ZEI1ysaZuxKHbJbt7MHMJNwuniRQm778CTop-5JFYN9k2FH1_XPneaaR_XNOMEaeGrB7iiEw2RA7rPkv24CClKSp3J4YeHUmCQwe0Wv9dwUcIN1KWi1qXeLIYxz0JW_SOHFgZ0thSkETUtM7mJKBxdJnsGp1pSVYw6BP5ul4VWKuXlrIk8sM3NA0n34xcccShymczDFFwJ7lJa9BJWdohu5bdHpfzd9qjoxsKBQH86527W00kGt9PyuXYTiX5aUy1OPYoDECpw"/>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold font-headline">Curator Name</span>
+<span class="text-xs text-on-surface-variant">Pro Plan</span>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-w-0">
+<!-- Top App Bar -->
+<header class="bg-white/85 backdrop-blur-xl flex items-center justify-between px-6 py-4 w-full sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 hover:bg-slate-100 transition-colors rounded-full">
+<span class="material-symbols-outlined text-teal-900">menu</span>
+</button>
+<h2 class="font-headline font-bold tracking-tight text-lg text-teal-900">Learning Rust</h2>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-slate-100 transition-colors rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined text-teal-900">search</span>
+</button>
+<button class="p-2 hover:bg-slate-100 transition-colors rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined text-teal-900">settings</span>
+</button>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-6 md:p-12 max-w-5xl mx-auto w-full space-y-12">
+<!-- Header Section -->
+<div class="space-y-2">
+<div class="flex items-center gap-2 text-primary font-bold">
+<span class="material-symbols-outlined text-sm">settings</span>
+<span class="text-xs uppercase tracking-widest font-headline">System Preferences</span>
+</div>
+<h3 class="text-4xl md:text-5xl font-headline font-extrabold text-on-surface tracking-tight">Agent Personas <span class="text-on-surface-variant/40 font-normal">人格</span></h3>
+<p class="text-on-surface-variant text-lg max-w-2xl leading-relaxed">
+                        Define how your AI assistant interacts, thinks, and responds. Choose from curated intellectual profiles or create your own custom expert.
+                    </p>
+</div>
+<!-- Agent Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Socratic Mentor (Active) -->
+<div class="relative group p-8 rounded-[2rem] bg-surface-container-lowest border border-primary/20 shadow-[0_12px_32px_-4px_rgba(0,79,81,0.08)] ring-2 ring-primary">
+<div class="absolute top-6 right-6 flex items-center gap-2">
+<span class="bg-primary text-on-primary text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Active</span>
+</div>
+<div class="space-y-6">
+<div class="w-16 h-16 bg-primary-container text-on-primary-container rounded-2xl flex items-center justify-center">
+<span class="text-3xl">🧠</span>
+</div>
+<div>
+<h4 class="text-2xl font-headline font-bold text-on-surface mb-2">Socratic Mentor</h4>
+<p class="text-on-surface-variant leading-relaxed">Stimulates deep thinking with challenging questions. Avoids direct answers to foster self-discovery and critical inquiry.</p>
+</div>
+<div class="flex gap-3 pt-4">
+<button class="flex-1 bg-primary text-on-primary px-4 py-3 rounded-xl font-headline font-bold text-sm flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                    Current Choice
+                                </button>
+<button class="p-3 bg-surface-container-high text-on-surface-variant rounded-xl hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Gentle Guide -->
+<div class="group p-8 rounded-[2rem] bg-surface-container-low border border-outline-variant/15 hover:bg-surface-container-high transition-all">
+<div class="space-y-6">
+<div class="w-16 h-16 bg-tertiary-fixed-dim text-on-tertiary-fixed-variant rounded-2xl flex items-center justify-center">
+<span class="text-3xl">🤗</span>
+</div>
+<div>
+<h4 class="text-2xl font-headline font-bold text-on-surface mb-2">Gentle Guide</h4>
+<p class="text-on-surface-variant leading-relaxed">Warm and supportive, guiding thinking step-by-step. Ideal for learning new concepts without feeling overwhelmed.</p>
+</div>
+<div class="flex gap-3 pt-4">
+<button class="flex-1 bg-surface-container-highest text-on-surface px-4 py-3 rounded-xl font-headline font-bold text-sm hover:bg-outline-variant/30 transition-colors">Select Persona</button>
+<button class="p-3 bg-surface-container-highest text-on-surface-variant rounded-xl hover:bg-outline-variant/30 transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-3 bg-surface-container-highest text-on-surface-variant rounded-xl hover:bg-outline-variant/30 transition-colors">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Neutral Explorer -->
+<div class="group p-8 rounded-[2rem] bg-surface-container-low border border-outline-variant/15 hover:bg-surface-container-high transition-all">
+<div class="space-y-6">
+<div class="w-16 h-16 bg-surface-container-highest text-on-surface-variant rounded-2xl flex items-center justify-center">
+<span class="text-3xl">🧭</span>
+</div>
+<div>
+<h4 class="text-2xl font-headline font-bold text-on-surface mb-2">Neutral Explorer</h4>
+<p class="text-on-surface-variant leading-relaxed">Open and curious, exploring ideas without judgment. Focuses on broad data synthesis and objective observation.</p>
+</div>
+<div class="flex gap-3 pt-4">
+<button class="flex-1 bg-surface-container-highest text-on-surface px-4 py-3 rounded-xl font-headline font-bold text-sm hover:bg-outline-variant/30 transition-colors">Select Persona</button>
+<button class="p-3 bg-surface-container-highest text-on-surface-variant rounded-xl hover:bg-outline-variant/30 transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Inspiration Catalyst -->
+<div class="group p-8 rounded-[2rem] bg-surface-container-low border border-outline-variant/15 hover:bg-surface-container-high transition-all">
+<div class="space-y-6">
+<div class="w-16 h-16 bg-secondary-fixed text-on-secondary-fixed-variant rounded-2xl flex items-center justify-center">
+<span class="text-3xl">⚡</span>
+</div>
+<div>
+<h4 class="text-2xl font-headline font-bold text-on-surface mb-2">Inspiration Catalyst</h4>
+<p class="text-on-surface-variant leading-relaxed">Thinks outside the box, providing divergent perspectives. Best for brainstorming and creative breakthroughs.</p>
+</div>
+<div class="flex gap-3 pt-4">
+<button class="flex-1 bg-surface-container-highest text-on-surface px-4 py-3 rounded-xl font-headline font-bold text-sm hover:bg-outline-variant/30 transition-colors">Select Persona</button>
+<button class="p-3 bg-surface-container-highest text-on-surface-variant rounded-xl hover:bg-outline-variant/30 transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Add New Persona -->
+<div class="group p-8 rounded-[2rem] border-2 border-dashed border-outline-variant bg-transparent hover:border-primary hover:bg-primary-container/5 transition-all flex flex-col items-center justify-center text-center cursor-pointer min-h-[320px]">
+<div class="w-16 h-16 rounded-full border-2 border-primary text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</div>
+<h4 class="text-xl font-headline font-bold text-on-surface mb-2">Create New Persona</h4>
+<p class="text-on-surface-variant text-sm max-w-[240px]">Supports file upload (.txt, .pdf) or online editing to train your unique agent.</p>
+</div>
+</div>
+<!-- Subtle Tonal Section for Metadata -->
+<div class="bg-surface-container-low p-8 rounded-[2rem] border border-outline-variant/10">
+<div class="flex flex-col md:flex-row gap-8 items-start">
+<div class="md:w-1/3">
+<h5 class="font-headline font-bold text-lg text-primary mb-2">Persona Logic</h5>
+<p class="text-sm text-on-surface-variant leading-relaxed">Our personas are powered by a custom cognitive architecture that adjusts temperature and system prompts dynamically.</p>
+</div>
+<div class="flex-1 grid grid-cols-2 gap-4">
+<div class="p-4 bg-surface-container-lowest rounded-2xl">
+<span class="block text-xs uppercase tracking-tighter font-bold text-outline mb-1">Temperature</span>
+<span class="text-xl font-headline font-bold text-on-surface">0.7 - Balanced</span>
+</div>
+<div class="p-4 bg-surface-container-lowest rounded-2xl">
+<span class="block text-xs uppercase tracking-tighter font-bold text-outline mb-1">Context Window</span>
+<span class="text-xl font-headline font-bold text-on-surface">128k Tokens</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom spacing for mobile nav -->
+<div class="h-24 md:hidden"></div>
+</main>
+</div>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-white z-50 rounded-t-3xl shadow-[0_-12px_32px_-4px_rgba(0,79,81,0.08)]">
+<button class="text-slate-400 p-3 hover:text-amber-600 transition-colors flex flex-col items-center">
+<span class="material-symbols-outlined">history</span>
+</button>
+<button class="bg-amber-100 text-amber-900 rounded-2xl p-3 flex flex-col items-center active:scale-90 duration-200">
+<span class="material-symbols-outlined active-icon">smart_toy</span>
+</button>
+<button class="text-slate-400 p-3 hover:text-amber-600 transition-colors flex flex-col items-center">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<button class="text-slate-400 p-3 hover:text-amber-600 transition-colors flex flex-col items-center">
+<span class="material-symbols-outlined">memory</span>
+</button>
+<button class="text-slate-400 p-3 hover:text-amber-600 transition-colors flex flex-col items-center">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</nav>
+<!-- Contextual FAB (Only on Home/Dashboard, Hidden here per instructions) -->
+</body></html>

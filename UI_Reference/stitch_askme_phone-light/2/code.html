@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AskMe - Intellectual Atelier</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#9fd1b8",
+              "secondary-fixed": "#ffdfa0",
+              "surface-tint": "#01696b",
+              "surface-container": "#edeeef",
+              "surface-container-high": "#e7e8e9",
+              "on-secondary-fixed-variant": "#5c4300",
+              "surface-dim": "#d9dadb",
+              "inverse-surface": "#2e3132",
+              "outline-variant": "#bec9c8",
+              "inverse-on-surface": "#f0f1f2",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed": "#002115",
+              "inverse-primary": "#85d4d5",
+              "surface-container-highest": "#e1e3e4",
+              "primary-fixed-dim": "#85d4d5",
+              "primary": "#004f51",
+              "surface-bright": "#f8f9fa",
+              "on-primary": "#ffffff",
+              "surface-container-low": "#f3f4f5",
+              "secondary": "#795900",
+              "secondary-container": "#ffbf00",
+              "on-primary-container": "#96e5e7",
+              "surface-variant": "#e1e3e4",
+              "on-surface-variant": "#3e4949",
+              "primary-fixed": "#a1f0f2",
+              "on-primary-fixed": "#002021",
+              "on-tertiary": "#ffffff",
+              "on-secondary": "#ffffff",
+              "on-surface": "#191c1d",
+              "surface": "#f8f9fa",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#fbbc00",
+              "on-tertiary-fixed-variant": "#1f4f3c",
+              "on-background": "#191c1d",
+              "error-container": "#ffdad6",
+              "on-primary-fixed-variant": "#004f51",
+              "background": "#f8f9fa",
+              "surface-container-lowest": "#ffffff",
+              "tertiary": "#1f4f3c",
+              "error": "#ba1a1a",
+              "on-secondary-fixed": "#261a00",
+              "primary-container": "#00696b",
+              "outline": "#6e7979",
+              "tertiary-container": "#386753",
+              "on-tertiary-container": "#b0e3c9",
+              "on-secondary-container": "#6d5000",
+              "tertiary-fixed": "#bbeed4"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface flex min-h-screen">
+<!-- Sidebar / NavigationDrawer (Web) -->
+<aside class="hidden md:flex flex-col h-screen sticky top-0 w-80 bg-surface-container p-6 space-y-8 z-40">
+<div class="flex items-center gap-3 px-2">
+<span class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">copyright</span>
+</span>
+<h1 class="text-teal-900 dark:text-teal-100 font-bold font-headline text-xl tracking-tight">Intellectual Atelier</h1>
+</div>
+<nav class="flex flex-col space-y-2 flex-1">
+<a class="flex items-center gap-4 px-4 py-3 text-teal-900 dark:text-teal-50 font-bold border-b-2 border-amber-500 bg-surface-container-high transition-all duration-300" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-headline tracking-tight font-medium">Timeline</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-slate-600 dark:text-slate-400 font-normal hover:bg-slate-200 dark:hover:bg-slate-800 transition-all hover:translate-x-1 duration-300" href="#">
+<span class="material-symbols-outlined">sell</span>
+<span class="font-headline tracking-tight font-medium">Tags</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-slate-600 dark:text-slate-400 font-normal hover:bg-slate-200 dark:hover:bg-slate-800 transition-all hover:translate-x-1 duration-300" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-headline tracking-tight font-medium">Agent</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-slate-600 dark:text-slate-400 font-normal hover:bg-slate-200 dark:hover:bg-slate-800 transition-all hover:translate-x-1 duration-300" href="#">
+<span class="material-symbols-outlined">memory</span>
+<span class="font-headline tracking-tight font-medium">LLM</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-outline-variant/15 flex flex-col gap-4">
+<div class="flex items-center gap-3 px-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a professional man in a minimalist creative studio setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCSLXcARt4J7H5m-p1RTAVD1YbY02Q7FShG5cy75eUXN6S8fHYQBT3dcHmi4QQ7LHDb-bsbWi4xVvLMC0r2Qu-SCGgdmmGAZA5oWpT0tXHiw0IYln2ko8bGqpvZA3Qtf-8Z9zurIRDqE4UXuwYh3Q9csfFFFkmNj-8qKdnOBKF2sb-lLVa1H9Dd3EqVL5dEnaTV3YOUr_vRl9KaRg1DMQOlrMSgkI3jKDzIzf5fqrhonHby1PLHS-Se7UNLPNU3o-EkpYDhPgSoFs"/>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-on-surface">Curator Mode</span>
+<span class="text-xs text-on-surface-variant">Pro Plan</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col relative min-h-screen bg-surface">
+<!-- TopAppBar -->
+<header class="bg-white/85 dark:bg-slate-950/85 backdrop-blur-xl flex items-center justify-between px-6 py-4 w-full docked full-width top-0 sticky z-50 transition-colors">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-teal-900 dark:text-teal-100 hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex flex-col">
+<h2 class="text-teal-900 dark:text-teal-100 font-manrope font-bold tracking-tight text-lg">AskMe</h2>
+<span class="text-[10px] text-on-surface-variant font-medium tracking-widest uppercase">让 AI 向你提问</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-teal-900 dark:text-teal-100 hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="text-teal-900 dark:text-teal-100 hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 flex flex-col px-6 md:px-12 py-8 md:py-16 max-w-6xl mx-auto w-full space-y-16">
+<!-- Hero Area -->
+<section class="max-w-3xl">
+<h1 class="text-4xl md:text-6xl font-headline font-extrabold text-on-surface leading-tight tracking-tight mb-6">
+                    Hello, what would you like to explore today?
+                </h1>
+<p class="text-on-surface-variant text-lg md:text-xl font-light leading-relaxed">
+                    Choose a focused path below to begin your curated inquiry session. 
+                    AskMe will probe your thoughts to uncover deeper clarity.
+                </p>
+</section>
+<!-- Scenario Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Card 1: Problem Solving -->
+<div class="group relative bg-surface-container-low rounded-[2rem] p-8 transition-all duration-300 hover:bg-surface-container-highest flex flex-col justify-between min-h-[280px]">
+<div class="space-y-4">
+<div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">track_changes</span>
+</div>
+<h3 class="text-2xl font-headline font-bold text-primary">Problem Solving</h3>
+<p class="text-on-surface-variant font-medium">理清思路找答案</p>
+<p class="text-on-surface-variant/70 text-sm leading-relaxed max-w-[80%]">
+                            Clear your mind and find structured answers to complex challenges.
+                        </p>
+</div>
+<div class="flex justify-end">
+<span class="material-symbols-outlined text-primary-container opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 group-hover:translate-x-0 duration-300">arrow_forward</span>
+</div>
+<!-- Ghost Border Fallback -->
+<div class="absolute inset-0 rounded-[2rem] border border-outline-variant/15 pointer-events-none group-hover:border-outline-variant/30 transition-colors"></div>
+</div>
+<!-- Card 2: Learning & Exploration -->
+<div class="group relative bg-surface-container-low rounded-[2rem] p-8 transition-all duration-300 hover:bg-surface-container-highest flex flex-col justify-between min-h-[280px]">
+<div class="space-y-4">
+<div class="w-12 h-12 rounded-2xl bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-3xl">auto_stories</span>
+</div>
+<h3 class="text-2xl font-headline font-bold text-primary">Learning &amp; Exploration</h3>
+<p class="text-on-surface-variant font-medium">深入学习建立理解</p>
+<p class="text-on-surface-variant/70 text-sm leading-relaxed max-w-[80%]">
+                            Deeply learn new concepts and build a resilient mental framework.
+                        </p>
+</div>
+<div class="flex justify-end">
+<span class="material-symbols-outlined text-primary-container opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 group-hover:translate-x-0 duration-300">arrow_forward</span>
+</div>
+<div class="absolute inset-0 rounded-[2rem] border border-outline-variant/15 pointer-events-none group-hover:border-outline-variant/30 transition-colors"></div>
+</div>
+<!-- Card 3: Deep Dialogue -->
+<div class="group relative bg-surface-container-low rounded-[2rem] p-8 transition-all duration-300 hover:bg-surface-container-highest flex flex-col justify-between min-h-[280px]">
+<div class="space-y-4">
+<div class="w-12 h-12 rounded-2xl bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">psychology</span>
+</div>
+<h3 class="text-2xl font-headline font-bold text-primary">Deep Dialogue</h3>
+<p class="text-on-surface-variant font-medium">反思自我发现洞察</p>
+<p class="text-on-surface-variant/70 text-sm leading-relaxed max-w-[80%]">
+                            Reflect on self and find insights through philosophical questioning.
+                        </p>
+</div>
+<div class="flex justify-end">
+<span class="material-symbols-outlined text-primary-container opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 group-hover:translate-x-0 duration-300">arrow_forward</span>
+</div>
+<div class="absolute inset-0 rounded-[2rem] border border-outline-variant/15 pointer-events-none group-hover:border-outline-variant/30 transition-colors"></div>
+</div>
+<!-- Card 4: Seek Inspiration -->
+<div class="group relative bg-surface-container-low rounded-[2rem] p-8 transition-all duration-300 hover:bg-surface-container-highest flex flex-col justify-between min-h-[280px]">
+<div class="space-y-4">
+<div class="w-12 h-12 rounded-2xl bg-primary-fixed/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">temp_preferences_custom</span>
+</div>
+<h3 class="text-2xl font-headline font-bold text-primary">Seek Inspiration</h3>
+<p class="text-on-surface-variant font-medium">打破常规获得灵感</p>
+<p class="text-on-surface-variant/70 text-sm leading-relaxed max-w-[80%]">
+                            Break conventional thinking and get sparks of creative inspiration.
+                        </p>
+</div>
+<div class="flex justify-end">
+<span class="material-symbols-outlined text-primary-container opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 group-hover:translate-x-0 duration-300">arrow_forward</span>
+</div>
+<div class="absolute inset-0 rounded-[2rem] border border-outline-variant/15 pointer-events-none group-hover:border-outline-variant/30 transition-colors"></div>
+</div>
+</section>
+<!-- Footer/Tips -->
+<footer class="pt-8 pb-32 border-t border-outline-variant/15 flex flex-wrap justify-center gap-8 md:gap-16 opacity-60">
+<div class="flex items-center gap-2 group">
+<span class="material-symbols-outlined text-lg">face</span>
+<span class="text-sm font-medium">Adaptive Persona</span>
+</div>
+<div class="flex items-center gap-2 group">
+<span class="material-symbols-outlined text-lg">database</span>
+<span class="text-sm font-medium">Session Memory</span>
+</div>
+<div class="flex items-center gap-2 group">
+<span class="material-symbols-outlined text-lg">tune</span>
+<span class="text-sm font-medium">Custom Settings</span>
+</div>
+</footer>
+</div>
+<!-- Quick Input Overlay (Fixed Bottom) -->
+<div class="fixed bottom-0 left-0 right-0 md:left-80 z-40 p-6 md:p-8 bg-gradient-to-t from-surface via-surface to-transparent">
+<div class="max-w-4xl mx-auto relative group">
+<div class="bg-surface-container-lowest glass-effect border border-outline-variant/20 rounded-[2rem] shadow-[0_12px_32px_-4px_rgba(0,79,81,0.08)] flex items-center px-6 py-2 transition-all duration-300 focus-within:shadow-[0_12px_48px_-4px_rgba(0,79,81,0.12)]">
+<span class="material-symbols-outlined text-on-surface-variant/50 mr-4">edit_note</span>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-on-surface font-body py-4 placeholder:text-on-surface-variant/40" placeholder="Directly enter what you want to explore..." type="text"/>
+<button class="bg-primary text-on-primary w-12 h-12 rounded-full flex items-center justify-center ml-4 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-white dark:bg-slate-950 z-50 rounded-t-3xl shadow-[0_-12px_32px_-4px_rgba(0,79,81,0.08)] border-t border-slate-100 dark:border-slate-800">
+<a class="bg-amber-100 dark:bg-amber-900/30 text-amber-900 dark:text-amber-100 rounded-2xl p-3 flex flex-col items-center active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+</a>
+<a class="text-slate-400 dark:text-slate-500 p-3 flex flex-col items-center active:scale-90 duration-200 hover:text-amber-600 dark:hover:text-amber-300" href="#">
+<span class="material-symbols-outlined">send</span>
+</a>
+</nav>
+<!-- FAB (Contextual for New Session) -->
+<button class="fixed bottom-24 right-6 md:bottom-12 md:right-12 w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full shadow-[0_12px_32px_-4px_rgba(0,79,81,0.08)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300 z-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 300;">add</span>
+</button>
+</body></html>

@@ -1,0 +1,190 @@
+<h2>Phase 3.4: Settings - LLM Configuration</h2>
+<p class="subtitle">LLM 提供商配置、参数调整</p>
+
+<div class="section" style="margin-top: 1.5rem;">
+  <h3>Settings / LLM Configuration 布局</h3>
+  <p style="font-size: 0.875rem; color: #666;">OpenAI Compatible 配置、插件安装卡片、高级参数表格、统计概览</p>
+</div>
+
+<div class="mockup" style="margin-top: 1rem;">
+  <div class="mockup-header">LLM Configuration 设置页</div>
+  <div class="mockup-body" style="background: #0e0e11; padding: 0; min-height: 700px; position: relative;">
+    <!-- 顶栏 -->
+    <div style="height: 60px; background: rgba(14, 14, 17, 0.8); backdrop-filter: blur(20px); display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; border-bottom: 1px solid rgba(38, 37, 44, 0.5);">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <span style="font-size: 1.125rem; font-weight: bold; color: #e8e4ee;">Settings</span>
+        <span style="color: #49474f;">/</span>
+        <span style="color: #ddccff; font-weight: bold;">LLM Configuration</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 1.5rem;">
+        <button style="color: #e8e4ee; background: none; border: none; cursor: pointer; font-size: 0.875rem;">Export</button>
+        <button style="background: #ddccff; color: #332159; padding: 0.375rem 1rem; border-radius: 9999px; font-weight: bold; font-size: 0.75rem; border: none; cursor: pointer;">Share</button>
+      </div>
+    </div>
+
+    <!-- 主内容 -->
+    <div style="padding: 2rem; max-width: 72rem; margin: 0 auto;">
+      <!-- 页面标题 -->
+      <div style="margin-bottom: 1.5rem;">
+        <h2 style="font-size: 2rem; font-weight: 800; color: #e8e4ee; letter-spacing: -0.02em; margin-bottom: 0.75rem;">Intellectual Infrastructure</h2>
+        <p style="color: #ada9b3; font-size: 0.9rem; line-height: 1.6;">
+          Configure the cognitive foundations of your assistant. Connect to global cloud providers or tether to local instances for maximum privacy.
+        </p>
+      </div>
+
+      <!-- LLM 提供商卡片 -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+        <!-- OpenAI Compatible (启用状态) - 大卡片 -->
+        <div style="grid-column: span 2; background: #1a191e; border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #ddccff;"></div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="width: 40px; height: 40px; background: rgba(221, 204, 255, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">🔗</div>
+              <div>
+                <h3 style="color: #e8e4ee; font-weight: bold; font-size: 1rem;">OpenAI Compatible</h3>
+                <p style="color: #ddccff; font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: bold; display: flex; align-items: center; gap: 0.5rem; margin-top: 0.125rem;">
+                  <span style="width: 6px; height: 6px; background: #ddccff; border-radius: 50%; animation: pulse 2s infinite;"></span>
+                  Enabled
+                </p>
+              </div>
+            </div>
+            <button style="background: #26252c; color: #e8e4ee; padding: 0.375rem 0.75rem; border-radius: 9999px; font-size: 0.625rem; font-weight: bold; border: none; cursor: pointer;">Test Connection</button>
+          </div>
+
+          <!-- 配置字段 -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+            <div>
+              <label style="font-size: 0.5rem; text-transform: uppercase; font-weight: bold; color: #ada9b3; display: block; margin-bottom: 0.25rem;">Base URL</label>
+              <input style="width: 100%; background: #000; border: none; border-radius: 9999px; padding: 0.5rem 1rem; color: #e8e4ee; font-size: 0.75rem; outline: none;" type="text" value="https://api.openai.com/v1">
+            </div>
+            <div>
+              <label style="font-size: 0.5rem; text-transform: uppercase; font-weight: bold; color: #ada9b3; display: block; margin-bottom: 0.25rem;">API Key</label>
+              <input style="width: 100%; background: #000; border: none; border-radius: 9999px; padding: 0.5rem 1rem; color: #e8e4ee; font-size: 0.75rem; outline: none;" type="password" value="sk-proj-••••••••••">
+            </div>
+            <div style="grid-column: span 2;">
+              <label style="font-size: 0.5rem; text-transform: uppercase; font-weight: bold; color: #ada9b3; display: block; margin-bottom: 0.25rem;">Model Selection</label>
+              <select style="width: 100%; background: #000; border: none; border-radius: 9999px; padding: 0.5rem 1rem; color: #e8e4ee; font-size: 0.75rem; outline: none;">
+                <option>gpt-4-turbo-preview</option>
+                <option>gpt-3.5-turbo</option>
+                <option>gpt-4o</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Anthropic Claude (安装) -->
+        <div style="background: #1a191e; border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(73, 71, 79, 0.1);">
+          <div>
+            <div style="width: 40px; height: 40px; background: rgba(254, 197, 214, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 0.75rem;">✨</div>
+            <h3 style="color: #e8e4ee; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.25rem;">Anthropic Claude</h3>
+            <p style="color: #ada9b3; font-size: 0.75rem; line-height: 1.4;">
+              Nuanced models for creative and ethical reasoning.
+            </p>
+          </div>
+          <button style="margin-top: 0.75rem; border: 1px solid #49474f; border-radius: 9999px; padding: 0.5rem; font-size: 0.75rem; font-weight: bold; background: transparent; color: #e8e4ee; cursor: pointer;">
+            ⬇️ Install Plugin
+          </button>
+        </div>
+
+        <!-- Ollama Local (安装) -->
+        <div style="background: #1a191e; border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(73, 71, 79, 0.1);">
+          <div>
+            <div style="width: 40px; height: 40px; background: #292336; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">💻</div>
+            <h3 style="color: #e8e4ee; font-weight: bold; font-size: 0.9rem; margin: 0.75rem 0 0.25rem;">Ollama Local</h3>
+            <p style="color: #ada9b3; font-size: 0.75rem; line-height: 1.4;">
+              Full data sovereignty. Run Llama 3 locally.
+            </p>
+          </div>
+          <button style="margin-top: 0.75rem; border: 1px solid #49474f; border-radius: 9999px; padding: 0.5rem; font-size: 0.75rem; font-weight: bold; background: transparent; color: #e8e4ee; cursor: pointer;">
+            ⬇️ Install Plugin
+          </button>
+        </div>
+
+        <!-- 认知负载概览 -->
+        <div style="grid-column: span 2; background: #1a191e; border-radius: 12px; padding: 1.5rem; display: flex; align-items: center; gap: 2rem;">
+          <div style="flex: 1;">
+            <h4 style="font-size: 0.75rem; font-weight: bold; color: #ada9b3; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Cognitive Load Overview</h4>
+            <div style="display: flex; gap: 2rem;">
+              <div>
+                <span style="font-size: 1.5rem; font-weight: bold; color: #e8e4ee;">2.4<span style="font-size: 0.75rem; color: #ada9b3; font-weight: normal;">ms</span></span>
+                <p style="font-size: 0.5rem; color: #ddccff; font-weight: bold; margin-top: 0.125rem;">Avg. Latency</p>
+              </div>
+              <div>
+                <span style="font-size: 1.5rem; font-weight: bold; color: #e8e4ee;">142<span style="font-size: 0.75rem; color: #ada9b3; font-weight: normal;">k</span></span>
+                <p style="font-size: 0.5rem; color: #ffd9e3; font-weight: bold; margin-top: 0.125rem;">Tokens/Mo</p>
+              </div>
+              <div>
+                <span style="font-size: 1.5rem; font-weight: bold; color: #e8e4ee;">99.9<span style="font-size: 0.75rem; color: #ada9b3; font-weight: normal;">%</span></span>
+                <p style="font-size: 0.5rem; color: #ada9b3; font-weight: bold; margin-top: 0.125rem;">Uptime</p>
+              </div>
+            </div>
+          </div>
+          <div style="position: relative; width: 60px; height: 60px;">
+            <div style="width: 100%; height: 100%; border: 3px solid rgba(221, 204, 255, 0.2); border-top-color: #ddccff; border-radius: 50%; animation: spin 3s linear infinite;"></div>
+            <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.5rem; font-weight: bold; color: #ada9b3;">SYNC</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 高级参数表格 -->
+      <div style="background: #1a191e; border-radius: 12px; overflow: hidden;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; padding: 1rem 1.5rem; border-bottom: 1px solid rgba(73, 71, 79, 0.1);">
+          <h3 style="color: #e8e4ee; font-weight: bold; font-size: 1rem;">Advanced Parameters</h3>
+          <div style="display: flex; gap: 1rem;">
+            <button style="font-size: 0.75rem; color: #ada9b3; background: none; border: none; cursor: pointer;">Reset Defaults</button>
+            <button style="font-size: 0.75rem; color: #ddccff; font-weight: bold; background: none; border: none; cursor: pointer;">Apply Changes</button>
+          </div>
+        </div>
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="background: #201f25;">
+              <th style="padding: 0.75rem 1.5rem; font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: bold; color: #ada9b3; text-align: left;">Parameter</th>
+              <th style="padding: 0.75rem 1.5rem; font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: bold; color: #ada9b3; text-align: left;">Value</th>
+              <th style="padding: 0.75rem 1.5rem; font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: bold; color: #ada9b3; text-align: right;">Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid rgba(73, 71, 79, 0.1);">
+              <td style="padding: 1rem 1.5rem;">
+                <span style="font-weight: bold; color: #e8e4ee; font-size: 0.875rem;">Temperature</span>
+                <p style="font-size: 0.625rem; color: #ada9b3; margin-top: 0.125rem;">Controls randomness and creativity</p>
+              </td>
+              <td style="padding: 1rem 1.5rem;">
+                <input style="width: 10rem; accent-color: #ddccff;" type="range">
+              </td>
+              <td style="padding: 1rem 1.5rem; text-align: right; font-family: monospace; color: #ffd9e3; font-size: 0.75rem;">0.7 (Balanced)</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem 1.5rem;">
+                <span style="font-weight: bold; color: #e8e4ee; font-size: 0.875rem;">Max Tokens</span>
+                <p style="font-size: 0.625rem; color: #ada9b3; margin-top: 0.125rem;">Upper limit for response length</p>
+              </td>
+              <td style="padding: 1rem 1.5rem;">
+                <input style="background: #000; border: none; border-radius: 8px; padding: 0.375rem 0.75rem; color: #e8e4ee; font-size: 0.75rem; width: 5rem;" type="number" value="4096">
+              </td>
+              <td style="padding: 1rem 1.5rem; text-align: right; font-family: monospace; color: #ada9b3; font-size: 0.75rem;">High Clarity</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+</style>
+
+<div style="margin-top: 2rem; padding: 1rem; background: #f0f9ff; border-radius: 8px;">
+  <p style="font-size: 0.875rem; color: #0369a1;">
+    <strong>✓ Phase 3.4 Settings - LLM Configuration</strong> - 提供商卡片 (Bento-ish 布局)、配置表单、统计概览、高级参数表格。<br>
+    请确认这部分设计是否符合预期？
+  </p>
+</div>

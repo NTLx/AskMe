@@ -1,0 +1,93 @@
+<h2>Phase 3: 页面组件</h2>
+<p class="subtitle">LaunchPad、ChatArea、InputArea、Settings</p>
+
+<div class="section" style="margin-top: 1.5rem;">
+  <h3>3.1 LaunchPad (首页/启动页)</h3>
+  <p style="font-size: 0.875rem; color: #666;">Bento Grid 布局、中央输入框、光晕背景效果</p>
+</div>
+
+<div class="mockup" style="margin-top: 1rem;">
+  <div class="mockup-header">LaunchPad 完整布局</div>
+  <div class="mockup-body" style="background: #0e0e11; padding: 0; min-height: 600px; position: relative; overflow: hidden;">
+    <!-- 背景光晕 -->
+    <div style="position: absolute; bottom: 0; right: 0; width: 600px; height: 600px; background: rgba(221, 204, 255, 0.05); border-radius: 50%; filter: blur(120px); transform: translate(50%, 50%);"></div>
+    <div style="position: absolute; top: 0; left: 0; width: 400px; height: 400px; background: rgba(254, 197, 214, 0.05); border-radius: 50%; filter: blur(100px); transform: translate(-50%, -50%);"></div>
+
+    <!-- 主内容 -->
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%; padding: 3rem; position: relative; z-index: 1;">
+      <!-- Hero 区域 -->
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <h2 style="font-size: 3rem; font-weight: 800; color: #e8e4ee; margin: 0 0 0.5rem 0; letter-spacing: -0.02em; background: linear-gradient(to bottom, #e8e4ee, #ada9b3); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+          智识的起点
+        </h2>
+        <p style="color: #ada9b3; font-size: 1.125rem; max-width: 32rem;">
+          探索、构建与进化。我是您的智识策展人，准备好开始一次深度的逆向对话了吗？
+        </p>
+      </div>
+
+      <!-- Bento Grid -->
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; width: 100%; max-width: 64rem; margin-bottom: 2rem;">
+        <!-- Card 1: 理清思路 -->
+        <div style="background: #1a191e; border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: all 0.3s;">
+          <div style="width: 48px; height: 48px; background: rgba(209, 188, 255, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.5rem;">🎯</div>
+          <h3 style="color: #e8e4ee; font-weight: bold; margin: 0 0 0.25rem 0;">理清思路</h3>
+          <p style="color: #ada9b3; font-size: 0.875rem; margin: 0;">Problem Solving</p>
+        </div>
+
+        <!-- Card 2: 深入学习 (大卡片) -->
+        <div style="grid-column: span 2; background: #1a191e; border-radius: 12px; padding: 1.5rem; cursor: pointer; position: relative;">
+          <div style="position: absolute; top: 1rem; right: 1rem; background: #ddccff; color: #332159; font-size: 0.625rem; padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: bold;">MOST POPULAR</div>
+          <div style="width: 48px; height: 48px; background: rgba(254, 197, 214, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 3rem; font-size: 1.5rem;">📚</div>
+          <h3 style="color: #e8e4ee; font-weight: bold; margin: 0 0 0.25rem 0; font-size: 1.25rem;">深入学习</h3>
+          <p style="color: #ada9b3; font-size: 0.875rem; margin: 0;">Learning Exploration</p>
+        </div>
+
+        <!-- Card 3: 深度对话 -->
+        <div style="background: #1a191e; border-radius: 12px; padding: 1.5rem; cursor: pointer;">
+          <div style="width: 48px; height: 48px; background: rgba(204, 194, 220, 0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.5rem;">💭</div>
+          <h3 style="color: #e8e4ee; font-weight: bold; margin: 0 0 0.25rem 0;">深度对话</h3>
+          <p style="color: #ada9b3; font-size: 0.875rem; margin: 0;">Deep Chat</p>
+        </div>
+
+        <!-- Card 4: 寻求启发 (横跨) -->
+        <div style="grid-column: span 4; background: #1a191e; border-radius: 12px; padding: 1.25rem 1.5rem; cursor: pointer; display: flex; align-items: center; gap: 1.5rem;">
+          <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #ddccff, #ffd9e3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.75rem;">✨</div>
+          <div style="flex: 1;">
+            <h3 style="color: #e8e4ee; font-weight: bold; margin: 0;">寻求启发</h3>
+            <p style="color: #ada9b3; font-size: 0.875rem; margin: 0;">Inspiration Catalyst: Generate unexpected connections and creative sparks.</p>
+          </div>
+          <span style="color: #ada9b3;">⌘</span>
+        </div>
+      </div>
+
+      <!-- 中央输入框 -->
+      <div style="width: 100%; max-width: 48rem; position: relative;">
+        <div style="position: absolute; inset: -4px; background: linear-gradient(135deg, rgba(221, 204, 255, 0.2), rgba(254, 197, 214, 0.2)); border-radius: 9999px; filter: blur(16px);"></div>
+        <div style="position: relative; background: #000; border-radius: 9999px; display: flex; align-items: center; padding: 0.5rem; border: 1px solid rgba(73, 71, 79, 0.1);">
+          <div style="display: flex; gap: 0.75rem; padding-left: 1.5rem;">
+            <span style="color: #ada9b3; cursor: pointer;">🧠</span>
+            <span style="color: #ada9b3; cursor: pointer;">💾</span>
+          </div>
+          <input style="flex: 1; background: transparent; border: none; padding: 1rem; color: #e8e4ee; font-size: 1rem; outline: none;" placeholder="直接输入你想探讨的问题或想法...">
+          <button style="width: 48px; height: 48px; background: #ddccff; border: none; border-radius: 50%; color: #332159; font-weight: bold; cursor: pointer;">↑</button>
+        </div>
+        <!-- 输入框下方选项 -->
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #141317; border-radius: 9999px; font-size: 0.75rem; color: #ada9b3; cursor: pointer;">
+            <span>⚙️</span> Custom Settings
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #141317; border-radius: 9999px; font-size: 0.75rem; color: #ada9b3; cursor: pointer;">
+            <span>📝</span> Recent Drafts
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 2rem; padding: 1rem; background: #f0f9ff; border-radius: 8px;">
+  <p style="font-size: 0.875rem; color: #0369a1;">
+    <strong>✓ Phase 3.1 LaunchPad</strong> - Bento Grid (不对称 4 列)、中央输入框、光晕背景。<br>
+    请确认这部分设计是否符合预期？
+  </p>
+</div>

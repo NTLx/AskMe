@@ -1,0 +1,176 @@
+<h2>Phase 4: 动画与交互细节</h2>
+<p class="subtitle">过渡效果、悬停状态、光晕效果</p>
+
+<div class="section" style="margin-top: 1.5rem;">
+  <h3>4.1 过渡动画参数</h3>
+  <p style="font-size: 0.875rem; color: #666;">所有动画使用 <code>300ms cubic-bezier(0.4, 0, 0.2, 1)</code> 缓动函数</p>
+</div>
+
+<div class="mockup" style="margin-top: 1rem;">
+  <div class="mockup-header">动画参数规范</div>
+  <div class="mockup-body" style="padding: 1.5rem;">
+    <table style="width: 100%; font-size: 0.875rem; border-collapse: collapse;">
+      <thead>
+        <tr style="border-bottom: 2px solid #eee;">
+          <th style="text-align: left; padding: 0.75rem;">元素</th>
+          <th style="text-align: left; padding: 0.75rem;">动画类型</th>
+          <th style="text-align: left; padding: 0.75rem;">时长</th>
+          <th style="text-align: left; padding: 0.75rem;">缓动函数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #eee;">
+          <td style="padding: 0.75rem;">卡片背景色变化</td>
+          <td style="padding: 0.75rem;"><code>background-color</code></td>
+          <td style="padding: 0.75rem;"><code>300ms</code></td>
+          <td style="padding: 0.75rem;"><code>cubic-bezier(0.4, 0, 0.2, 1)</code></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #eee;">
+          <td style="padding: 0.75rem;">按钮缩放</td>
+          <td style="padding: 0.75rem;"><code>transform</code></td>
+          <td style="padding: 0.75rem;"><code>150ms</code></td>
+          <td style="padding: 0.75rem;"><code>ease-out</code></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #eee;">
+          <td style="padding: 0.75rem;">输入框聚焦光晕</td>
+          <td style="padding: 0.75rem;"><code>box-shadow</code></td>
+          <td style="padding: 0.75rem;"><code>300ms</code></td>
+          <td style="padding: 0.75rem;"><code>ease</code></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #eee;">
+          <td style="padding: 0.75rem;">消息操作按钮</td>
+          <td style="padding: 0.75rem;"><code>opacity</code></td>
+          <td style="padding: 0.75rem;"><code>300ms</code></td>
+          <td style="padding: 0.75rem;"><code>ease</code></td>
+        </tr>
+        <tr>
+          <td style="padding: 0.75rem;">主题切换</td>
+          <td style="padding: 0.75rem;"><code>color + background</code></td>
+          <td style="padding: 0.75rem;"><code>200ms</code></td>
+          <td style="padding: 0.75rem;"><code>ease</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 2rem;">
+  <h3>4.2 悬停状态演示</h3>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">悬停交互效果</div>
+  <div class="mockup-body" style="background: #0e0e11; padding: 2rem;">
+    <div style="display: flex; gap: 2rem; align-items: flex-start;">
+      <!-- 卡片悬停示例 -->
+      <div style="flex: 1;">
+        <p style="color: #ada9b3; font-size: 0.75rem; margin-bottom: 1rem;">卡片悬停效果</p>
+        <div style="background: #1a191e; border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);">
+          <div style="width: 48px; height: 48px; background: rgba(221, 204, 255, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 1.5rem;">🎯</div>
+          <h3 style="color: #e8e4ee; font-weight: bold; margin: 0 0 0.25rem 0;">理清思路</h3>
+          <p style="color: #ada9b3; font-size: 0.875rem; margin: 0;">Problem Solving</p>
+        </div>
+        <p style="color: #ada9b3; font-size: 0.625rem; margin-top: 0.75rem;">
+          <strong>悬停时:</strong> background → #2d2b33, 图标向右移动 4px
+        </p>
+      </div>
+
+      <!-- 按钮悬停示例 -->
+      <div style="flex: 1;">
+        <p style="color: #ada9b3; font-size: 0.75rem; margin-bottom: 1rem;">按钮悬停效果</p>
+        <button style="background: #d1bcff; color: #47366f; border: none; padding: 1rem 2rem; border-radius: 9999px; font-weight: bold; cursor: pointer; transition: all 0.15s ease-out;">
+          + New Session
+        </button>
+        <p style="color: #ada9b3; font-size: 0.625rem; margin-top: 0.75rem;">
+          <strong>悬停时:</strong> scale(1.02)<br>
+          <strong>点击时:</strong> scale(0.95)
+        </p>
+      </div>
+
+      <!-- 导航项悬停示例 -->
+      <div style="flex: 1;">
+        <p style="color: #ada9b3; font-size: 0.75rem; margin-bottom: 1rem;">导航项悬停效果</p>
+        <nav style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a style="background: #d1bcff; color: #47366f; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; border-radius: 9999px; font-weight: bold;" href="#">
+            <span>📊</span> Timeline
+          </a>
+          <a style="color: #ada9b3; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; border-radius: 9999px; transition: background 0.3s;" href="#">
+            <span>🏷️</span> Tags
+          </a>
+        </nav>
+        <p style="color: #ada9b3; font-size: 0.625rem; margin-top: 0.75rem;">
+          <strong>激活状态:</strong> primary-container 背景<br>
+          <strong>悬停时:</strong> surface-bright 背景
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 2rem;">
+  <h3>4.3 光晕效果参数</h3>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">背景光晕效果</div>
+  <div class="mockup-body" style="background: #0e0e11; padding: 2rem; min-height: 300px; position: relative; overflow: hidden;">
+    <!-- 右下角光晕 -->
+    <div style="position: absolute; bottom: 0; right: 0; width: 400px; height: 400px; background: rgba(221, 204, 255, 0.05); border-radius: 50%; filter: blur(100px); transform: translate(50%, 50%);"></div>
+    <!-- 左上角光晕 -->
+    <div style="position: absolute; top: 0; left: 0; width: 300px; height: 300px; background: rgba(254, 197, 214, 0.05); border-radius: 50%; filter: blur(80px); transform: translate(-50%, -50%);"></div>
+
+    <div style="position: relative; z-index: 1; text-align: center; padding: 2rem;">
+      <p style="color: #e8e4ee; font-size: 1rem;">背景光晕参数</p>
+      <div style="margin-top: 1rem; display: flex; gap: 2rem; justify-content: center;">
+        <div style="background: #1a191e; padding: 1rem; border-radius: 8px;">
+          <p style="color: #ddccff; font-size: 0.875rem; font-weight: bold;">Primary Glow</p>
+          <code style="color: #ada9b3; font-size: 0.75rem;">rgba(221, 204, 255, 0.05)</code>
+          <p style="color: #ada9b3; font-size: 0.625rem; margin-top: 0.5rem;">blur: 100-120px</p>
+        </div>
+        <div style="background: #1a191e; padding: 1rem; border-radius: 8px;">
+          <p style="color: #ffd9e3; font-size: 0.875rem; font-weight: bold;">Tertiary Glow</p>
+          <code style="color: #ada9b3; font-size: 0.75rem;">rgba(254, 197, 214, 0.05)</code>
+          <p style="color: #ada9b3; font-size: 0.625rem; margin-top: 0.5rem;">blur: 80-100px</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 2rem;">
+  <h3>4.4 输入框交互状态</h3>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">输入框交互状态</div>
+  <div class="mockup-body" style="background: #0e0e11; padding: 2rem;">
+    <div style="max-width: 500px; margin: 0 auto;">
+      <!-- 默认状态 -->
+      <p style="color: #ada9b3; font-size: 0.75rem; margin-bottom: 0.75rem;">默认状态</p>
+      <div style="background: #000; border-radius: 9999px; padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+        <input style="flex: 1; background: transparent; border: none; color: #e8e4ee; font-size: 1rem; outline: none;" placeholder="输入你的问题...">
+        <button style="width: 40px; height: 40px; background: #ddccff; border: none; border-radius: 50%; color: #332159; font-weight: bold; cursor: pointer;">↑</button>
+      </div>
+
+      <!-- 聚焦状态 -->
+      <p style="color: #ada9b3; font-size: 0.75rem; margin-bottom: 0.75rem;">聚焦状态 (带光晕)</p>
+      <div style="position: relative;">
+        <div style="position: absolute; inset: -8px; background: linear-gradient(135deg, rgba(221, 204, 255, 0.2), rgba(254, 197, 214, 0.2)); border-radius: 9999px; filter: blur(16px);"></div>
+        <div style="position: relative; background: #000; border-radius: 9999px; padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 0.75rem; box-shadow: 0 0 0 1px rgba(221, 204, 255, 0.2);">
+          <input style="flex: 1; background: transparent; border: none; color: #e8e4ee; font-size: 1rem; outline: none;" value="输入你的问题...">
+          <button style="width: 40px; height: 40px; background: #ddccff; border: none; border-radius: 50%; color: #332159; font-weight: bold; cursor: pointer;">↑</button>
+        </div>
+      </div>
+      <p style="color: #ada9b3; font-size: 0.625rem; margin-top: 0.75rem;">
+        <strong>聚焦效果:</strong> 外部光晕 blur(16px) + primary 20% opacity 边框
+      </p>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 2rem; padding: 1rem; background: #f0f9ff; border-radius: 8px;">
+  <p style="font-size: 0.875rem; color: #0369a1;">
+    <strong>✓ Phase 4 动画与交互</strong> - 过渡参数、悬停状态、光晕效果、输入框交互。<br>
+    请确认这部分设计是否符合预期？确认后我将编写设计规格文档。
+  </p>
+</div>

@@ -1,0 +1,131 @@
+<h2>Phase 3.3: Settings - Agent Personas</h2>
+<p class="subtitle">Agent 人格配置页面</p>
+
+<div class="section" style="margin-top: 1.5rem;">
+  <h3>Settings / Agent Personas 布局</h3>
+  <p style="font-size: 0.875rem; color: #666;">4 预定义人格卡片、人格详情配置、双主题支持</p>
+</div>
+
+<div class="mockup" style="margin-top: 1rem;">
+  <div class="mockup-header">Agent Personas 设置页</div>
+  <div class="mockup-body" style="background: #0e0e11; padding: 0; min-height: 600px; position: relative;">
+    <!-- 顶栏 -->
+    <div style="height: 60px; background: rgba(14, 14, 17, 0.8); backdrop-filter: blur(20px); display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; border-bottom: 1px solid rgba(38, 37, 44, 0.5);">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <span style="font-size: 1.125rem; font-weight: bold; color: #e8e4ee;">Settings</span>
+        <span style="color: #49474f;">/</span>
+        <span style="color: #ddccff; font-weight: bold;">Agent Personas</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 1.5rem;">
+        <button style="color: #e8e4ee; background: none; border: none; cursor: pointer; font-size: 0.875rem;">Export</button>
+        <button style="background: #ddccff; color: #332159; padding: 0.375rem 1rem; border-radius: 9999px; font-weight: bold; font-size: 0.75rem; border: none; cursor: pointer;">Share</button>
+      </div>
+    </div>
+
+    <!-- 主内容 -->
+    <div style="padding: 3rem; max-width: 56rem; margin: 0 auto;">
+      <!-- 页面标题 -->
+      <div style="margin-bottom: 2rem;">
+        <h2 style="font-size: 2.5rem; font-weight: 800; color: #e8e4ee; letter-spacing: -0.02em; margin-bottom: 1rem;">Curator Personas</h2>
+        <p style="color: #ada9b3; font-size: 1rem; line-height: 1.6; max-width: 40rem;">
+          Configure the personality and behavioral patterns of your AI curator. Each persona offers a unique approach to guiding your intellectual journey.
+        </p>
+      </div>
+
+      <!-- 人格卡片网格 -->
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem;">
+        <!-- 温和引导者 (当前激活) -->
+        <div style="background: #1a191e; border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #ddccff;"></div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 48px; height: 48px; background: rgba(221, 204, 255, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🌿</div>
+              <div>
+                <h3 style="color: #e8e4ee; font-weight: bold; margin: 0;">温和引导者</h3>
+                <p style="color: #ddccff; font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: bold; display: flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem;">
+                  <span style="width: 8px; height: 8px; background: #ddccff; border-radius: 50%; animation: pulse 2s infinite;"></span>
+                  Active
+                </p>
+              </div>
+            </div>
+          </div>
+          <p style="color: #ada9b3; font-size: 0.875rem; line-height: 1.5;">
+            耐心、鼓励性强的问题解决风格。适合探索新领域时使用。
+          </p>
+        </div>
+
+        <!-- 苏格拉底导师 -->
+        <div style="background: #1a191e; border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: background 0.3s;">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="width: 48px; height: 48px; background: rgba(255, 217, 227, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🏛️</div>
+            <div>
+              <h3 style="color: #e8e4ee; font-weight: bold; margin: 0;">苏格拉底导师</h3>
+              <p style="color: #ada9b3; font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.25rem;">Socratic Guide</p>
+            </div>
+          </div>
+          <p style="color: #ada9b3; font-size: 0.875rem; line-height: 1.5;">
+            严格追问、挑战假设的哲学风格。适合深度学习和批判性思维。
+          </p>
+        </div>
+
+        <!-- 中立探索者 -->
+        <div style="background: #1a191e; border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: background 0.3s;">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="width: 48px; height: 48px; background: rgba(204, 194, 220, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🧭</div>
+            <div>
+              <h3 style="color: #e8e4ee; font-weight: bold; margin: 0;">中立探索者</h3>
+              <p style="color: #ada9b3; font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.25rem;">Neutral Explorer</p>
+            </div>
+          </div>
+          <p style="color: #ada9b3; font-size: 0.875rem; line-height: 1.5;">
+            平衡、开放式的探索风格。不预设目标，适合自由探索。
+          </p>
+        </div>
+
+        <!-- 灵感催化师 -->
+        <div style="background: #1a191e; border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: background 0.3s;">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="width: 48px; height: 48px; background: linear-gradient(135deg, rgba(221, 204, 255, 0.2), rgba(255, 217, 227, 0.2)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">✨</div>
+            <div>
+              <h3 style="color: #e8e4ee; font-weight: bold; margin: 0;">灵感催化师</h3>
+              <p style="color: #ada9b3; font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.25rem;">Inspiration Catalyst</p>
+            </div>
+          </div>
+          <p style="color: #ada9b3; font-size: 0.875rem; line-height: 1.5;">
+            创意导向、跨领域连接的风格。适合头脑风暴和创意探索。
+          </p>
+        </div>
+      </div>
+
+      <!-- 人格详情配置 -->
+      <div style="background: #1a191e; border-radius: 12px; padding: 1.5rem;">
+        <h3 style="color: #e8e4ee; font-weight: bold; margin-bottom: 1rem;">Active Persona Configuration</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <label style="font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: bold; color: #ada9b3; display: block; margin-bottom: 0.5rem;">Tone</label>
+            <select style="width: 100%; background: #000; border: none; border-radius: 9999px; padding: 0.75rem 1rem; color: #e8e4ee; font-size: 0.875rem; outline: none;">
+              <option>Encouraging</option>
+              <option>Neutral</option>
+              <option>Challenging</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: bold; color: #ada9b3; display: block; margin-bottom: 0.5rem;">Question Depth</label>
+            <select style="width: 100%; background: #000; border: none; border-radius: 9999px; padding: 0.75rem 1rem; color: #e8e4ee; font-size: 0.875rem; outline: none;">
+              <option>Surface</option>
+              <option selected>Moderate</option>
+              <option>Deep</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 2rem; padding: 1rem; background: #f0f9ff; border-radius: 8px;">
+  <p style="font-size: 0.875rem; color: #0369a1;">
+    <strong>✓ Phase 3.3 Settings - Agent Personas</strong> - 4 预定义人格卡片、当前激活状态指示、人格配置面板。<br>
+    请确认这部分设计是否符合预期？
+  </p>
+</div>

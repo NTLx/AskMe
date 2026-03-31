@@ -1,0 +1,24 @@
+{
+  "name": "askme",
+  "version": "1.0.0",
+  "description": "AI 反向提问对话应用",
+  "private": true,
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "build:tauri": "cd src-tauri && cargo tauri build",
+    "tauri": "cd src-tauri && cargo tauri dev",
+    "preview": "cd frontend && npm run preview"
+  },
+  "workspaces": [
+    "frontend"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "devDependencies": {
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/manrope": "^5.2.8"
+  }
+}
