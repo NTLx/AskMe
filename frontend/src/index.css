@@ -1,11 +1,17 @@
 /**
  * AskMe 全局样式文件
  * 使用 Tailwind CSS + Material Design 3 主题系统
+ *
+ * 主题系统:
+ * - Desktop (>=768px): Web Light / Web Dark
+ * - Mobile (<768px): Phone Light / Phone Dark
  */
 
 /* ============ 主题导入 (必须在最前面) ============ */
-@import './styles/themes/light.css';
-@import './styles/themes/dark.css';
+@import './styles/themes/web-light.css';
+@import './styles/themes/web-dark.css';
+@import './styles/themes/phone-light.css';
+@import './styles/themes/phone-dark.css';
 
 /* ============ Tailwind 导入 ============ */
 @tailwind base;
@@ -31,6 +37,43 @@
   font-display: swap;
 }
 
+/* ============ 默认主题设置 ============ */
+/* 默认使用 Web Light 主题 (桌面端) */
+:root {
+  /* 继承 web-light 主题变量 */
+}
+
+/* ============ 响应式主题切换 ============ */
+/* Mobile (<768px) 默认使用 Phone Light */
+@media (max-width: 767px) {
+  :root:not([data-theme]) {
+    /* 自动应用 phone-light 主题 */
+  }
+
+  [data-theme="light"]:not([data-theme="web-light"]):not([data-theme="phone-light"]) {
+    /* light 在手机端映射到 phone-light */
+  }
+
+  [data-theme="dark"]:not([data-theme="web-dark"]):not([data-theme="phone-dark"]) {
+    /* dark 在手机端映射到 phone-dark */
+  }
+}
+
+/* Desktop (>=768px) 默认使用 Web Light */
+@media (min-width: 768px) {
+  :root:not([data-theme]) {
+    /* 自动应用 web-light 主题 */
+  }
+
+  [data-theme="light"]:not([data-theme="web-light"]):not([data-theme="phone-light"]) {
+    /* light 在桌面端映射到 web-light */
+  }
+
+  [data-theme="dark"]:not([data-theme="web-dark"]):not([data-theme="phone-dark"]) {
+    /* dark 在桌面端映射到 web-dark */
+  }
+}
+
 /* ============ Tailwind 基础层扩展 ============ */
 @layer base {
   /* 全局重置 */
@@ -42,7 +85,7 @@
 
   /* HTML 根元素 */
   html {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: var(--font-body), 'Inter', system-ui, sans-serif;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -68,13 +111,54 @@
 
   /* 主题过渡 */
   html {
-    transition: color 200ms ease, background-color 200ms ease;
+    transition: color var(--transition-base), background-color var(--transition-base);
   }
 
   /* 颜色继承 */
   ::selection {
     background-color: var(--primary);
-    color: var(--on-primary-container);
+    color: var(--on-primary);
+  }
+
+  /* Headline 标题样式 */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display), 'Manrope', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* 响应式字体调整 - Mobile */
+  @media (max-width: 767px) {
+    html {
+      font-size: 14px;
+    }
+
+    /* 手机版 display 字号缩小 */
+    .text-display-lg {
+      font-size: 2.5rem;
+      line-height: 1.1;
+    }
+
+    .text-display-md {
+      font-size: 2rem;
+      line-height: 1.2;
+    }
+
+    /* 手机版 headline 字号缩小 */
+    .text-headline-lg {
+      font-size: 1.375rem;
+    }
+
+    .text-headline-md {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* 响应式字体调整 - 小屏手机 */
+  @media (max-width: 480px) {
+    html {
+      font-size: 13px;
+    }
   }
 }
 
@@ -166,31 +250,66 @@
   }
 }
 
+/* Ghost Border 扩展 */
+@keyframes ghost-border-expand {
+  from {
+    border-width: 0;
+    box-shadow: 0 0 0 transparent;
+  }
+  to {
+    border-width: 1px;
+    box-shadow: 0 0 4px var(--primary);
+  }
+}
+
 /* ============ 动画过渡类 ============ */
 
-/* 卡片背景过渡 */
+/* 卡片背景过渡 (tonal hover) */
 .transition-card {
-  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color var(--transition-base),
+              border-color var(--transition-base),
+              box-shadow var(--transition-base);
 }
 
 /* 按钮缩放 */
 .transition-button {
-  transition: transform 150ms ease-out;
+  transition: transform var(--transition-fast) ease-out,
+              background-color var(--transition-fast) ease-out;
 }
 
-/* 输入框聚焦 */
+/* 输入框聚焦 (Ghost Border) */
 .transition-input {
-  transition: box-shadow 300ms ease;
+  transition: box-shadow var(--transition-base) ease,
+              border-color var(--transition-base) ease;
 }
 
 /* 消息操作按钮 */
 .transition-message-action {
-  transition: opacity 300ms ease;
+  transition: opacity var(--transition-base) ease;
+}
+
+/* 导航项过渡 */
+.transition-nav {
+  transition: color var(--transition-fast) ease-in-out,
+              background-color var(--transition-fast) ease-in-out;
+}
+
+/* Modal 过渡 */
+.transition-modal {
+  transition: opacity var(--transition-base),
+              transform var(--transition-base);
+}
+
+/* 页面过渡 */
+.transition-page {
+  transition: opacity var(--transition-base),
+              transform var(--transition-base);
 }
 
 /* 主题切换 */
 .transition-theme {
-  transition: color 200ms ease, background-color 200ms ease;
+  transition: color var(--transition-base) ease,
+              background-color var(--transition-base) ease;
 }
 
 /* 光晕动画 */
@@ -200,17 +319,17 @@
 
 /* 滚动显示动画 */
 .animate-fade-in-up {
-  animation: fade-in-up 300ms ease-out forwards;
+  animation: fade-in-up var(--transition-base) ease-out forwards;
 }
 
 /* 消息入场动画 */
 .animate-message-enter {
-  animation: message-enter 200ms ease-out forwards;
+  animation: message-enter var(--transition-fast) ease-out forwards;
 }
 
 /* 淡入缩放 */
 .animate-fade-in-scale {
-  animation: fade-in-scale 300ms ease-out forwards;
+  animation: fade-in-scale var(--transition-base) ease-out forwards;
 }
 
 /* 流式传输光标 */
@@ -223,17 +342,9 @@
   animation: spin 1s linear infinite;
 }
 
-/* ============ 响应式调整 ============ */
-@media (max-width: 768px) {
-  html {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  html {
-    font-size: 13px;
-  }
+/* Ghost Border 动画 */
+.animate-ghost-border {
+  animation: ghost-border-expand var(--transition-fast) ease-out forwards;
 }
 
 /* ============ 手机版安全区域 ============ */
@@ -246,9 +357,22 @@
 }
 
 /* ============ 手机版布局优化 ============ */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   /* 底部导航栏占位 */
   .with-bottom-nav {
     padding-bottom: 5rem;
+  }
+
+  /* 手机版字体使用 Manrope */
+  body {
+    font-family: var(--font-display), 'Manrope', system-ui, sans-serif;
+  }
+}
+
+/* ============ Desktop 布局 ============ */
+@media (min-width: 768px) {
+  /* Desktop 字体使用 Inter */
+  body {
+    font-family: var(--font-body), 'Inter', system-ui, sans-serif;
   }
 }

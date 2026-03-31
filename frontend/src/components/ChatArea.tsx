@@ -1,9 +1,10 @@
 /**
  * 对话区域 - 消息展示（手机版设计）
  * 采用"Digital Nocturne"深色主题设计
- * - AI 消息：无容器 + primary accent bar（左侧 4px 竖线）
- * - 用户消息：primary-container capsule 形式
+ * - AI 消息：无容器 + tertiary accent bar（左侧 2px 竖线）
+ * - 用户消息：primary 背景 + asymmetric 圆角 (rounded-tr-none)
  * - 手机版优化布局
+ * - 过渡动画 300ms cubic-bezier
  */
 
 import React from 'react';
@@ -59,9 +60,15 @@ export function ChatArea({
       {/* 空状态 */}
       {messages.length === 0 && !isLoading && (
         <div className="chat-empty flex-1 flex flex-col items-center justify-center text-center px-6">
-          <div className="w-20 h-20 rounded-3xl bg-primary-container/20 flex items-center justify-center mb-6">
-            <span className="text-4xl opacity-60">?</span>
+          {/* System Annotation (Editorial Design) */}
+          <div className="relative pl-12 mb-8">
+            <div className="absolute left-0 top-0 text-tertiary">
+              <span className="material-symbols-outlined text-xl">auto_awesome</span>
+            </div>
+            <p className="text-xs italic text-tertiary mb-2">Academic context initialized: Ready to explore</p>
+            <div className="h-px w-24 bg-tertiary/20"></div>
           </div>
+
           <h3 className="font-display text-xl font-semibold text-on-surface mb-2">
             AskMe 正在等待
           </h3>
@@ -81,94 +88,111 @@ export function ChatArea({
               message.role === 'user' ? 'justify-end' : 'justify-start'
             )}
           >
-            {/* AI 消息 - 无容器 + primary accent bar */}
+            {/* AI 消息 - 无容器 + tertiary accent bar */}
             {message.role === 'assistant' && (
-              <div className="ai-message w-full flex gap-3">
-                {/* 左侧 primary accent bar */}
-                <div className="w-1 rounded-full bg-primary-container self-stretch flex-shrink-0" />
-
-                {/* 消息内容区域 */}
-                <div className="flex-1 min-w-0">
-                  {/* 消息头部 */}
-                  <div className="flex items-center gap-2 mb-2 flex-wrap">
-                    <span className="text-lg" aria-hidden>
-                      {agent?.emoji || '?'}
-                    </span>
-                    <span className="font-display text-sm font-semibold text-on-surface">
-                      {agent?.name || 'AskMe'}
-                    </span>
-                    <span className="text-xs text-on-surface-variant/60">
-                      {formatRelativeTime(message.createdAt)}
-                    </span>
+              <div className="ai-message w-full max-w-[85%]">
+                {/* 消息头部 */}
+                <div className="flex items-center gap-3 mb-2 px-2">
+                  <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary">
+                    <span className="material-symbols-outlined text-sm">forum</span>
                   </div>
+                  <span className="text-xs font-bold text-on-surface uppercase tracking-widest">
+                    {agent?.name || 'AskMe Assistant'}
+                  </span>
+                </div>
 
-                  {/* 消息内容 */}
-                  <div className="message-content text-sm leading-relaxed text-on-surface">
+                {/* 消息内容 - 左侧 tertiary accent bar */}
+                <div className="relative pl-3">
+                  {/* 左侧 2px tertiary 竖线 */}
+                  <div className="absolute left-0 top-0 bottom-0 w-[2px] rounded-full bg-tertiary" />
+
+                  <div className="bg-surface-container text-on-surface p-5 rounded-2xl rounded-tl-none shadow-sm transition-all duration-[300ms] ease-spring">
                     {message.isStreaming ? (
-                      <div className="inline">
+                      <div className="text-base leading-relaxed">
                         {message.content}
-                        <span className="streaming-cursor ml-1 opacity-70">|</span>
+                        <span className="streaming-cursor ml-1 opacity-70 animate-pulse">|</span>
                       </div>
                     ) : (
-                      <div className="prose prose-sm max-w-none">
+                      <p className="text-base leading-relaxed">
                         {message.content.split('\n').map((line, idx) => (
-                          <p key={idx} className="mb-2 last:mb-0">{line || <br />}</p>
+                          <span key={idx}>
+                            {line}
+                            {idx < message.content.split('\n').length - 1 && <br />}
+                          </span>
                         ))}
-                      </div>
+                      </p>
                     )}
                   </div>
 
-                  {/* 消息操作 - 手机版简化 */}
+                  {/* 时间戳 */}
                   {!message.isStreaming && (
-                    <div className="message-actions flex items-center gap-2 mt-3">
-                      <button
-                        className="action-btn text-xs px-2.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-colors"
-                        onClick={() => onCopyMessage(message.content)}
-                        title="复制"
-                      >
-                        复制
-                      </button>
-                      <button
-                        className="action-btn text-xs px-2.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-colors"
-                        onClick={() => onReact(message.id, 'like')}
-                        title="赞同"
-                      >
-                        👍
-                      </button>
-                      <button
-                        className="action-btn text-xs px-2.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-colors"
-                        onClick={() => onReact(message.id, 'dislike')}
-                        title="反对"
-                      >
-                        👎
-                      </button>
-                    </div>
+                    <span className="text-[10px] text-on-surface-variant mt-2 px-2">
+                      Sent via {agent?.name || 'AskMe'} • {formatRelativeTime(message.createdAt)}
+                    </span>
                   )}
                 </div>
+
+                {/* 消息操作 - 手机版简化 */}
+                {!message.isStreaming && !message.isError && (
+                  <div className="message-actions flex items-center gap-2 mt-3 pl-3">
+                    <button
+                      className="text-xs px-2.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all duration-[300ms] ease-spring"
+                      onClick={() => onCopyMessage(message.content)}
+                      title="复制"
+                    >
+                      复制
+                    </button>
+                    <button
+                      className="text-xs px-2.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all duration-[300ms] ease-spring"
+                      onClick={() => onReact(message.id, 'like')}
+                      title="赞同"
+                    >
+                      👍
+                    </button>
+                    <button
+                      className="text-xs px-2.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all duration-[300ms] ease-spring"
+                      onClick={() => onReact(message.id, 'dislike')}
+                      title="反对"
+                    >
+                      👎
+                    </button>
+                  </div>
+                )}
               </div>
             )}
 
-            {/* 用户消息 - capsule 形式 */}
+            {/* 用户消息 - primary 背景 + asymmetric 圆角 */}
             {message.role === 'user' && (
-              <div className="user-message flex flex-col items-end gap-1 max-w-[85%]">
+              <div className="user-message flex flex-col items-end max-w-[85%]">
                 {/* 消息头部 */}
-                <div className="flex items-center gap-2 text-xs text-on-surface-variant/60">
-                  <span>You</span>
-                  <span>{formatTime(message.createdAt)}</span>
+                <div className="flex items-center gap-3 mb-2 px-2">
+                  <span className="text-xs font-bold text-on-surface-variant uppercase tracking-widest">
+                    You
+                  </span>
                 </div>
 
-                {/* 消息内容 - capsule */}
-                <div className="message-content bg-primary-container text-on-primary rounded-2xl px-4 py-2.5 text-sm leading-relaxed">
-                  {message.content.split('\n').map((line, idx) => (
-                    <p key={idx} className="mb-1 last:mb-0">{line}</p>
-                  ))}
+                {/* 消息内容 - primary 背景 + rounded-tr-none */}
+                <div className="bg-primary text-on-primary p-5 rounded-2xl rounded-tr-none shadow-lg shadow-primary/10 transition-all duration-[300ms] ease-spring">
+                  <p className="text-base leading-relaxed">
+                    {message.content.split('\n').map((line, idx) => (
+                      <span key={idx}>
+                        {line}
+                        {idx < message.content.split('\n').length - 1 && <br />}
+                      </span>
+                    ))}
+                  </p>
                 </div>
+
+                {/* 时间戳 */}
+                <span className="text-[10px] text-on-surface-variant mt-2 px-2">
+                  Read • {formatTime(message.createdAt)}
+                </span>
               </div>
             )}
 
             {/* 错误状态 */}
             {message.isError && (
-              <div className="w-full mt-2 flex items-center gap-2 text-xs text-error-container bg-error-container/20 rounded-lg px-3 py-2">
+              <div className="w-full mt-2 flex items-center gap-2 text-xs text-error bg-error/10 rounded-lg px-3 py-2 pl-3">
                 <span className="text-error">⚠️</span>
                 <span className="text-error">{message.error || '发送失败'}</span>
               </div>
@@ -176,33 +200,28 @@ export function ChatArea({
           </div>
         ))}
 
-        {/* 加载状态 */}
+        {/* AI Thinking Indicator */}
+        {isLoading && messages.length > 0 && (
+          <div className="flex justify-center my-4">
+            <div className="bg-surface-container-low px-6 py-3 rounded-full border border-outline-variant/10 flex items-center gap-3">
+              <span className="material-symbols-outlined text-tertiary text-sm animate-pulse">tips_and_updates</span>
+              <p className="text-xs text-on-surface-variant font-medium">
+                {agent?.name || 'Socrates'} is analyzing your response for accuracy...
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* 加载状态（无消息时） */}
         {isLoading && messages.length === 0 && (
           <div className="loading-indicator flex items-center gap-3 justify-center py-8">
-            <div className="animate-spin w-5 h-5 border-2 border-primary-container border-t-transparent rounded-full" />
+            <div className="animate-spin w-5 h-5 border-2 border-tertiary border-t-transparent rounded-full" />
             <span className="text-sm text-on-surface-variant">AI 正在思考...</span>
           </div>
         )}
 
-        {/* AI 思考中状态（有消息时） */}
-        {isLoading && messages.length > 0 && (
-          <div className="message flex gap-3">
-            <div className="w-1 rounded-full bg-primary-container self-stretch flex-shrink-0" />
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-lg">{agent?.emoji || '?'}</span>
-                <span className="font-display text-sm font-semibold text-on-surface">
-                  {agent?.name || 'AskMe'}
-                </span>
-              </div>
-              <div className="flex items-center gap-1 py-3">
-                <div className="w-2 h-2 rounded-full bg-primary-container animate-bounce" style={{ animationDelay: '0ms' }} />
-                <div className="w-2 h-2 rounded-full bg-primary-container animate-bounce" style={{ animationDelay: '150ms' }} />
-                <div className="w-2 h-2 rounded-full bg-primary-container animate-bounce" style={{ animationDelay: '300ms' }} />
-              </div>
-            </div>
-          </div>
-        )}
+        {/* 底部间距 */}
+        <div className="h-32"></div>
       </div>
     </div>
   );

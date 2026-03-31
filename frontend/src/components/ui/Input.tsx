@@ -16,10 +16,11 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 /**
  * Input 组件
  *
- * 基础文本输入框，遵循 Material Design 3 规范：
- * - pill 形状 (rounded-full)
+ * 基础文本输入框，遵循新设计规范：
+ * - pill 形状 (rounded-full / radius-full)
  * - 无边框设计 (No-Line 规则)
- * - Focus 时显示 ghost border
+ * - Focus 时显示 ghost border + glow 效果
+ * - 背景使用 surface-container-high
  */
 export function Input({
   className,
@@ -41,20 +42,25 @@ export function Input({
         className={cn(
           // 基础样式：pill 形状、无边框
           'w-full px-4 py-2.5 text-sm rounded-full',
-          'bg-surface-container-lowest',
+          // 默认背景：surface-container-high
+          'bg-surface-container-high',
           'border-0',
           // 文字颜色
           'text-on-surface',
           // Placeholder 颜色
           'placeholder:text-on-surface-variant/50',
-          // Focus 样式：ghost border
+          // Focus 样式：ghost border + glow
           'focus:outline-none',
-          'focus:ring-1 focus:ring-primary/20',
+          'focus:bg-surface-container-lowest',
+          'focus:border focus:border-primary/20',
+          'focus:shadow-[0_0_4px_var(--primary)]',
+          // 过渡动画：200ms ease-out
+          'transition-all duration-200 ease-out',
           // 禁用样式
           'disabled:cursor-not-allowed disabled:opacity-50',
           'disabled:bg-surface-container-low',
           // 错误状态
-          error && 'ring-1 ring-error focus:ring-error',
+          error && 'border border-red-500/50 focus:border-red-500 focus:shadow-[0_0_4px_rgba(239,68,68,0.5)]',
           // 图标偏移
           startIcon && 'pl-11',
           endIcon && 'pr-11',

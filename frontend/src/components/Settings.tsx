@@ -342,7 +342,7 @@ export function Settings({
       </main>
 
       {/* 底部导航栏 */}
-      <BottomNav activeItem="profile" onNavigate={() => {}} />
+      <BottomNav activeItem="settings" onNavigate={() => {}} />
     </div>
   );
 }

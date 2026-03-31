@@ -4,18 +4,41 @@ import { cn } from '../../utils/cn';
 
 /**
  * Card 组件变体定义
- * 基于 Material Design 3 表面层级系统
+ * 基于 Material Design 3 表面层级系统 + 新设计规范
  */
 const cardVariants = cva(
-  // 基础样式
-  'rounded-xl transition-colors duration-200',
+  // 基础样式：300ms cubic-bezier 过渡
+  'rounded-xl transition-all duration-300 ease-in-out',
   {
     variants: {
       variant: {
-        default: 'bg-surface-container',
-        elevated: 'bg-surface-container-high shadow-md',
+        /**
+         * default: 标准卡片
+         * - background: surface-container-low
+         * - hover: background 变化到 surface-container-highest (tonal，无位移)
+         */
+        default: 'bg-surface-container-low hover:bg-surface-container-highest',
+        /**
+         * elevated: 带阴影的提升表面
+         * - background: surface-container-high + shadow-md
+         */
+        elevated: 'bg-surface-container-high shadow-md hover:bg-surface-container-highest hover:shadow-lg',
+        /**
+         * filled: 最高表面层
+         */
         filled: 'bg-surface-container-highest',
-        interactive: 'bg-surface-container cursor-pointer hover:bg-surface-bright',
+        /**
+         * interactive: 可交互卡片
+         * - cursor: pointer
+         * - hover: tonal 背景变化
+         */
+        interactive: 'bg-surface-container-low cursor-pointer hover:bg-surface-container-highest',
+        /**
+         * active: 激活状态
+         * - border: 1px solid primary (opacity 0.2)
+         * - ring: 0 0 0 2px primary (光晕效果)
+         */
+        active: 'bg-surface-container-low border border-primary/20 ring-2 ring-primary/30',
       },
     },
     defaultVariants: {
@@ -29,21 +52,27 @@ const cardVariants = cva(
  */
 export interface CardProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof cardVariants> {}
+    VariantProps<typeof cardVariants> {
+  /** 激活状态 */
+  active?: boolean;
+}
 
 /**
  * Card 容器组件
  *
- * 支持 4 种变体：
- * - default: bg-surface-container (默认表面层)
- * - elevated: bg-surface-container-high (带阴影的提升表面)
- * - filled: bg-surface-container-highest (最高表面层)
- * - interactive: 可交互，hover 时变亮
+ * 支持 5 种变体：
+ * - default: bg-surface-container-low，hover 时 tonal 变化
+ * - elevated: bg-surface-container-high + shadow-md
+ * - filled: bg-surface-container-highest
+ * - interactive: 可交互，hover 时 tonal 变化
+ * - active: 激活状态，带 primary border + ring
  */
-export function Card({ className, variant, ...props }: CardProps) {
+export function Card({ className, variant, active, ...props }: CardProps) {
+  // 如果传入 active prop，自动使用 active variant
+  const actualVariant = active ? 'active' : variant;
   return (
     <div
-      className={cn(cardVariants({ variant, className }))}
+      className={cn(cardVariants({ variant: actualVariant, className }))}
       {...props}
     />
   );

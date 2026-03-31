@@ -187,7 +187,7 @@ export function Sidebar({
       </ScrollArea>
 
       {/* 底部导航栏 */}
-      <BottomNav activeItem="chat" onNavigate={() => {}} />
+      <BottomNav activeItem="timeline" onNavigate={() => {}} />
     </aside>
   );
 }
