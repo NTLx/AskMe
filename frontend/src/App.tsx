@@ -11,7 +11,10 @@ import { SideNavBar } from './components/layout/SideNavBar';
 import { TopNavBar, TopNavBarButton } from './components/layout/TopNavBar';
 import { AgentPersonas } from './components/pages/Settings/AgentPersonas';
 import { LLMConfiguration } from './components/pages/Settings/LLMConfiguration';
-import { ScenarioType } from './types';
+import { ScenarioType, Message } from './types';
+import { getDefaultStorageProvider } from './storage';
+import { sendMessageReal } from './services/chatService';
+import { generateId } from './storage/web-crypto';
 
 // 视图类型
 type ViewType = 'timeline' | 'tags' | 'agents' | 'llm' | 'settings' | 'help';
@@ -75,7 +78,7 @@ export function App() {
 
     if (initialContent) {
       addMessage({
-        id: Date.now().toString(),
+        id: generateId(),
         sessionId,
         role: 'user',
         content: initialContent,
@@ -87,7 +90,7 @@ export function App() {
       setIsLoading(true);
       setTimeout(() => {
         addMessage({
-          id: (Date.now() + 1).toString(),
+          id: generateId(),
           sessionId,
           role: 'assistant',
           content: '很好！你已经理解了所有权的基本概念。那么让我问你：如果你有一个函数想要 \'借用\' 一个 String 而不是拿走它，你觉得 Rust 会提供什么样的机制？',
@@ -110,18 +113,47 @@ export function App() {
   }, []);
 
   // 处理发送消息
-  const handleSendMessage = useCallback((content: string) => {
+  const handleSendMessage = useCallback(async (content: string) => {
     if (!content.trim()) return;
 
-    const sessionId = currentSessionId || Date.now().toString();
-    if (!currentSessionId) {
+    const { activeLLMProvider, activeAgentProfile } = useSessionStore.getState();
+    if (!activeLLMProvider) {
+      alert('请先在配置中选择 LLM Provider');
+      return;
+    }
+
+    let sessionId = currentSessionId;
+    const storage = await getDefaultStorageProvider();
+    
+    // 1. 如果是新会话，创建它
+    if (!sessionId) {
+      sessionId = Date.now().toString();
       setCurrentSessionId(sessionId);
+      
+      const newSession = {
+        id: sessionId,
+        parentId: null,
+        title: content.slice(0, 20) + (content.length > 20 ? '...' : ''),
+        titleLocked: false,
+        agentProfileId: activeAgentProfile?.id || 'gentle_guide',
+        llmProviderId: activeLLMProvider.id,
+        scenarioType: null,
+        isPinned: false,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        lastMessageAt: Date.now(),
+        messageCount: 0,
+        branchCount: 0
+      };
+      
+      await storage.createSession(newSession);
+      
       addSession({
         id: sessionId,
-        title: '新对话',
+        title: newSession.title,
         agentName: activeAgentProfile?.name || '温和引导者',
         agentEmoji: activeAgentProfile?.emoji || '🤗',
-        llmName: 'GPT-4',
+        llmName: activeLLMProvider.name,
         llmIcon: '🟢',
         lastActiveAt: Date.now(),
         messageCount: 0,
@@ -133,34 +165,119 @@ export function App() {
       });
     }
 
-    addMessage({
-      id: Date.now().toString(),
+    // 2. 保存并显示用户消息
+    const userMessage: Message = {
+      id: generateId(),
       sessionId,
       role: 'user',
       content,
       createdAt: Date.now(),
       isBranchPoint: false,
-    });
+    };
+    
+    await storage.createMessage(userMessage);
+    addMessage(userMessage);
 
+    // 3. 创建 AI 消息占位符
+    const assistantMessageId = generateId();
+    const assistantMessage: Message = {
+      id: assistantMessageId,
+      sessionId,
+      role: 'assistant',
+      content: '',
+      createdAt: Date.now(),
+      isBranchPoint: false,
+      isStreaming: true,
+    };
+    addMessage(assistantMessage);
     setIsLoading(true);
-    setTimeout(() => {
-      addMessage({
-        id: (Date.now() + 1).toString(),
+
+    // 4. 调用真实 LLM 接口
+    try {
+      const currentMessages = useSessionStore.getState().messages;
+      const historyMsg = currentMessages.slice(0, -2); // 排除刚才添加的用户消息和占位符
+      
+      const finalContent = await sendMessageReal(
         sessionId,
-        role: 'assistant',
-        content: '这是一个很好的回答！让我继续向你提问...',
-        createdAt: Date.now(),
-        isBranchPoint: false,
+        content,
+        // 这里提供 activeAgentProfile!, 我们在上面确保了它的存在
+        activeAgentProfile || useSessionStore.getState().agentProfiles[0],
+        activeLLMProvider,
+        historyMsg,
+        (chunk) => {
+          // 在流式回调中更新消息内容
+          const currentContent = useSessionStore.getState().messages.find(m => m.id === assistantMessageId)?.content || '';
+          useSessionStore.getState().updateMessage(assistantMessageId, {
+            content: currentContent + chunk
+          });
+        }
+      );
+      
+      // 5. 完成并保存 AI 消息
+      const finalMessage: Message = {
+        ...assistantMessage,
+        content: finalContent,
+        isStreaming: false
+      };
+      
+      await storage.createMessage(finalMessage);
+      useSessionStore.getState().updateMessage(assistantMessageId, { 
+        isStreaming: false, 
+        content: finalContent 
       });
+      
+    } catch (error) {
+      console.error('Chat error:', error);
+      useSessionStore.getState().updateMessage(assistantMessageId, { 
+        isStreaming: false, 
+        isError: true, 
+        error: error instanceof Error ? error.message : '未知错误' 
+      });
+    } finally {
       setIsLoading(false);
-    }, 1000);
-  }, [currentSessionId, setCurrentSessionId, addSession, addMessage, activeAgentProfile]);
+    }
+  }, [currentSessionId, setCurrentSessionId, addSession, addMessage]);
 
   // 处理选择会话
-  const handleSelectSession = useCallback((sessionId: string) => {
+  const handleSelectSession = useCallback(async (sessionId: string) => {
     setCurrentSessionId(sessionId);
     setIsInChat(true);
     setActiveView('timeline');
+    
+    // 加载会话消息
+    try {
+      setIsLoading(true);
+      const storage = await getDefaultStorageProvider();
+      
+      // We must clear messages first in the store if there's a setMessages function
+      // If we don't have setMessages in the store, we should dispatch or reload
+      const sessionMessages = await storage.getMessages(sessionId);
+      
+      // The instructions say: setMessages(sessionMessages);
+      // Wait, let's see if sessionStore has setMessages...
+      // The prompt suggests setMessages is from useSessionStore
+      if ('setMessages' in useSessionStore.getState()) {
+        (useSessionStore.getState() as any).setMessages(sessionMessages);
+      } else {
+        // Fallback or update multiple times depending on store impl
+        // Usually Zustand lets us do this:
+        useSessionStore.setState({ messages: sessionMessages });
+      }
+      
+      const session = await storage.getSession(sessionId);
+      if (session && session.agentProfileId) {
+        // useSessionStore.getState().setActiveAgentProfile(session.agent); -- prompt has a typo "session.agent" vs "agentProfileId"
+        const state = useSessionStore.getState();
+        const profile = state.agentProfiles.find(p => p.id === session.agentProfileId);
+        if (profile && state.setActiveAgentProfile) {
+          state.setActiveAgentProfile(profile);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to load session:', error);
+    } finally {
+      setIsLoading(false);
+    }
   }, [setCurrentSessionId]);
 
   // 处理新建会话
