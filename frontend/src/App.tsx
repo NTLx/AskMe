@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
+import { useAppInit } from './hooks/useAppInit';
 import { useAppStore } from './stores/appStore';
 import { useSessionStore } from './stores/sessionStore';
 import { useSettingsStore } from './stores/settingsStore';
@@ -16,6 +17,7 @@ import { ScenarioType } from './types';
 type ViewType = 'timeline' | 'tags' | 'agents' | 'llm' | 'settings' | 'help';
 
 export function App() {
+  const { isInitialized, error } = useAppInit();
   const { isSettingsOpen, setLaunchPadVisible, toggleSettings } = useAppStore();
   const { messages, currentAgent, addMessage, currentSessionId, setCurrentSessionId, addSession } = useSessionStore();
   const { settings, setSettings } = useSettingsStore();
@@ -39,6 +41,14 @@ export function App() {
       root.setAttribute('data-theme', settings.theme === 'dark' ? 'web-dark' : 'web-light');
     }
   }, [settings.theme]);
+
+  if (error) {
+    return <div className="flex items-center justify-center h-screen bg-surface text-error">Initialization Error: {error.message}</div>;
+  }
+
+  if (!isInitialized) {
+    return <div className="flex items-center justify-center h-screen bg-surface text-on-surface">Initializing AskMe...</div>;
+  }
 
   // 处理启动会话
   const handleStartSession = useCallback((_scenarioType: ScenarioType | null, initialContent?: string) => {
