@@ -19,7 +19,7 @@ type ViewType = 'timeline' | 'tags' | 'agents' | 'llm' | 'settings' | 'help';
 export function App() {
   const { isInitialized, error } = useAppInit();
   const { isSettingsOpen, setLaunchPadVisible, toggleSettings } = useAppStore();
-  const { messages, currentAgent, addMessage, currentSessionId, setCurrentSessionId, addSession } = useSessionStore();
+  const { messages, activeAgentProfile, addMessage, currentSessionId, setCurrentSessionId, addSession } = useSessionStore();
   const { settings, setSettings } = useSettingsStore();
   const [isLoading, setIsLoading] = useState(false);
   const [activeView, setActiveView] = useState<ViewType>('timeline');
@@ -60,8 +60,8 @@ export function App() {
     addSession({
       id: sessionId,
       title: '新对话',
-      agentName: currentAgent?.name || '温和引导者',
-      agentEmoji: currentAgent?.emoji || '🤗',
+      agentName: activeAgentProfile?.name || '温和引导者',
+      agentEmoji: activeAgentProfile?.emoji || '🤗',
       llmName: 'GPT-4',
       llmIcon: '🟢',
       lastActiveAt: Date.now(),
@@ -97,7 +97,7 @@ export function App() {
         setIsLoading(false);
       }, 1500);
     }
-  }, [setLaunchPadVisible, addMessage, currentSessionId, setCurrentSessionId, addSession, currentAgent]);
+  }, [setLaunchPadVisible, addMessage, currentSessionId, setCurrentSessionId, addSession, activeAgentProfile]);
 
   // 处理复制消息
   const handleCopyMessage = useCallback((content: string) => {
@@ -119,8 +119,8 @@ export function App() {
       addSession({
         id: sessionId,
         title: '新对话',
-        agentName: currentAgent?.name || '温和引导者',
-        agentEmoji: currentAgent?.emoji || '🤗',
+        agentName: activeAgentProfile?.name || '温和引导者',
+        agentEmoji: activeAgentProfile?.emoji || '🤗',
         llmName: 'GPT-4',
         llmIcon: '🟢',
         lastActiveAt: Date.now(),
@@ -154,7 +154,7 @@ export function App() {
       });
       setIsLoading(false);
     }, 1000);
-  }, [currentSessionId, setCurrentSessionId, addSession, addMessage, currentAgent]);
+  }, [currentSessionId, setCurrentSessionId, addSession, addMessage, activeAgentProfile]);
 
   // 处理选择会话
   const handleSelectSession = useCallback((sessionId: string) => {
@@ -320,7 +320,7 @@ export function App() {
           <>
             <ChatArea
               messages={messages}
-              agent={currentAgent}
+              agent={activeAgentProfile}
               isLoading={isLoading}
               onCopyMessage={handleCopyMessage}
               onReact={handleReact}

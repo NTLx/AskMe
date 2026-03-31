@@ -18,7 +18,6 @@ interface SessionState {
   // Agent Profiles
   agentProfiles: AgentProfile[];
   activeAgentProfile: AgentProfile | null;
-  currentAgent: AgentProfile | null; // 别名，兼容 App.tsx
 
   // LLM Providers
   llmProviders: LLMProvider[];
@@ -55,7 +54,6 @@ export const useSessionStore = create<SessionState>((set) => ({
 
   agentProfiles: [],
   activeAgentProfile: null,
-  currentAgent: null,
 
   llmProviders: [],
   activeLLMProvider: null,
@@ -82,7 +80,7 @@ export const useSessionStore = create<SessionState>((set) => ({
     })),
 
   setAgentProfiles: (profiles) => set({ agentProfiles: profiles }),
-  setActiveAgentProfile: (profile) => set({ activeAgentProfile: profile, currentAgent: profile }),
+  setActiveAgentProfile: (profile) => set({ activeAgentProfile: profile }),
 
   setLLMProviders: (providers) => set({ llmProviders: providers }),
   setActiveLLMProvider: (provider) => set({ activeLLMProvider: provider }),
