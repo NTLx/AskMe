@@ -24,7 +24,7 @@ export function App() {
   const { isInitialized, error } = useAppInit();
   const { setLaunchPadVisible } = useAppStore();
   const { messages, activeAgentProfile, addMessage, currentSessionId, setCurrentSessionId, addSession, tags, addTag, deleteTag, updateTag } = useSessionStore();
-  const { settings } = useSettingsStore();
+  const { theme } = useSettingsStore();
   const [isLoading, setIsLoading] = useState(false);
   const [activeView, setActiveView] = useState<ViewType>('timeline');
   const [isInChat, setIsInChat] = useState(false);
@@ -33,7 +33,7 @@ export function App() {
   useEffect(() => {
     const root = document.documentElement;
 
-    if (settings.theme === 'system') {
+    if (theme === 'system') {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
       const updateTheme = () => {
         root.setAttribute('data-theme', mediaQuery.matches ? 'web-dark' : 'web-light');
@@ -42,9 +42,9 @@ export function App() {
       mediaQuery.addEventListener('change', updateTheme);
       return () => mediaQuery.removeEventListener('change', updateTheme);
     } else {
-      root.setAttribute('data-theme', settings.theme === 'dark' ? 'web-dark' : 'web-light');
+      root.setAttribute('data-theme', theme === 'dark' ? 'web-dark' : 'web-light');
     }
-  }, [settings.theme]);
+  }, [theme]);
 
 
   // 处理启动会话
