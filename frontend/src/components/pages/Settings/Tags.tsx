@@ -10,6 +10,7 @@ import { cn } from '../../../utils/cn';
 import { Button } from '../../ui/Button';
 import { Input } from '../../ui/Input';
 import { BottomNav } from '../../BottomNav';
+import type { Tag } from '../../../types';
 
 /**
  * 预定义标签颜色
@@ -30,26 +31,13 @@ const TAG_COLORS = [
 ];
 
 /**
- * 标签数据结构
- */
-interface Tag {
-  id: string;
-  name: string;
-  color: string;
-  description?: string;
-  createdAt: number;
-  updatedAt: number;
-  usageCount: number;
-}
-
-/**
  * 默认标签列表
  */
 const DEFAULT_TAGS: Tag[] = [
-  { id: '1', name: 'Important', color: 'var(--primary)', createdAt: Date.now(), updatedAt: Date.now(), usageCount: 12 },
-  { id: '2', name: 'Research', color: 'var(--tertiary)', createdAt: Date.now(), updatedAt: Date.now(), usageCount: 8 },
-  { id: '3', name: 'Ideas', color: '#f97316', createdAt: Date.now(), updatedAt: Date.now(), usageCount: 5 },
-  { id: '4', name: 'Follow-up', color: '#22c55e', createdAt: Date.now(), updatedAt: Date.now(), usageCount: 3 },
+  { id: '1', name: 'Important', color: 'var(--primary)', createdAt: Date.now(), updatedAt: Date.now(), sessionCount: 12 },
+  { id: '2', name: 'Research', color: 'var(--tertiary)', createdAt: Date.now(), updatedAt: Date.now(), sessionCount: 8 },
+  { id: '3', name: 'Ideas', color: '#f97316', createdAt: Date.now(), updatedAt: Date.now(), sessionCount: 5 },
+  { id: '4', name: 'Follow-up', color: '#22c55e', createdAt: Date.now(), updatedAt: Date.now(), sessionCount: 3 },
 ];
 
 interface TagsProps {
@@ -88,7 +76,7 @@ export function Tags({
       description: newTagDescription,
       createdAt: Date.now(),
       updatedAt: Date.now(),
-      usageCount: 0,
+      sessionCount: 0,
     };
     onCreateTag?.(newTag);
     setNewTagName('');
@@ -262,12 +250,12 @@ export function Tags({
             </div>
             <div className="bg-surface-container-lowest p-4 rounded-xl">
               <span className="text-xs uppercase tracking-wider text-on-surface-variant mb-1 block">Most Used</span>
-              <span className="text-2xl font-bold text-on-surface">{Math.max(...tags.map(t => t.usageCount), 0)}</span>
+              <span className="text-2xl font-bold text-on-surface">{Math.max(...tags.map(t => t.sessionCount || 0), 0)}</span>
             </div>
             <div className="bg-surface-container-lowest p-4 rounded-xl">
               <span className="text-xs uppercase tracking-wider text-on-surface-variant mb-1 block">Avg Usage</span>
               <span className="text-2xl font-bold text-on-surface">
-                {Math.round(tags.reduce((sum, t) => sum + t.usageCount, 0) / tags.length) || 0}
+                {Math.round(tags.reduce((sum, t) => sum + (t.sessionCount || 0), 0) / tags.length) || 0}
               </span>
             </div>
             <div className="bg-surface-container-lowest p-4 rounded-xl">
@@ -361,7 +349,7 @@ function TagCard({ tag, isEditing, onEdit, onSave, onCancel, onDelete }: TagCard
           {/* 使用计数 */}
           <div className="flex items-center justify-between mt-4">
             <span className="text-xs text-on-surface-variant">
-              {tag.usageCount} conversations
+              {tag.sessionCount} conversations
             </span>
             <div className="flex gap-1">
               <button
