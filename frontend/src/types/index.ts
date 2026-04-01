@@ -135,6 +135,7 @@ export interface AppSettings {
   exportPath?: string;
   defaultAgentProfileId?: string;
   defaultLLMProviderId?: string;
+  language: 'system' | 'zh' | 'en';
 }
 
 export type SearchDimension = 'name' | 'content' | 'tag' | 'agent' | 'llm';
