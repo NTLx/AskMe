@@ -2,24 +2,19 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  base: '/AskMe/',
   plugins: [react()],
+  // 采用相对路径 './' 完美兼顾 Web端 (GitHub Pages 任意子目录) 与 Tauri 桌面端的打包需求
+  base: './',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
   },
-  build: {
-    outDir: 'dist',
-    rollupOptions: {
-      external: ['@tauri-apps/api'],
-    },
-  },
-  define: {
-    'import.meta.env.PLATFORM': JSON.stringify(process.env.PLATFORM || 'web'),
-  },
   server: {
     port: 3000,
+    strictPort: false,
+    host: true,
   },
 });
