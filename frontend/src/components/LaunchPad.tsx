@@ -12,13 +12,14 @@
 import { useState } from 'react';
 import { ScenarioType } from '../types';
 import { cn } from '../utils/cn';
+import { useI18n } from '../i18n/useI18n';
 
 // 场景卡片配置
 const SCENARIOS: Array<{
   type: ScenarioType;
   icon: string;
-  title: string;
-  subtitle: string;
+  titleKey: 'scen_problem' | 'scen_learning' | 'scen_chat' | 'scen_inspiration';
+  subtitleKey: 'scen_problem_desc' | 'scen_learning_desc' | 'scen_chat_desc' | 'scen_inspiration_desc';
   iconBg: string;
   iconColor: string;
   colSpan: string;
@@ -28,8 +29,8 @@ const SCENARIOS: Array<{
   {
     type: 'problem_solving',
     icon: 'ads_click',
-    title: '理清思路',
-    subtitle: '🎯 Problem Solving',
+    titleKey: 'scen_problem',
+    subtitleKey: 'scen_problem_desc',
     iconBg: 'bg-primary-container/10',
     iconColor: 'text-primary',
     colSpan: 'md:col-span-1',
@@ -37,8 +38,8 @@ const SCENARIOS: Array<{
   {
     type: 'learning',
     icon: 'menu_book',
-    title: '深入学习',
-    subtitle: '📚 Learning Exploration',
+    titleKey: 'scen_learning',
+    subtitleKey: 'scen_learning_desc',
     iconBg: 'bg-tertiary-container/10',
     iconColor: 'text-tertiary',
     colSpan: 'md:col-span-2',
@@ -47,8 +48,8 @@ const SCENARIOS: Array<{
   {
     type: 'deep_chat',
     icon: 'forum',
-    title: '深度对话',
-    subtitle: '💭 Deep Chat',
+    titleKey: 'scen_chat',
+    subtitleKey: 'scen_chat_desc',
     iconBg: 'bg-secondary-container/30',
     iconColor: 'text-secondary',
     colSpan: 'md:col-span-1',
@@ -56,8 +57,8 @@ const SCENARIOS: Array<{
   {
     type: 'inspiration',
     icon: 'lightbulb',
-    title: '寻求启发',
-    subtitle: '✨ Inspiration Catalyst: Generate unexpected connections and creative sparks.',
+    titleKey: 'scen_inspiration',
+    subtitleKey: 'scen_inspiration_desc',
     iconBg: '',
     iconColor: '',
     colSpan: 'md:col-span-4',
@@ -71,13 +72,14 @@ interface LaunchPadProps {
 
 export function LaunchPad({ onStartSession }: LaunchPadProps) {
   const [inputValue, setInputValue] = useState('');
+  const { t } = useI18n();
 
   const handleScenarioClick = (scenario: typeof SCENARIOS[0]) => {
     const prompts: Record<ScenarioType, string> = {
-      problem_solving: '我有事情需要咨询，请通过提问帮助我理清思路、找到答案',
-      learning: '我想进行学习，请通过提问帮助我深入理解一个主题',
-      deep_chat: '我想来一场深度对话，请通过提问引导我反思和发现洞察',
-      inspiration: '我需要一些启发，请通过提问帮助我打破常规思维',
+      problem_solving: t('scen_prompt_problem'),
+      learning: t('scen_prompt_learning'),
+      deep_chat: t('scen_prompt_chat'),
+      inspiration: t('scen_prompt_inspiration'),
     };
     onStartSession(scenario.type, prompts[scenario.type]);
   };
@@ -106,10 +108,10 @@ export function LaunchPad({ onStartSession }: LaunchPadProps) {
         {/* Hero Title */}
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-extrabold font-display mb-4 bg-gradient-to-b from-on-surface to-on-surface-variant bg-clip-text text-transparent tracking-tight">
-            智识的起点
+            {t('launch_title')}
           </h2>
           <p className="text-lg text-on-surface-variant font-body max-w-xl mx-auto">
-            探索、构建与进化。我是您的智识策展人，准备好开始一次深度的逆向对话了吗？
+            {t('launch_desc')}
           </p>
         </div>
 
@@ -141,8 +143,8 @@ export function LaunchPad({ onStartSession }: LaunchPadProps) {
                     </span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-on-surface font-bold text-lg">{scenario.title}</h3>
-                    <p className="text-on-surface-variant text-sm">{scenario.subtitle}</p>
+                    <h3 className="text-on-surface font-bold text-lg">{t(scenario.titleKey)}</h3>
+                    <p className="text-on-surface-variant text-sm">{t(scenario.subtitleKey)}</p>
                   </div>
                   <span className="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors pr-4">
                     keyboard_command_key
@@ -176,12 +178,12 @@ export function LaunchPad({ onStartSession }: LaunchPadProps) {
                       <span className="material-symbols-outlined text-2xl">{scenario.icon}</span>
                     </div>
                     <span className="px-2 py-1 rounded-full bg-surface-container-highest text-[10px] text-tertiary border border-tertiary/20">
-                      MOST POPULAR
+                      {t('scen_most_popular')}
                     </span>
                   </div>
                   <div>
-                    <h3 className="text-on-surface font-bold text-xl mb-1">{scenario.title}</h3>
-                    <p className="text-on-surface-variant text-sm">{scenario.subtitle}</p>
+                    <h3 className="text-on-surface font-bold text-xl mb-1">{t(scenario.titleKey)}</h3>
+                    <p className="text-on-surface-variant text-sm">{t(scenario.subtitleKey)}</p>
                   </div>
                   <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all">
                     <span className="material-symbols-outlined text-tertiary text-2xl">trending_flat</span>
@@ -206,13 +208,14 @@ export function LaunchPad({ onStartSession }: LaunchPadProps) {
               >
                 <div className={cn(
                   'mb-8 w-12 h-12 rounded-lg flex items-center justify-center',
-                  scenario.iconBg, scenario.iconColor,
+                  scenario.iconBg || 'bg-surface-container-high',
+                  scenario.iconColor || 'text-on-surface',
                   'group-hover:scale-110 transition-transform'
                 )}>
                   <span className="material-symbols-outlined text-2xl">{scenario.icon}</span>
                 </div>
-                <h3 className="text-on-surface font-bold text-lg mb-1">{scenario.title}</h3>
-                <p className="text-on-surface-variant text-sm">{scenario.subtitle}</p>
+                <h3 className="text-on-surface font-bold text-lg mb-1">{t(scenario.titleKey)}</h3>
+                <p className="text-on-surface-variant text-sm">{t(scenario.subtitleKey)}</p>
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className={cn('material-symbols-outlined text-sm', scenario.iconColor)}>
                     arrow_forward
@@ -246,7 +249,7 @@ export function LaunchPad({ onStartSession }: LaunchPadProps) {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
               className="flex-1 bg-transparent border-none focus:ring-0 focus:outline-none text-on-surface px-4 py-3 placeholder:text-on-surface-variant/50 font-body"
-              placeholder="直接输入你想探讨的问题或想法..."
+              placeholder={t('launch_input_placeholder')}
             />
 
             {/* 发送按钮 */}
@@ -269,11 +272,11 @@ export function LaunchPad({ onStartSession }: LaunchPadProps) {
           <div className="flex justify-center gap-6 mt-6">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low text-[11px] text-on-surface-variant hover:text-on-surface cursor-pointer border border-transparent hover:border-outline-variant transition-all">
               <span className="material-symbols-outlined text-[14px]">tune</span>
-              Custom Settings
+              {t('launch_custom_settings')}
             </div>
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low text-[11px] text-on-surface-variant hover:text-on-surface cursor-pointer border border-transparent hover:border-outline-variant transition-all">
               <span className="material-symbols-outlined text-[14px]">history_edu</span>
-              Recent Drafts
+              {t('launch_recent_drafts')}
             </div>
           </div>
         </div>

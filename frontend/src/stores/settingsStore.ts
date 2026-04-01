@@ -2,9 +2,15 @@
 
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { AppSettings, SearchDimension } from '../types';
+import type { AppSettings, SearchDimension } from '../types';
+
+type Language = 'system' | 'zh' | 'en';
 
 interface SettingsState extends AppSettings {
+  // 语言设置
+  language: Language;
+  setLanguage: (lang: Language) => void;
+
   // 扩展设置
   inputDraft: string;
 
@@ -22,8 +28,9 @@ interface SettingsState extends AppSettings {
   resetSettings: () => void;
 }
 
-const DEFAULT_SETTINGS: AppSettings = {
+const DEFAULT_SETTINGS: AppSettings & { language: Language } = {
   theme: 'dark',
+  language: 'system',
   autoGenerateTitle: true,
   preserveInputDraft: true,
   defaultSearchDimensions: ['name', 'content', 'tag', 'agent', 'llm'],
@@ -38,7 +45,7 @@ export const useSettingsStore = create<SettingsState>()(
       ...DEFAULT_SETTINGS,
       inputDraft: '',
 
-      // 兼容 App.tsx 的 getter/setter
+      setLanguage: (language) => set({ language }),
       settings: DEFAULT_SETTINGS,
       setSettings: (newSettings) => set(newSettings),
 
@@ -57,6 +64,7 @@ export const useSettingsStore = create<SettingsState>()(
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         theme: state.theme,
+        language: state.language,
         autoGenerateTitle: state.autoGenerateTitle,
         preserveInputDraft: state.preserveInputDraft,
         defaultSearchDimensions: state.defaultSearchDimensions,

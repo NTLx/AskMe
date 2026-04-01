@@ -1,21 +1,23 @@
 import { useSettingsStore } from '../../../stores/settingsStore';
 import { cn } from '../../../utils/cn';
+import { useI18n } from '../../../i18n/useI18n';
 
 export function GeneralSettings() {
-  const { settings, setTheme, setAutoGenerateTitle, setPreserveInputDraft } = useSettingsStore();
+  const { settings, setTheme, setAutoGenerateTitle, setPreserveInputDraft, language, setLanguage } = useSettingsStore();
+  const { t } = useI18n();
 
   return (
     <div className="max-w-5xl mx-auto w-full px-8 py-8 animate-fade-in-up">
       {/* Header */}
       <div className="mb-10">
         <p className="text-xs font-bold text-primary uppercase tracking-widest mb-4">
-          Configuration
+          {t('gen_config')}
         </p>
         <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface font-display tracking-tight leading-tight mb-4">
-          Global Settings
+          {t('gen_global_settings')}
         </h2>
         <p className="text-on-surface-variant text-base md:text-lg max-w-2xl leading-relaxed">
-          Configure your application preferences, interface themes, and data management.
+          {t('gen_global_desc')}
         </p>
       </div>
 
@@ -24,24 +26,48 @@ export function GeneralSettings() {
         <section className="bg-surface-container rounded-xl p-6 transition-all duration-300 hover:bg-surface-bright">
           <h3 className="text-xl font-bold text-on-surface mb-6 flex items-center gap-2">
             <span className="material-symbols-outlined text-primary">palette</span>
-            Appearance
+            {t('gen_appearance')}
           </h3>
+
+          {/* Language Selector */}
+          <div className="mb-6">
+            <label className="text-sm font-medium text-on-surface-variant mb-3 block">{t('gen_language')}</label>
+            <div className="flex gap-3">
+              {(['system', 'en', 'zh'] as const).map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => setLanguage(lang)}
+                  className={cn(
+                    'px-4 py-2 rounded-full text-sm font-medium transition-all',
+                    language === lang
+                      ? 'bg-primary-container text-on-primary-container ring-1 ring-primary/30'
+                      : 'bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest'
+                  )}
+                >
+                  {lang === 'system' ? t('gen_lang_system') : lang === 'zh' ? '中文' : 'English'}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {(['dark', 'light', 'system'] as const).map((t) => (
+            {(['dark', 'light', 'system'] as const).map((t_theme) => (
               <button
-                key={t}
-                onClick={() => setTheme(t)}
+                key={t_theme}
+                onClick={() => setTheme(t_theme)}
                 className={cn(
                   'p-5 rounded-xl border transition-all duration-200 flex flex-col items-center gap-3',
-                  settings.theme === t
+                  settings.theme === t_theme
                     ? 'border-primary bg-primary-container/10 text-primary ring-1 ring-primary/20'
                     : 'border-outline-variant/20 hover:border-primary/30 text-on-surface-variant hover:bg-surface-container-highest'
                 )}
               >
                 <span className="material-symbols-outlined text-3xl">
-                  {t === 'dark' ? 'dark_mode' : t === 'light' ? 'light_mode' : 'brightness_auto'}
+                  {t_theme === 'dark' ? 'dark_mode' : t_theme === 'light' ? 'light_mode' : 'brightness_auto'}
                 </span>
-                <span className="capitalize text-sm font-bold tracking-wide">{t} Theme</span>
+                <span className="text-sm font-bold tracking-wide">
+                  {t_theme === 'dark' ? t('gen_theme_dark') : t_theme === 'light' ? t('gen_theme_light') : t('gen_theme_system')}
+                </span>
               </button>
             ))}
           </div>
@@ -52,15 +78,15 @@ export function GeneralSettings() {
           <div className="px-6 pt-6 pb-2">
             <h3 className="text-xl font-bold text-on-surface flex items-center gap-2">
               <span className="material-symbols-outlined text-tertiary">psychology</span>
-              Application Behavior
+              {t('gen_behavior')}
             </h3>
           </div>
-          
+
           <div className="divide-y divide-outline-variant/10">
             <div className="flex items-center justify-between px-6 py-5">
               <div>
-                <div className="text-sm font-bold text-on-surface mb-1">Auto-generate Session Titles</div>
-                <div className="text-xs text-on-surface-variant">Use AI to automatically extract a concise title from your first message.</div>
+                <div className="text-sm font-bold text-on-surface mb-1">{t('gen_auto_title')}</div>
+                <div className="text-xs text-on-surface-variant">{t('gen_auto_title_desc')}</div>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" checked={settings.autoGenerateTitle} onChange={(e) => setAutoGenerateTitle(e.target.checked)} />
@@ -70,8 +96,8 @@ export function GeneralSettings() {
 
             <div className="flex items-center justify-between px-6 py-5">
               <div>
-                <div className="text-sm font-bold text-on-surface mb-1">Preserve Input Draft</div>
-                <div className="text-xs text-on-surface-variant">Keep unsent text in the input box when effortlessly switching between sessions.</div>
+                <div className="text-sm font-bold text-on-surface mb-1">{t('gen_draft')}</div>
+                <div className="text-xs text-on-surface-variant">{t('gen_draft_desc')}</div>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" checked={settings.preserveInputDraft} onChange={(e) => setPreserveInputDraft(e.target.checked)} />
@@ -86,13 +112,13 @@ export function GeneralSettings() {
           <div>
             <h3 className="text-xl font-bold text-on-surface mb-1 flex items-center gap-2">
               <span className="material-symbols-outlined text-secondary">database</span>
-              Data Management
+              {t('gen_data')}
             </h3>
-            <div className="text-xs text-on-surface-variant pl-8">Download all your sessions, agent configuration, and tags as a unified backup.</div>
+            <div className="text-xs text-on-surface-variant pl-8">{t('gen_data_desc')}</div>
           </div>
           <button className="px-5 py-2.5 rounded-full border border-outline-variant/30 hover:border-primary hover:text-primary bg-surface-container-lowest text-sm text-on-surface font-bold transition-all flex items-center gap-2">
             <span className="material-symbols-outlined text-base">download</span>
-            Export Backup
+            {t('gen_export')}
           </button>
         </section>
       </div>

@@ -14,6 +14,7 @@
 
 import { cn } from '../../utils/cn';
 import { useSessionStore } from '../../stores/sessionStore';
+import { useI18n } from '../../i18n/useI18n';
 
 // 导航视图类型
 type ViewType = 'timeline' | 'tags' | 'agents' | 'llm' | 'settings' | 'help';
@@ -29,12 +30,12 @@ interface SideNavBarProps {
   onSelectSession?: (sessionId: string) => void;
 }
 
-// 主导航项配置
-const MAIN_NAV_ITEMS: { id: ViewType; label: string; icon: string }[] = [
-  { id: 'timeline', label: 'Timeline', icon: 'history' },
-  { id: 'tags', label: 'Tags', icon: 'sell' },
-  { id: 'agents', label: 'Agents', icon: 'smart_toy' },
-  { id: 'llm', label: 'LLM', icon: 'model_training' },
+// 主导航项配置 - labelKey 将在运行时通过 t() 解析
+const MAIN_NAV_ITEMS: { id: ViewType; labelKey: 'nav_timeline' | 'nav_tags' | 'nav_agents' | 'nav_llm'; icon: string }[] = [
+  { id: 'timeline', labelKey: 'nav_timeline', icon: 'history' },
+  { id: 'tags', labelKey: 'nav_tags', icon: 'sell' },
+  { id: 'agents', labelKey: 'nav_agents', icon: 'smart_toy' },
+  { id: 'llm', labelKey: 'nav_llm', icon: 'model_training' },
 ];
 
 export function SideNavBar({
@@ -44,6 +45,7 @@ export function SideNavBar({
   onSelectSession,
 }: SideNavBarProps) {
   const { sessions, currentSessionId } = useSessionStore();
+  const { t } = useI18n();
 
   return (
     <aside
@@ -91,7 +93,7 @@ export function SideNavBar({
           )}
         >
           <span className="material-symbols-outlined text-lg">add</span>
-          New Session
+          {t('nav_new_session')}
         </button>
       </div>
 
@@ -122,7 +124,7 @@ export function SideNavBar({
             )}>
               {item.icon}
             </span>
-            {item.label}
+            {t(item.labelKey)}
           </button>
         ))}
       </nav>
@@ -131,7 +133,7 @@ export function SideNavBar({
       {sessions.length > 0 && (
         <div className="flex-1 overflow-y-auto px-4 mt-6">
           <h3 className="text-[10px] font-semibold text-on-surface-variant uppercase tracking-widest px-4 mb-2">
-            Recent Sessions
+            {t('nav_recent')}
           </h3>
           <div className="space-y-0.5">
             {sessions.slice(0, 10).map((session) => (
@@ -172,14 +174,14 @@ export function SideNavBar({
           )}
         >
           <span className="material-symbols-outlined text-lg">settings</span>
-          Settings
+          {t('nav_settings')}
         </button>
 
         <button
           className="flex items-center gap-3 px-4 py-2.5 rounded-full text-on-surface text-sm hover:bg-surface-container-high transition-colors duration-200 group"
         >
           <span className="material-symbols-outlined text-lg">help</span>
-          Help
+          {t('nav_help')}
         </button>
 
         {/* 用户资料卡片 */}
