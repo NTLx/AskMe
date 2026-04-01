@@ -1,7 +1,7 @@
 // 会话状态管理 - 会话列表和消息管理
 
 import { create } from 'zustand';
-import type { SessionListItem, Message, AgentProfile, LLMProvider } from '../types';
+import type { SessionListItem, Message, AgentProfile, LLMProvider, Tag } from '../types';
 
 interface SessionState {
   // 会话列表
@@ -22,6 +22,13 @@ interface SessionState {
   // LLM Providers
   llmProviders: LLMProvider[];
   activeLLMProvider: LLMProvider | null;
+
+  // 标签
+  tags: Tag[];
+  setTags: (tags: Tag[]) => void;
+  addTag: (tag: Tag) => void;
+  updateTag: (id: string, updates: Partial<Tag>) => void;
+  deleteTag: (id: string) => void;
 
   // 搜索状态
   searchQuery: string;
@@ -59,6 +66,11 @@ export const useSessionStore = create<SessionState>((set) => ({
   activeLLMProvider: null,
 
   searchQuery: '',
+  tags: [],
+  setTags: (tags) => set({ tags }),
+  addTag: (tag) => set((state) => ({ tags: [...state.tags, tag] })),
+  updateTag: (id, updates) => set((state) => ({ tags: state.tags.map(t => t.id === id ? { ...t, ...updates } : t) })),
+  deleteTag: (id) => set((state) => ({ tags: state.tags.filter(t => t.id !== id) })),
 
   setCurrentSessionId: (id) => set({ currentSessionId: id }),
   setSessions: (sessions) => set({ sessions }),
