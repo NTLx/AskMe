@@ -49,12 +49,17 @@ AskMe 是一个"反向提问"的 AI 对话应用 —— 让 AI 主动向用户�
 
 ## 开发注意事项
 - TypeScript 严格模式：未使用的导入/变量会阻止构建，必须清理
-- Store 命名：`currentAgent`/`currentSessionId` (非 `activeAgentProfile`)
+- Store 命名：统一使用 `activeAgentProfile`/`currentSessionId` (已在重构中废弃 `currentAgent` 别名以消除冗余)
 - UI 组件导入：从 `components/ui/` 到 `utils/` 用 `../../utils/cn`
 - 路径别名：`@/*` 映射到 `./src/*`，可用 `@/utils/cn` 替代相对路径
 - 未使用参数：必须加 `_` 前缀 (如 `_onDeleteAgent`) 否则 TS6133 报错
 - 异步过滤：`filter()` 中 async 谓词需先 `Promise.all()` 收集结果
 - 安全：Markdown 渲染使用 DOMPurify 防止 XSS (见 `utils/markdown.ts`)
+- React Hooks：绝不允许在组件中（尤其是 App.tsx）将条件提前返回（如 `if (!isInitialized) return`）写在其他 Hook（如 `useCallback`）声明之前，防止生命周期树崩溃。
+- IndexedDB 初始化：在 `useEffect` 中向本地数据库写入默认种子数据时，必须兼顾 React 18 Strict Mode 的双重挂载机制，采用捕获并忽略 `ConstraintError` 等手段实现操作的幂等性。
+- UI 还原协议：绝对以 `UI_Reference/` 目录中的原生 HTML 文件为唯一事实来源（SSOT），严格提取并复制全部 Tailwind 样式（特别是表面阴影、间距、容器圆角等），禁止对布局做主观简化。
+- 强类型数学计算：在遍历操作可能为空的可选数字字段（如 `sessionCount?: number`）时，必须严格提供 Fallback（如 `(val || 0)`），以满足 TS 严格模式编译要求。
+- Vite打包与同构：`vite.config.ts` 必须采用 `base: './'` 相对路径设定，以此维持单次 Web 构建即可跨 Github Pages 二级目录与 Tauri `file:///` 下的资源绝对兼容。
 
 ## 前端样式规范 (Material Design 3 + 手机版设计)
 - CSS @import 必须在 @tailwind 指令之前
