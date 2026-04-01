@@ -8,7 +8,9 @@ import { ChatArea } from './components/ChatArea';
 import { InputArea } from './components/InputArea';
 import { SideNavBar } from './components/layout/SideNavBar';
 import { TopNavBar, TopNavBarButton } from './components/layout/TopNavBar';
+import { Tags } from './components/pages/Settings/Tags';
 import { AgentPersonas } from './components/pages/Settings/AgentPersonas';
+import { GeneralSettings } from './components/pages/Settings/GeneralSettings';
 import { LLMConfiguration } from './components/pages/Settings/LLMConfiguration';
 import { ScenarioType, Message } from './types';
 import { getDefaultStorageProvider } from './storage';
@@ -21,7 +23,7 @@ type ViewType = 'timeline' | 'tags' | 'agents' | 'llm' | 'settings' | 'help';
 export function App() {
   const { isInitialized, error } = useAppInit();
   const { setLaunchPadVisible } = useAppStore();
-  const { messages, activeAgentProfile, addMessage, currentSessionId, setCurrentSessionId, addSession } = useSessionStore();
+  const { messages, activeAgentProfile, addMessage, currentSessionId, setCurrentSessionId, addSession, tags, addTag, deleteTag, updateTag } = useSessionStore();
   const { settings } = useSettingsStore();
   const [isLoading, setIsLoading] = useState(false);
   const [activeView, setActiveView] = useState<ViewType>('timeline');
@@ -299,6 +301,7 @@ export function App() {
   const showChat = isInChat && activeView === 'timeline';
   const showAgents = activeView === 'agents';
   const showLLM = activeView === 'llm';
+  const showTags = activeView === 'tags';
   const showSettings = activeView === 'settings';
 
   // 构建 TopNavBar 内容
@@ -451,6 +454,23 @@ export function App() {
           </>
         )}
 
+        
+        {showTags && (
+          <div className="flex-1 overflow-y-auto">
+            <Tags 
+              tags={tags}
+              onCreateTag={async (newTag) => {
+                const { getDefaultStorageProvider } = await import('./storage');
+                const storage = await getDefaultStorageProvider();
+                await storage.addTag(newTag);
+                addTag(newTag);
+              }}
+              onDeleteTag={(id) => deleteTag(id)}
+              onUpdateTag={(updatedTag) => updateTag(updatedTag.id, updatedTag)}
+            />
+          </div>
+        )}
+
         {showAgents && (
           <div className="flex-1 overflow-y-auto">
             <AgentPersonas
@@ -477,9 +497,8 @@ export function App() {
         )}
 
         {showSettings && (
-          <div className="flex-1 overflow-y-auto p-6 flex flex-col items-center justify-center text-on-surface-variant font-medium">
-            <span className="material-symbols-outlined text-4xl mb-2">settings</span>
-            <p>Settings Page (Work in Progress)</p>
+          <div className="flex-1 overflow-y-auto">
+            <GeneralSettings />
           </div>
         )}
       </div>
