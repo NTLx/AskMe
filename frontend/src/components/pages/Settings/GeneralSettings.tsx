@@ -3,7 +3,7 @@ import { cn } from '../../../utils/cn';
 import { useI18n } from '../../../i18n/useI18n';
 
 export function GeneralSettings() {
-  const { settings, setTheme, setAutoGenerateTitle, setPreserveInputDraft, language, setLanguage } = useSettingsStore();
+  const { theme, setTheme, language, setLanguage, autoGenerateTitle, setAutoGenerateTitle, preserveInputDraft, setPreserveInputDraft } = useSettingsStore();
   const { t } = useI18n();
 
   return (
@@ -57,7 +57,7 @@ export function GeneralSettings() {
                 onClick={() => setTheme(t_theme)}
                 className={cn(
                   'p-5 rounded-xl border transition-all duration-200 flex flex-col items-center gap-3',
-                  settings.theme === t_theme
+                  theme === t_theme
                     ? 'border-primary bg-primary-container/10 text-primary ring-1 ring-primary/20'
                     : 'border-outline-variant/20 hover:border-primary/30 text-on-surface-variant hover:bg-surface-container-highest'
                 )}
@@ -89,7 +89,7 @@ export function GeneralSettings() {
                 <div className="text-xs text-on-surface-variant">{t('gen_auto_title_desc')}</div>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" className="sr-only peer" checked={settings.autoGenerateTitle} onChange={(e) => setAutoGenerateTitle(e.target.checked)} />
+                <input type="checkbox" className="sr-only peer" checked={autoGenerateTitle} onChange={(e) => setAutoGenerateTitle(e.target.checked)} />
                 <div className="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
               </label>
             </div>
@@ -100,7 +100,7 @@ export function GeneralSettings() {
                 <div className="text-xs text-on-surface-variant">{t('gen_draft_desc')}</div>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" className="sr-only peer" checked={settings.preserveInputDraft} onChange={(e) => setPreserveInputDraft(e.target.checked)} />
+                <input type="checkbox" className="sr-only peer" checked={preserveInputDraft} onChange={(e) => setPreserveInputDraft(e.target.checked)} />
                 <div className="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
               </label>
             </div>
