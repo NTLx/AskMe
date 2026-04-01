@@ -17,7 +17,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # 按照警告指引：强制让 GitHub 的 V4 Actions 脱离废弃的 Node 20 并在 Node 24 容器中运行
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     defaults:
@@ -30,10 +29,8 @@ jobs:
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
-          # 我们把构建编译的运行核心环境也一并同步提升至长支持期的 v24
           node-version: 24
-          cache: 'npm'
-          cache-dependency-path: './frontend/package-lock.json'
+          # 移除了缓存项以避免由于不同工作目录引发的 package-lock.json 找不到的崩溃错误
 
       - name: Install Dependencies
         run: npm ci
@@ -47,6 +44,7 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # 必须依然确保针对制品的打包目录为 frontend
           path: './frontend/dist'
 
   deploy:
